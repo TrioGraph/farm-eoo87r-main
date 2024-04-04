@@ -1,0 +1,43 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Create Logins_Log
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="ionicForm">
+
+    
+         <ion-item>
+            <ion-select placeholder="Select Login">
+                <ion-select-option *ngFor="let p of Login_Id_data" [value]="p.Id">{{p.Login}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <!-- <ion-label position="floating">Login datetime</ion-label> -->
+            <c-date formControlName="login_datetime" formLabel="Login datetime" datetime="datetime"  datetime="login_datetime"></c-date>
+          </ion-item >
+          
+
+   	<ion-item>
+          <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+        </ion-item>
+    </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+
+  

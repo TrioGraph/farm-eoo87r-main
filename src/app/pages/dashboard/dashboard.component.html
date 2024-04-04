@@ -1,0 +1,147 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+     Dashboard
+    </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content  overflow-scroll="true">
+<ion-list-header>
+
+  <ion-label class="header-label" color="tertiary">Identification</ion-label>
+
+    <ion-select color="medium" label="" value="Today">
+      <ion-select-option value="Today">Today</ion-select-option>
+      <ion-select-option value="Week">Week</ion-select-option>
+      <ion-select-option value="Month">Month</ion-select-option>
+      <ion-select-option value="Year">Year</ion-select-option>
+    </ion-select>
+
+  <ion-button color="medium" *ngIf="content_loaded" routerLink="/farm/plantationidentification-list">See All <ion-icon slot="end" name="arrow-forward"></ion-icon>
+  </ion-button>
+</ion-list-header>
+
+<!-- Skeletons -->
+<ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="!content_loaded">
+  <ion-item color="primary" *ngFor="let i of [].constructor(3);">
+    <ion-label color="medium">
+      <h3><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h3>
+      <p><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></p>
+    </ion-label>
+    <ion-skeleton-text slot="end" animated style="width: 10%"></ion-skeleton-text>
+  </ion-item>
+</ion-list>
+
+<ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="content_loaded">
+  <ion-item color="primary" button detail="false">
+    <ion-avatar slot="start" class="ion-avatar-default-icon">
+      <ion-icon color="tertiary" size="large" name="alert-circle-outline"></ion-icon>
+    </ion-avatar>
+
+    <ion-label>
+      <h3>Pending</h3>
+      <p>Identification</p>
+    </ion-label>
+    <ion-badge color="danger" slot="end"> 20 </ion-badge>
+  </ion-item>
+
+  <ion-item color="primary" button detail="false">
+    <ion-avatar slot="start" class="ion-avatar-default-icon">
+      <ion-icon  color="tertiary" size="large"  name="checkbox-outline"></ion-icon>
+    </ion-avatar>
+
+    <ion-label>
+      <h3>Completed</h3>
+      <p>Identification</p>
+    </ion-label>
+    <ion-badge color="secondary" slot="end">80</ion-badge>
+  </ion-item>
+
+  <ion-item color="primary" button detail="false">
+    <ion-avatar slot="start" class="ion-avatar-default-icon">
+      <ion-icon  color="tertiary" size="large"  name="medical-outline"></ion-icon>
+    </ion-avatar>
+
+    <ion-label>
+      <h3>Total</h3>
+      <p>Identification</p>
+    </ion-label>
+    <ion-badge color="danger" mode="ios" slot="end">100</ion-badge>
+  </ion-item>
+</ion-list>
+
+
+
+<ion-list-header>
+  <ion-label class="header-label" color="tertiary">Farmer</ion-label>
+  <ion-select color="medium" label="" value="Today">
+    <ion-select-option value="Today">Today</ion-select-option>
+    <ion-select-option value="Week">Week</ion-select-option>
+    <ion-select-option value="Month">Month</ion-select-option>
+    <ion-select-option value="Year">Year</ion-select-option>
+  </ion-select>
+  <ion-button color="medium" *ngIf="content_loaded" routerLink="/farm/farmers-list">See All <ion-icon slot="end" name="arrow-forward"></ion-icon>
+  </ion-button>
+</ion-list-header>
+
+ <!-- Skeletons -->
+ <ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="!content_loaded">
+  <ion-item color="primary" *ngFor="let i of [].constructor(3);">
+    <ion-label color="medium">
+      <h3><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h3>
+      <p><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></p>
+    </ion-label>
+    <ion-skeleton-text slot="end" animated style="width: 10%"></ion-skeleton-text>
+  </ion-item>
+</ion-list>
+
+<ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="content_loaded">
+  <ion-item color="primary" button detail="false">
+    <ion-avatar slot="start" class="ion-avatar-default-icon">
+      <ion-icon color="tertiary" size="large" name="alert-circle-outline"></ion-icon>
+    </ion-avatar>
+
+    <ion-label>
+      <h3>Pending</h3>
+      <p>Farmer</p>
+    </ion-label>
+    <ion-badge color="danger" slot="end"> 20 </ion-badge>
+  </ion-item>
+
+  <ion-item color="primary" button detail="false">
+    <ion-avatar slot="start" class="ion-avatar-default-icon">
+      <ion-icon  color="tertiary" size="large"  name="checkbox-outline"></ion-icon>
+    </ion-avatar>
+
+    <ion-label>
+      <h3>Completed</h3>
+      <p>Farmer</p>
+    </ion-label>
+    <ion-badge color="secondary" slot="end">80</ion-badge>
+  </ion-item>
+
+  <ion-item color="primary" button detail="false">
+    <ion-avatar slot="start" class="ion-avatar-default-icon">
+      <ion-icon  color="tertiary" size="large"  name="medical-outline"></ion-icon>
+    </ion-avatar>
+
+    <ion-label>
+      <h3>Total</h3>
+      <p>Farmer</p>
+    </ion-label>
+    <ion-badge color="danger" mode="ios" slot="end">100</ion-badge>
+  </ion-item>
+</ion-list>
+
+<ion-grid>
+  <ion-row>
+      <ion-col style="padding:1px;" col-8="true">
+        <div class="tile"></div>
+      </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

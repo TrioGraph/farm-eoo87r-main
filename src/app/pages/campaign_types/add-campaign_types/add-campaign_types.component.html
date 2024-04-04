@@ -1,0 +1,57 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Create Campaign_Types
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="ionicForm">
+
+    
+          <ion-item>
+            <ion-label position="floating">Name</ion-label >
+            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Description</ion-label >
+            <ion-textarea  formControlName="description" type="text" aria-label="Description"></ion-textarea  >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Things To Do</ion-label >
+            <ion-input formControlName="things_To_Do" type="text" aria-label="Things To Do"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Achievements To Target</ion-label >
+            <ion-input formControlName="achievements_To_Target" type="text" aria-label="Achievements To Target"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">IsActive</ion-label >
+            <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
+          </ion-item >
+          
+
+   	<ion-item>
+          <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+        </ion-item>
+    </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+
+  

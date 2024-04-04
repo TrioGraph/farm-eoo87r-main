@@ -1,0 +1,43 @@
+  .input-group {
+    position: relative;
+    margin: 20px 0;
+  }
+  
+  .input-group label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: black;
+    padding: 0 5px;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .input-group textarea {
+    transition: .5s;
+  }
+  
+  .input-group input,
+  .input-group textarea {
+    width: 150px;
+    height: 40px;
+    // font-size: 16px;
+    color: black;
+    padding: 0 10px;
+    background-color: transparent;
+    border: none;
+    // border-bottom: 1.2px solid black;
+    outline: none;
+  }
+  
+  .input-group input:focus~label,
+  .input-group input:valid~label,
+  .input-group textarea:focus~label,
+  .input-group textarea:valid~label,
+  .input-group input.invalid~label {
+    top: 0;
+    // font-size: 12px;
+    background: transparent;
+  }

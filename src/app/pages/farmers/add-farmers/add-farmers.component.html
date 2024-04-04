@@ -1,0 +1,251 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Create Farmers
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="ionicForm">
+
+    
+          <ion-item>
+            <ion-label position="floating">Farmer Code</ion-label >
+            <ion-input formControlName="farmer_Code" type="text" aria-label="Farmer Code"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label >
+            <ion-input formControlName="first_Name" type="text" aria-label="First Name"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label >
+            <ion-input formControlName="last_Name" type="text" aria-label="Last Name"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Father Name</ion-label >
+            <ion-input formControlName="father_Name" type="text" aria-label="Father Name"></ion-input >
+          </ion-item >
+          
+         <ion-item>
+            <ion-select placeholder="Select Gender">
+                <ion-select-option *ngFor="let p of Gender_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Category</ion-label >
+            <ion-input formControlName="category" type="text" aria-label="Category"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Farm Code</ion-label >
+            <ion-input formControlName="farm_Code" type="text" aria-label="Farm Code"></ion-input >
+          </ion-item >
+          
+         <ion-item>
+            <ion-select placeholder="Select Village">
+                <ion-select-option *ngFor="let p of Village_Code_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+         <ion-item>
+            <ion-select placeholder="Select Mandal">
+                <ion-select-option *ngFor="let p of Mandal_Code_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Longitude</ion-label >
+            <ion-input formControlName="longitude" type="text" aria-label="Longitude"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Latitude</ion-label >
+            <ion-input formControlName="latitude" type="text" aria-label="Latitude"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">No Of Kms</ion-label >
+            <ion-input formControlName="no_Of_Kms" type="text" aria-label="No Of Kms"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Transport Amt Per Ton</ion-label >
+            <ion-input formControlName="transport_Amt_Per_Ton" type="text" aria-label="Transport Amt Per Ton"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Survey No</ion-label >
+            <ion-input formControlName="survey_No" type="text" aria-label="Survey No"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Mobile Number1</ion-label >
+            <ion-input formControlName="mobile_Number1" type="text" aria-label="Mobile Number1"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Mobile Number2</ion-label >
+            <ion-input formControlName="mobile_Number2" type="text" aria-label="Mobile Number2"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Lease Code</ion-label >
+            <ion-input formControlName="lease_Code" type="text" aria-label="Lease Code"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Farmer Photo</ion-label >
+            <input type = "file" formControlName="farmer_Photo_Id"/>
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Year</ion-label >
+            <ion-input formControlName="year" type="text" aria-label="Year"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Family Code</ion-label >
+            <ion-input formControlName="family_Code" type="text" aria-label="Family Code"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Scheme</ion-label >
+            <ion-input formControlName="scheme" type="text" aria-label="Scheme"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Area Type</ion-label >
+            <ion-input formControlName="area_Type" type="text" aria-label="Area Type"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Water Source</ion-label >
+            <ion-input formControlName="water_Source" type="text" aria-label="Water Source"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Variety</ion-label >
+            <ion-input formControlName="variety" type="text" aria-label="Variety"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <!-- <ion-label position="floating">Plantation Date</ion-label> -->
+            <c-date formControlName="plantation_Date" formLabel="Plantation Date" datetime="datetime"  datetime="plantation_Date"></c-date>
+          </ion-item >
+          
+          <ion-item>
+            <!-- <ion-label position="floating">Invoice Date</ion-label> -->
+            <c-date formControlName="invoice_Date" formLabel="Invoice Date" datetime="datetime"  datetime="invoice_Date"></c-date>
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Hectors</ion-label >
+            <ion-input formControlName="hectors" type="text" aria-label="Hectors"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">No Of Plants</ion-label >
+            <ion-input formControlName="no_Of_Plants" type="text" aria-label="No Of Plants"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Total Cost Of Plants</ion-label >
+            <ion-input formControlName="total_Cost_Of_Plants" type="text" aria-label="Total Cost Of Plants"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Subsidy Allowed</ion-label >
+            <ion-input formControlName="subsidy_Allowed" type="text" aria-label="Subsidy Allowed"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Farmer Share</ion-label >
+            <ion-input formControlName="farmer_Share" type="text" aria-label="Farmer Share"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Present Survival Hect</ion-label >
+            <ion-input formControlName="present_Survival_Hect" type="text" aria-label="Present Survival Hect"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Present Survival Plants</ion-label >
+            <ion-input formControlName="present_Survival_Plants" type="text" aria-label="Present Survival Plants"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Bank Name</ion-label >
+            <ion-input formControlName="bank_Name" type="text" aria-label="Bank Name"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Branch</ion-label >
+            <ion-input formControlName="branch" type="text" aria-label="Branch"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Account No</ion-label >
+            <ion-input formControlName="account_No" type="text" aria-label="Account No"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">IFSC Code</ion-label >
+            <ion-input formControlName="iFSC_Code" type="text" aria-label="IFSC Code"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Aadhar No</ion-label >
+            <ion-input formControlName="aadhar_No" type="text" aria-label="Aadhar No"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Email</ion-label >
+            <ion-input formControlName="email" type="text" aria-label="Email"></ion-input >
+          </ion-item >
+          
+         <ion-item>
+            <ion-select placeholder="Select Supervisor">
+                <ion-select-option *ngFor="let p of Supervisor_Id_data" [value]="p.Id">{{p.Id}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Tally FarmerCode</ion-label >
+            <ion-input formControlName="tally_FarmerCode" type="text" aria-label="Tally FarmerCode"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Land Photo</ion-label >
+            <input type = "file" formControlName="land_Photo_Id"/>
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">IsActive</ion-label >
+            <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
+          </ion-item >
+          
+
+   	<ion-item>
+          <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+        </ion-item>
+    </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+
+  

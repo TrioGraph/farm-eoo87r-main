@@ -1,0 +1,65 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Create Poaching_FFB
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="ionicForm">
+
+    
+         <ion-item>
+            <ion-select placeholder="Select Farmer">
+                <ion-select-option *ngFor="let p of Farmer_Id_data" [value]="p.Id">{{p.First_Name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+         <ion-item>
+            <ion-select placeholder="Select Field">
+                <ion-select-option *ngFor="let p of Field_Id_data" [value]="p.Id">{{p.Id}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+         <ion-item>
+            <ion-select placeholder="Select Photo">
+                <ion-select-option *ngFor="let p of Photo_Id_data" [value]="p.Id">{{p.Id}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <!-- <ion-label position="floating">Poaching Date</ion-label> -->
+            <c-date formControlName="poaching_Date" formLabel="Poaching Date" datetime="datetime"  datetime="poaching_Date"></c-date>
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Notes</ion-label >
+            <ion-textarea  formControlName="notes" type="text" aria-label="Notes"></ion-textarea  >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">IsActive</ion-label >
+            <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
+          </ion-item >
+          
+
+   	<ion-item>
+          <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+        </ion-item>
+    </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+
+  

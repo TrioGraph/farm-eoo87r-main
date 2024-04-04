@@ -1,0 +1,81 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <b>
+      <span *ngIf="formMode==='Edit'">Edit</span>
+      <span> Farmer_trip_sheets Details </span>
+      </b>
+    </ion-title>
+    <ion-buttons *ngIf="formMode==='View'" collapse="true" slot="end">
+      <ion-button (click)="editForm()">
+        <ion-icon slot="icon-only" name="pencil"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="'/farm/add-farmer_trip_sheets'">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="ionicForm">
+
+    
+          <ion-item>
+            <!-- <ion-label position="floating">Arrived Date</ion-label> -->
+            <c-date formControlName="arrived_Date" formLabel="Arrived Date" datetime="datetime"  datetime="arrived_Date"></c-date>
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Net Weight</ion-label >
+            <ion-input formControlName="net_Weight" type="text" aria-label="Net Weight"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Slip No</ion-label >
+            <ion-input formControlName="slip_No" type="text" aria-label="Slip No"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Collection Centre Received</ion-label >
+            <ion-input formControlName="collection_Centre_Received" type="text" aria-label="Collection Centre Received"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Farmer Tally Code</ion-label >
+            <ion-input formControlName="farmer_Tally_Code" type="text" aria-label="Farmer Tally Code"></ion-input >
+          </ion-item >
+          
+         <ion-item>
+            <ion-select placeholder="Select Farm Field">
+                <ion-select-option *ngFor="let p of Farmer_Field_Id_data" [value]="p.Id">{{p.Id}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">IsActive</ion-label >
+            <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
+          </ion-item >
+          
+
+       <ion-item *ngIf="formMode==='Edit'">
+            <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+          </ion-item>
+  
+
+    </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+
+  

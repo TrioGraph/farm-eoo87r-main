@@ -1,0 +1,25 @@
+<!-- <div class="form-control"> -->
+  <!-- <ion-label for="dateInputID" position="floating">{{formLabel}}</ion-label >
+  <input class="date"
+    id="dateInputID"
+    type="date"
+    [formControl]="dateControl"
+    (blur)="onTouched()"
+    (input)="onTouched()"
+    (change)="onDateChange($event)"
+  /> -->
+<!-- </div> -->
+
+
+<div class="input-group">
+  <ion-label for="name">{{formLabel}}</ion-label>
+
+  <input class="date"
+  id="dateInputID"
+  type="date"
+  [formControl]="dateControl"
+  (blur)="onTouched()"
+  (input)="onTouched()"
+  (change)="onDateChange($event)"
+/>
+</div>

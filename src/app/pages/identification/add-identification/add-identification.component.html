@@ -1,0 +1,227 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+   <ion-title>
+      Create Identification
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      @if(submitAttempt) {
+        <p style="color: #ea6153;">
+          Please fill out all details accurately.
+        </p>
+      }
+      <ion-list lines="none">
+        <form [formGroup]="slideOneForm">
+          <ion-item>
+            <ion-label position="floating">Longitude</ion-label>
+            <ion-input formControlName="Longitude" type="text"
+              [class.invalid]="!slideOneForm.controls['Longitude'].valid && (slideOneForm.controls['Longitude'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideOneForm.controls['Longitude'].valid  && (slideOneForm.controls['Longitude'].dirty || submitAttempt)">
+            <p>Please enter a valid Longitude.</p>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Latitude</ion-label>
+            <ion-input formControlName="Latitude" type="text"
+              [class.invalid]="!slideOneForm.controls['Latitude'].valid && (slideOneForm.controls['Latitude'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideOneForm.controls['Latitude'].valid  && (slideOneForm.controls['Latitude'].dirty || submitAttempt)">
+            <p>Please enter a valid Latitude.</p>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Village</ion-label>
+            <ion-input formControlName="Village_Code" type="text"
+              [class.invalid]="!slideOneForm.controls['Village_Code'].valid && (slideOneForm.controls['Village_Code'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideOneForm.controls['Village_Code'].valid  && (slideOneForm.controls['Village_Code'].dirty || submitAttempt)">
+            <p>Please enter a valid name.</p>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Mandal</ion-label>
+            <ion-input formControlName="Mandal_Code" type="text"
+              [class.invalid]="!slideOneForm.controls['Mandal_Code'].valid && (slideOneForm.controls['Mandal_Code'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideOneForm.controls['Mandal_Code'].valid  && (slideOneForm.controls['Mandal_Code'].dirty || submitAttempt)">
+            <p>Please enter a valid name.</p>
+          </ion-item>
+        </form>
+      </ion-list>
+    </swiper-slide>
+
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="slideTwoForm">
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input formControlName="First_Name" type="text"
+              [class.invalid]="!slideTwoForm.controls['First_Name'].valid && (slideTwoForm.controls['First_Name'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideTwoForm.controls['First_Name'].valid  && (slideTwoForm.controls['First_Name'].dirty || submitAttempt)">
+            <p>Please enter a valid name.</p>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input formControlName="Last_Name" type="text"
+              [class.invalid]="!slideTwoForm.controls['Last_Name'].valid && (slideTwoForm.controls['Last_Name'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideTwoForm.controls['Last_Name'].valid  && (slideTwoForm.controls['Last_Name'].dirty || submitAttempt)">
+            <p>Please enter a valid name.</p>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Father Name</ion-label>
+            <ion-input formControlName="Father_Name" type="text"
+              [class.invalid]="!slideTwoForm.controls['Father_Name'].valid && (slideTwoForm.controls['Father_Name'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideTwoForm.controls['Father_Name'].valid  && (slideTwoForm.controls['Father_Name'].dirty || submitAttempt)">
+            <p>Please enter a valid name.</p>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Mobile Number</ion-label>
+            <ion-input formControlName="Mobile_Number1" type="text"
+              [class.invalid]="!slideTwoForm.controls['Mobile_Number1'].valid && (slideTwoForm.controls['Mobile_Number1'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideTwoForm.controls['Mobile_Number1'].valid  && (slideTwoForm.controls['Mobile_Number1'].dirty || submitAttempt)">
+            <p>Please enter a valid mobile number.</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Alternate Mobile Number</ion-label>
+            <ion-input formControlName="Mobile_Number2" type="text"
+              [class.invalid]="!slideTwoForm.controls['Mobile_Number2'].valid && (slideTwoForm.controls['Mobile_Number2'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideTwoForm.controls['Mobile_Number2'].valid  && (slideTwoForm.controls['Mobile_Number2'].dirty || submitAttempt)">
+            <p>Please enter a valid mobile number.</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="Email" type="text"
+              [class.invalid]="!slideTwoForm.controls['Email'].valid && (slideTwoForm.controls['Email'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideTwoForm.controls['Email'].valid  && (slideTwoForm.controls['Email'].dirty || submitAttempt)">
+            <p>Please enter a valid email.</p>
+          </ion-item>
+  
+          
+        </form>
+      </ion-list>
+    </swiper-slide>
+  
+    <swiper-slide>
+      <ion-list lines="none">
+        <form [formGroup]="slideThreeForm">
+          <ion-item>
+            <ion-label position="floating">Farmer Photo Id</ion-label>
+            <ion-input formControlName="Farmer_Photo_Id" type="text"
+              [class.invalid]="!slideThreeForm.controls['Farmer_Photo_Id'].valid && (slideThreeForm.controls['Farmer_Photo_Id'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideThreeForm.controls['Farmer_Photo_Id'].valid  && (slideThreeForm.controls['Farmer_Photo_Id'].dirty || submitAttempt)">
+            <p>Please upload valid file.</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Land Photo Id</ion-label>
+            <ion-input formControlName="Land_Photo_Id" type="text"
+              [class.invalid]="!slideThreeForm.controls['Land_Photo_Id'].valid && (slideThreeForm.controls['Land_Photo_Id'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideThreeForm.controls['Land_Photo_Id'].valid  && (slideThreeForm.controls['Land_Photo_Id'].dirty || submitAttempt)">
+            <p>Please upload valid file.</p>
+          </ion-item> 
+
+        </form>
+      </ion-list>
+  
+      
+    </swiper-slide>
+
+    <swiper-slide>
+      <ion-list lines="none">
+        <form [formGroup]="slideFourForm">
+          <ion-item>
+            <ion-label position="floating">Referral Farmer</ion-label>
+            <ion-input formControlName="Referral_Farmer_Id" type="text"
+              [class.invalid]="!slideFourForm.controls['Referral_Farmer_Id'].valid && (slideFourForm.controls['Referral_Farmer_Id'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideFourForm.controls['Referral_Farmer_Id'].valid  && (slideFourForm.controls['Referral_Farmer_Id'].dirty || submitAttempt)">
+            <p>Please enter a valid name.</p>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Existing Crop</ion-label>
+            <ion-input formControlName="Existing_Crop_Id" type="text"
+              [class.invalid]="!slideFourForm.controls['Existing_Crop_Id'].valid && (slideFourForm.controls['Existing_Crop_Id'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideFourForm.controls['Existing_Crop_Id'].valid  && (slideFourForm.controls['Existing_Crop_Id'].dirty || submitAttempt)">
+            <p>Please enter a valid existing crop name.</p>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Plantation Date</ion-label>
+            <ion-input formControlName="Plantation_Date" type="text"
+              [class.invalid]="!slideFourForm.controls['Plantation_Date'].valid && (slideFourForm.controls['Plantation_Date'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideFourForm.controls['Plantation_Date'].valid  && (slideFourForm.controls['Plantation_Date'].dirty || submitAttempt)">
+            <p>Please enter a valid Plantation Date.</p>
+          </ion-item>
+  
+          <ion-item>
+            <ion-label position="floating">Samplings Nursary Batch</ion-label>
+            <ion-input formControlName="Samplings_Nursary_Batch_Id" type="text"
+              [class.invalid]="!slideFourForm.controls['Samplings_Nursary_Batch_Id'].valid && (slideFourForm.controls['Samplings_Nursary_Batch_Id'].dirty || submitAttempt)">
+            </ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!slideFourForm.controls['Samplings_Nursary_Batch_Id'].valid  && (slideFourForm.controls['Samplings_Nursary_Batch_Id'].dirty || submitAttempt)">
+            <p>Please enter a valid Nursary Batch.</p>
+          </ion-item>
+        </form>
+      </ion-list>
+      <ion-button expand="full" color="primary" (click)="save()">Submit!</ion-button>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>

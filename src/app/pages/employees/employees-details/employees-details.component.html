@@ -1,0 +1,121 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <b>
+      <span *ngIf="formMode==='Edit'">Edit</span>
+      <span> Employees Details </span>
+      </b>
+    </ion-title>
+    <ion-buttons *ngIf="formMode==='View'" collapse="true" slot="end">
+      <ion-button (click)="editForm()">
+        <ion-icon slot="icon-only" name="pencil"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="'/farm/add-employees'">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="ionicForm">
+
+    
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label >
+            <ion-input formControlName="first_Name" type="text" aria-label="First Name"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label >
+            <ion-input formControlName="last_Name" type="text" aria-label="Last Name"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Father Name</ion-label >
+            <ion-input formControlName="father_Name" type="text" aria-label="Father Name"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Photo</ion-label >
+            <input type = "file" formControlName="photo_Id"/>
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Mobile Number1</ion-label >
+            <ion-input formControlName="mobile_Number1" type="text" aria-label="Mobile Number1"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Mobile Number2</ion-label >
+            <ion-input formControlName="mobile_Number2" type="text" aria-label="Mobile Number2"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Bank A/C No</ion-label >
+            <ion-input formControlName="banking_Id" type="text" aria-label="Bank A/C No"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Email</ion-label >
+            <ion-input formControlName="email" type="text" aria-label="Email"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Address</ion-label >
+            <ion-textarea  formControlName="address" type="text" aria-label="Address"></ion-textarea  >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Notes</ion-label >
+            <ion-textarea  formControlName="notes" type="text" aria-label="Notes"></ion-textarea  >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Permanent Employee</ion-label >
+            <ion-input formControlName="permanent_Employee" type="text" aria-label="Permanent Employee"></ion-input >
+          </ion-item >
+          
+         <ion-item>
+            <ion-select placeholder="Select Employee Type">
+                <ion-select-option *ngFor="let p of Employee_Type_Id_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">User Name</ion-label >
+            <ion-input formControlName="user_Name" type="text" aria-label="User Name"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Password</ion-label >
+            <ion-input formControlName="password" type="text" aria-label="Password"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">IsActive</ion-label >
+            <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
+          </ion-item >
+          
+
+       <ion-item *ngIf="formMode==='Edit'">
+            <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+          </ion-item>
+  
+
+    </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+
+  

@@ -1,0 +1,49 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Plantation Identification
+    </ion-title>
+    <ion-buttons collapse="true" slot="end">
+      <ion-button [routerLink]="'/farm/addIdentification'">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-header collapse="condense" class="ion-no-border">
+    <ion-toolbar>
+      <ion-title size="large">Identifications</ion-title>
+      <ion-buttons collapse="true" slot="end">
+        <ion-button color="primary" [routerLink]="'/farm/addIdentification/'">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-toolbar>
+      <ion-grid>
+        <app-search (search)="search_identification($event)"></app-search>
+        </ion-grid>
+    </ion-toolbar>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-label> <b>Farm Code</b> </ion-label>
+      <ion-label><b>Name</b></ion-label>
+      <ion-label><b>Actions</b></ion-label>
+    </ion-item>
+    <ion-item *ngFor="let identification of identificationsList" [routerLink]="'/farm/identificationDetails/' + identification.Id">
+      <ion-label>{{ identification.Farm_Code }}</ion-label>
+      <ion-label>{{ identification.First_Name }} {{ identification.Last_Name }}</ion-label>
+      <ion-icon name="eye-outline" aria-hidden="true"></ion-icon>
+      <ion-icon name="create-outline" aria-hidden="true"></ion-icon>
+      <ion-icon name="trash-outline" aria-hidden="true"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

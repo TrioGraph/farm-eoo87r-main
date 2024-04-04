@@ -1,0 +1,76 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <b>
+      <span *ngIf="formMode==='Edit'">Edit</span>
+      <span> Nursary Details </span>
+      </b>
+    </ion-title>
+    <ion-buttons *ngIf="formMode==='View'" collapse="true" slot="end">
+      <ion-button (click)="editForm()">
+        <ion-icon slot="icon-only" name="pencil"></ion-icon>
+      </ion-button>
+      <ion-button [routerLink]="'/farm/add-nursary'">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="ionicForm">
+
+    
+          <ion-item>
+            <ion-label position="floating">Name</ion-label >
+            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input >
+          </ion-item >
+          
+         <ion-item>
+            <ion-select placeholder="Select Village">
+                <ion-select-option *ngFor="let p of Location_Village_Id_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Surveys Nos</ion-label >
+            <ion-textarea  formControlName="surveys_Nos" type="text" aria-label="Surveys Nos"></ion-textarea  >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Area In Acres</ion-label >
+            <ion-input formControlName="area_In_Acres" type="text" aria-label="Area In Acres"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Description</ion-label >
+            <ion-textarea  formControlName="description" type="text" aria-label="Description"></ion-textarea  >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">IsActive</ion-label >
+            <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
+          </ion-item >
+          
+
+       <ion-item *ngIf="formMode==='Edit'">
+            <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+          </ion-item>
+  
+
+    </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+
+  

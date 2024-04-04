@@ -1,0 +1,97 @@
+import { Component, OnInit } from '@angular/core';
+import { ModalController, IonRouterOutlet, ToastController } from '@ionic/angular';
+import { DataService } from 'src/app/services/data.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-campaigns-details',
+  templateUrl: './campaigns-details.component.html',
+  styleUrls: ['./campaigns-details.component.css']
+})
+export class CampaignsDetailsComponent implements OnInit {
+
+  public campaignsDetails: any;
+  id!: string;
+  ionicForm!: FormGroup;
+  formMode: any = 'View';
+
+  Name_data : any;
+Description_data : any;
+Reauired_Items_data : any;
+Goals_To_Achieve_data : any;
+Campign_Type_data : any;
+IsActive_data : any;
+
+  
+  constructor(
+    private dataService: DataService,
+    public modalController: ModalController,
+    private routerOutlet: IonRouterOutlet,
+    private route: ActivatedRoute,
+    public formBuilder: FormBuilder,
+    private toastController: ToastController
+  ) {
+    
+  }
+
+  ngOnInit(): void {
+  this.ionicForm = this.formBuilder.group({
+        name: ['', [Validators.required]],
+description: ['', [Validators.required]],
+reauired_Items: ['', [Validators.required]],
+goals_To_Achieve: ['', [Validators.required]],
+campign_Type: ['', [Validators.required]],
+isActive: ['', [Validators.required]],
+
+    });
+
+   this.id = this.route.snapshot.paramMap.get('id')!;
+
+   this.dataService.getCampaignsById(this.id).subscribe((data: any)=> {
+      this.campaignsDetails = data;
+      this.ionicForm.patchValue(data);
+    });
+
+  }
+ 
+
+  submitForm(): void {
+      this.formMode = 'View';
+    let tempFormData =  this.ionicForm.value;
+    this.dataService.updateCampaigns(this.id, tempFormData).subscribe(async(data: any) => {
+      console.log('Record Updated Successfully');
+	const toast = await this.toastController.create({
+        message: 'Record updated Successfully',
+        duration: 1500,
+        position: 'top',
+      });
+      await toast.present();
+    },
+(async(error: any) => {
+      console.error('Error handler:', error);
+      const toast = await this.toastController.create({
+        message: 'Error occurred while updating the record',
+        duration: 1500,
+        position: 'top',
+      });
+      await toast.present();
+    })
+    )
+  }
+
+  resetForm(e: MouseEvent) {
+    //this.FarmService.resetForm(e, this.appsForm);
+  }
+  
+  editForm(){
+    this.formMode = 'Edit';
+  }
+
+  cancelForm(){
+    this.formMode = 'View';
+  }
+
+  
+
+}

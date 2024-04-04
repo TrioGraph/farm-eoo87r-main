@@ -1,0 +1,69 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Villages
+    </ion-title>
+    <ion-buttons collapse="true" slot="end">
+      <ion-button [routerLink]="'/farm/add-villages'">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-header collapse="condense" class="ion-no-border">
+    <ion-toolbar>
+      <ion-title size="large">Villages</ion-title>
+      <ion-buttons collapse="true" slot="end">
+        <ion-button color="primary" [routerLink]="'/farm/add-villages'">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-toolbar>
+      <ion-grid>
+        <app-search (search)="searchVillages($event)"></app-search>
+        </ion-grid>
+    </ion-toolbar>
+  </ion-list>
+    <table class="table">
+        <tr>
+      <td><ion-label> Name </ion-label></td>
+	  <td><ion-label> Location </ion-label></td>
+	  <td><ion-label> Mandal_Block_Id </ion-label></td>
+	  <td><ion-label> IsActive </ion-label></td>
+	  
+     
+    <tr *ngFor="let Villages of villagesList">
+      <td><ion-label>{{ Villages['Name'] }}</ion-label></td>
+	  <td><ion-label>{{ Villages['Location'] }}</ion-label></td>
+	  <td><ion-label>{{ Villages['Mandal_Block_Id'] }}</ion-label></td>
+	  <td><ion-label>{{ Villages['IsActive'] }}</ion-label></td>
+	  
+      <td>
+	
+      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+        [routerLink]="'/farm/villages-details/' + Villages['Id']"></ion-icon></ion-badge>
+       <ion-badge id="present-alert" color="danger" class="activity">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Villages['Id'])"></ion-icon>
+        </ion-badge>
+
+      </td>
+    </tr>
+   </table>
+<ion-alert
+trigger="present-alert"
+class="custom-alert"
+header="Delete Record"
+message="Are you sure to delete the record ?"
+[buttons]="alertButtons"
+(didDismiss)="setResult($event)">
+</ion-alert>
+</ion-content>
+  

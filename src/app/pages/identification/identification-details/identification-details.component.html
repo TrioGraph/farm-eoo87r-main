@@ -1,0 +1,187 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Identification Details
+    </ion-title>
+    <ion-buttons collapse="true" slot="end">
+      <ion-button [routerLink]="'/farm/addIdentification'">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="ionicForm">
+          <ion-item>
+            <ion-label position="floating">Unique Number</ion-label>
+            <ion-input formControlName="id" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input formControlName="first_Name" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input formControlName="last_Name" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Father Name</ion-label>
+            <ion-input formControlName="father_Name" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Gender</ion-label>
+            <ion-input formControlName="gender" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Category</ion-label>
+            <ion-input formControlName="category" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Farm Code</ion-label>
+            <ion-input formControlName="farm_Code" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Water Source</ion-label>
+            <ion-input formControlName="water_Source" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Variety</ion-label>
+            <ion-input formControlName="variety" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Mobile Number</ion-label>
+            <ion-input formControlName="Mobile_Number1" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Alternate Mobile Number</ion-label>
+            <ion-input formControlName="Mobile_Number2" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="Email" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Farmer Photo Id</ion-label>
+            <ion-input formControlName="Farmer_Photo_Id" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Land Photo Id</ion-label>
+            <ion-input formControlName="Land_Photo_Id" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Longitude</ion-label>
+            <ion-input formControlName="Longitude" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Latitude</ion-label>
+            <ion-input formControlName="Latitude" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Village</ion-label>
+            <ion-input formControlName="Village_Code" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Mandal</ion-label>
+            <ion-input formControlName="Mandal_Code" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Referral Farmer</ion-label>
+            <ion-input formControlName="Referral_Farmer_Id" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Existing Crop</ion-label>
+            <ion-input formControlName="Existing_Crop_Id" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Plantation Date</ion-label>
+            <ion-input formControlName="Plantation_Date" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Samplings Nursary Batch</ion-label>
+            <ion-input formControlName="Samplings_Nursary_Batch_Id" type="text"></ion-input>
+          </ion-item>
+
+        </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+
+
+  <!-- <ion-grid>
+    
+    <ion-row>
+      <ion-col>
+        <ion-item class="odd">
+          First Name:
+        </ion-item>
+        </ion-col>
+      <ion-col>
+        <ion-item class="odd">
+        {{ identificationDetails?.first_Name }}
+      </ion-item>
+    </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item class="even">
+          First Name:
+        </ion-item>
+        </ion-col>
+      <ion-col>
+        <ion-item class="even">
+        {{ identificationDetails?.last_Name }}
+      </ion-item>
+    </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item class="odd">
+          Father Name:
+        </ion-item>
+        </ion-col>
+      <ion-col>
+        <ion-item class="odd">
+        {{ identificationDetails?.father_Name }}
+      </ion-item>
+    </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item class="even">
+          Mobile Number:
+        </ion-item></ion-col>
+      <ion-col>
+        <ion-item class="even">
+        {{ identificationDetails?.mobile_Number1 }}
+      </ion-item>
+    </ion-col>
+    </ion-row>
+
+    
+    <ion-row>
+      <ion-col>
+        <ion-item class="odd">
+          Supervisor:
+        </ion-item>
+        </ion-col>
+      <ion-col>
+        <ion-item class="odd">
+        {{ identificationDetails?.supervisor_Id }}
+      </ion-item>
+    </ion-col>
+    </ion-row>
+
+  </ion-grid> -->
+</ion-content>

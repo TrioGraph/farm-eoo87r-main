@@ -1,0 +1,71 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Poaching_FFB
+    </ion-title>
+    <ion-buttons collapse="true" slot="end">
+      <ion-button [routerLink]="'/farm/add-poaching_ffb'">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-header collapse="condense" class="ion-no-border">
+    <ion-toolbar>
+      <ion-title size="large">Poaching_FFB</ion-title>
+      <ion-buttons collapse="true" slot="end">
+        <ion-button color="primary" [routerLink]="'/farm/add-poaching_ffb'">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-toolbar>
+      <ion-grid>
+        <app-search (search)="searchPoaching_FFB($event)"></app-search>
+        </ion-grid>
+    </ion-toolbar>
+  </ion-list>
+    <table class="table">
+        <tr>
+      <td><ion-label> Farmer_Id </ion-label></td>
+	  <td><ion-label> Field_Id </ion-label></td>
+	  <td><ion-label> Photo_Id </ion-label></td>
+	  <td><ion-label> Poaching_Date </ion-label></td>
+	  <td><ion-label> IsActive </ion-label></td>
+	  
+     
+    <tr *ngFor="let Poaching_FFB of poaching_ffbList">
+      <td><ion-label>{{ Poaching_FFB['Farmer_Id'] }}</ion-label></td>
+	  <td><ion-label>{{ Poaching_FFB['Field_Id'] }}</ion-label></td>
+	  <td><ion-label>{{ Poaching_FFB['Photo_Id'] }}</ion-label></td>
+	  <td><ion-label>{{ Poaching_FFB['Poaching_Date'] }}</ion-label></td>
+	  <td><ion-label>{{ Poaching_FFB['IsActive'] }}</ion-label></td>
+	  
+      <td>
+	
+      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+        [routerLink]="'/farm/poaching_ffb-details/' + Poaching_FFB['Id']"></ion-icon></ion-badge>
+       <ion-badge id="present-alert" color="danger" class="activity">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Poaching_FFB['Id'])"></ion-icon>
+        </ion-badge>
+
+      </td>
+    </tr>
+   </table>
+<ion-alert
+trigger="present-alert"
+class="custom-alert"
+header="Delete Record"
+message="Are you sure to delete the record ?"
+[buttons]="alertButtons"
+(didDismiss)="setResult($event)">
+</ion-alert>
+</ion-content>
+  

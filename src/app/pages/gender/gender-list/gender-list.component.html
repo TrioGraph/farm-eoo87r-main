@@ -1,0 +1,65 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Gender
+    </ion-title>
+    <ion-buttons collapse="true" slot="end">
+      <ion-button [routerLink]="'/farm/add-gender'">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-header collapse="condense" class="ion-no-border">
+    <ion-toolbar>
+      <ion-title size="large">Gender</ion-title>
+      <ion-buttons collapse="true" slot="end">
+        <ion-button color="primary" [routerLink]="'/farm/add-gender'">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-toolbar>
+      <ion-grid>
+        <app-search (search)="searchGender($event)"></app-search>
+        </ion-grid>
+    </ion-toolbar>
+  </ion-list>
+    <table class="table">
+        <tr>
+      <td><ion-label> Name </ion-label></td>
+	  <td><ion-label> IsActive </ion-label></td>
+	  
+     
+    <tr *ngFor="let Gender of genderList">
+      <td><ion-label>{{ Gender['Name'] }}</ion-label></td>
+	  <td><ion-label>{{ Gender['IsActive'] }}</ion-label></td>
+	  
+      <td>
+	
+      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+        [routerLink]="'/farm/gender-details/' + Gender['Id']"></ion-icon></ion-badge>
+       <ion-badge id="present-alert" color="danger" class="activity">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Gender['Id'])"></ion-icon>
+        </ion-badge>
+
+      </td>
+    </tr>
+   </table>
+<ion-alert
+trigger="present-alert"
+class="custom-alert"
+header="Delete Record"
+message="Are you sure to delete the record ?"
+[buttons]="alertButtons"
+(didDismiss)="setResult($event)">
+</ion-alert>
+</ion-content>
+  

@@ -1,0 +1,80 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Create FarmField
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="ionicForm">
+
+    
+          <ion-item>
+            <ion-label position="floating">Tally Field Id</ion-label >
+            <ion-input formControlName="tally_Field_Id" type="text" aria-label="Tally Field Id"></ion-input >
+          </ion-item >
+          
+         <ion-item>
+            <ion-select placeholder="Select Farmer">
+                <ion-select-option *ngFor="let p of Farmer_Id_data" [value]="p.Id">{{p.First_Name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+         <ion-item>
+            <ion-select placeholder="Select Village">
+                <ion-select-option *ngFor="let p of Village_Id_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Survey Nos</ion-label >
+            <ion-input formControlName="survey_Nos" type="text" aria-label="Survey Nos"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Mapping Data Id</ion-label >
+            <ion-input formControlName="mapping_Data_Id" type="text" aria-label="Mapping Data Id"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Gate GPS Lattitude</ion-label >
+            <ion-input formControlName="gate_GPS_Lattitude" type="text" aria-label="Gate GPS Lattitude"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Gate GPS Longitude</ion-label >
+            <ion-input formControlName="gate_GPS_Longitude" type="text" aria-label="Gate GPS Longitude"></ion-input >
+          </ion-item >
+          
+         <ion-item>
+            <ion-select placeholder="Select Supervisor">
+                <ion-select-option *ngFor="let p of Farmer_Supervisor_Id_data" [value]="p.Id">{{p.First_Name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">IsActive</ion-label >
+            <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
+          </ion-item >
+          
+
+   	<ion-item>
+          <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+        </ion-item>
+    </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+
+  

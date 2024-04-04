@@ -1,0 +1,67 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Photos
+    </ion-title>
+    <ion-buttons collapse="true" slot="end">
+      <ion-button [routerLink]="'/farm/add-photos'">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-header collapse="condense" class="ion-no-border">
+    <ion-toolbar>
+      <ion-title size="large">Photos</ion-title>
+      <ion-buttons collapse="true" slot="end">
+        <ion-button color="primary" [routerLink]="'/farm/add-photos'">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-toolbar>
+      <ion-grid>
+        <app-search (search)="searchPhotos($event)"></app-search>
+        </ion-grid>
+    </ion-toolbar>
+  </ion-list>
+    <table class="table">
+        <tr>
+      <td><ion-label> Photo_Type </ion-label></td>
+	  <td><ion-label> Photo_Blob </ion-label></td>
+	  <td><ion-label> IsActive </ion-label></td>
+	  
+     
+    <tr *ngFor="let Photos of photosList">
+      <td><ion-label>{{ Photos['Photo_Type'] }}</ion-label></td>
+	  <td><ion-label>{{ Photos['Photo_Blob'] }}</ion-label></td>
+	  <td><ion-label>{{ Photos['IsActive'] }}</ion-label></td>
+	  
+      <td>
+	
+      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+        [routerLink]="'/farm/photos-details/' + Photos['Id']"></ion-icon></ion-badge>
+       <ion-badge id="present-alert" color="danger" class="activity">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Photos['Id'])"></ion-icon>
+        </ion-badge>
+
+      </td>
+    </tr>
+   </table>
+<ion-alert
+trigger="present-alert"
+class="custom-alert"
+header="Delete Record"
+message="Are you sure to delete the record ?"
+[buttons]="alertButtons"
+(didDismiss)="setResult($event)">
+</ion-alert>
+</ion-content>
+  

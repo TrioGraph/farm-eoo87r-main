@@ -1,0 +1,63 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Create Campaigns
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="ionicForm">
+
+    
+          <ion-item>
+            <ion-label position="floating">Name</ion-label >
+            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Description</ion-label >
+            <ion-textarea  formControlName="description" type="text" aria-label="Description"></ion-textarea  >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Reauired Items</ion-label >
+            <ion-input formControlName="reauired_Items" type="text" aria-label="Reauired Items"></ion-input >
+          </ion-item >
+          
+          <ion-item>
+            <ion-label position="floating">Goals To Achieve</ion-label >
+            <ion-input formControlName="goals_To_Achieve" type="text" aria-label="Goals To Achieve"></ion-input >
+          </ion-item >
+          
+         <ion-item>
+            <ion-select placeholder="Select Campign Type">
+                <ion-select-option *ngFor="let p of Campign_Type_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">IsActive</ion-label >
+            <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
+          </ion-item >
+          
+
+   	<ion-item>
+          <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+        </ion-item>
+    </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+
+  
