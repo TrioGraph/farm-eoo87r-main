@@ -34,14 +34,14 @@
   </ion-list>
     <table class="table">
         <tr>
-      <td><ion-label> Privilege_Id </ion-label></td>
-	  <td><ion-label> Role_id </ion-label></td>
-	  <td><ion-label> IsActive </ion-label></td>
+          <td><ion-label> Role </ion-label></td>
+          <td><ion-label> Privilege </ion-label></td>
+      	  <td><ion-label> IsActive </ion-label></td>
 	  
      
     <tr *ngFor="let Role_Privileges of role_privilegesList">
-      <td><ion-label>{{ Role_Privileges['Privilege_Id'] }}</ion-label></td>
-	  <td><ion-label>{{ Role_Privileges['Role_id'] }}</ion-label></td>
+      <td><ion-label>{{ Role_Privileges['RoleName'] }}</ion-label></td>
+      <td><ion-label>{{ Role_Privileges['PrivilegeName'] }}</ion-label></td>
 	  <td><ion-label>{{ Role_Privileges['IsActive'] }}</ion-label></td>
 	  
       <td>

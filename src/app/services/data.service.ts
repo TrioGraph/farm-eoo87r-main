@@ -23,6 +23,15 @@ export class DataService {
     }),
   };
 
+  // Http Options
+  httpOptionsFormBody = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }),
+  };
+
+
+
   constructor(private http: HttpClient) { }
 
 //    getFarmers(searchText: string, pageNumber: number, pageSize: number, sortColumn: string, sortOrder: string): Observable<any> {
@@ -68,9 +77,16 @@ export class DataService {
 //     return this.http.get<any>(`${this.apiURL}SearchAuthorisation?searchText=` + searchText + `&pageNumber=` + pageNumber + `&pageSize=` + pageSize + `&sortColumn=` + sortColumn + `&sortOrder=` + sortOrder )
 // }
 
+insertTableByColumns(insertInfo: any): any {
+  // return this.http.post(`${this.apiURL}addPlantationIdentification`, addPlantationIdentification, this.httpOptions)
+  return this.http.patch(`${this.apiURL}Util/insertInfo`, insertInfo)
+}
+
 updateTableByColumns(updateInfo: any): any {
-  return this.http.patch(`${this.apiURL}Util/`, updateInfo, this.httpOptions)
+  return this.http.patch(`${this.apiURL}Util/updateInfo`, updateInfo)
   }
+
+  
 
 getAuthorisation(): Observable<any> {
   return this.http.get<any>(`${this.apiURL}getAllAuthorisation`)
@@ -515,8 +531,8 @@ getFarmersById(id: any): Observable<any> {
 return this.http.get<any>(`${this.apiURL}Farmers?Id=` + id)
 }
 
-getFarmersLookup(): Observable<any> {
-  return this.http.get<any>(`${this.apiURL}getFarmersLookup`)
+getFarmersLookup(searchText: any): Observable<any> {
+  return this.http.get<any>(`${this.apiURL}getFarmersLookup/` + searchText)
 }
 
 addFarmers(addFarmers: any): any {
@@ -577,6 +593,10 @@ getFarmFieldLookup(): Observable<any> {
   return this.http.get<any>(`${this.apiURL}getFarmFieldLookup`)
 }
 
+getFarmFieldLookupByFarmer(farmerId: any): Observable<any> {
+  return this.http.get<any>(`${this.apiURL}GetFarmFieldLookupByFarmerId/`+ farmerId)
+}
+
 addFarmField(addFarmField: any): any {
   return this.http.post(`${this.apiURL}addFarmField`, addFarmField, this.httpOptions)
 }
@@ -607,7 +627,7 @@ getField_VisitLookup(): Observable<any> {
 }
 
 addField_Visit(addField_Visit: any): any {
-  return this.http.post(`${this.apiURL}addField_Visit`, addField_Visit, this.httpOptions)
+  return this.http.post(`${this.apiURL}addField_Visit`,  addField_Visit, this.httpOptions)
 }
 
 updateField_Visit(Field_VisitId: any, Field_VisitDetails: any): any {
@@ -839,7 +859,8 @@ getPlantationIdentificationLookup(): Observable<any> {
 }
 
 addPlantationIdentification(addPlantationIdentification: any): any {
-  return this.http.post(`${this.apiURL}addPlantationIdentification`, addPlantationIdentification, this.httpOptions)
+  // return this.http.post(`${this.apiURL}addPlantationIdentification`, addPlantationIdentification, this.httpOptions)
+  return this.http.patch(`${this.apiURL}Util/insertInfo`, addPlantationIdentification)
 }
 
 updatePlantationIdentification(PlantationIdentificationId: any, PlantationIdentificationDetails: any): any {
@@ -1116,7 +1137,15 @@ searchWorkflow(searchText: any, pageNumber: any, pageSize: any, sortColumn: any,
   return this.http.get<any>(`${this.apiURL}SearchWorkflow?searchText=` + searchText + `&pageNumber=` + pageNumber + `&pageSize=` + pageSize + `&sortColumn=` + sortColumn + `&sortOrder=` + sortOrder )
 }
 
+uploadImage(formData: any) {
+  // let headers = new Headers();
+    /** In Angular 5, including the header Content-Type can invalidate your request */
+    // headers.append('Content-Type', 'multipart/form-data');
+    // headers.append('Accept', 'application/json');
 
+    // let options = new RequestOptions({ headers: headers });
 
-
+    return this.http.post(`${this.apiURL}Util/UploadImage`, formData);
+       
+}
 }

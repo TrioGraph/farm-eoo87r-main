@@ -128,6 +128,7 @@ import { AddTraining_VideosComponent } from './pages/training_videos/add-trainin
 import { AddVillagesComponent } from './pages/villages/add-villages/add-villages.component';
 import { AddWorkflowComponent } from './pages/workflow/add-workflow/add-workflow.component';
 import { ControlsModule } from './controls/controls.module';
+import { IonicSelectableComponent } from 'ionic-selectable';
 
 register();
 
@@ -265,6 +266,7 @@ register();
     AppRoutingModule, 
     FormsModule,
     ReactiveFormsModule,
+    IonicSelectableComponent
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -66,6 +66,7 @@ export class AddPlantationIdentificationComponent implements OnInit {
   Land_Photo_Id_data: any;
   IsActive_data: any;
 
+  title = 'Create Plantation Identification';
   constructor(
     private dataService: DataService,
     public modalController: ModalController,
@@ -78,7 +79,6 @@ export class AddPlantationIdentificationComponent implements OnInit {
 
   ngOnInit(): void {
     this.ionicForm = this.formBuilder.group({
-      id: ['', [Validators.required]],
       farmer_Code: ['', [Validators.required]],
       first_Name: ['', [Validators.required]],
       last_Name: ['', [Validators.required]],
@@ -96,12 +96,12 @@ export class AddPlantationIdentificationComponent implements OnInit {
       latitude: ['', [Validators.required]],
     });
 
-    this.tab3Form = this.formBuilder.group({
-      farmer_Photo_Id: ['', [Validators.required]],
-      land_Photo_Id: ['', [Validators.required]],
-      aadhar_No: ['', [Validators.required]],
-      bank_Name: ['', [Validators.required]],
-    });
+    // this.tab3Form = this.formBuilder.group({
+    //   farmer_Photo_Id: ['', [Validators.required]],
+    //   land_Photo_Id: ['', [Validators.required]],
+    //   aadhar_No: ['', [Validators.required]],
+    //   bank_Name: ['', [Validators.required]],
+    // });
 
     this.tab4Form = this.formBuilder.group({
       tally_FarmerCode: ['', [Validators.required]],
@@ -168,12 +168,16 @@ export class AddPlantationIdentificationComponent implements OnInit {
   }
 
   async addNewRecord() {
-    let tempFormData = this.ionicForm.value;
+    let tempFormData: any = {};
+    tempFormData.insertColumnsList = this.ionicForm.value;
+    tempFormData.tableName = 'PlantationIdentification';
     // tempFormData.id = '1234567';
+    
     console.log('tempFormData : ', tempFormData);
-    this.dataService.addPlantationIdentification(tempFormData).subscribe(
+    this.dataService.insertTableByColumns(tempFormData).subscribe(
       async (data: any) => {
-        this.id = data.id;
+        this.id = data;
+        this.title = 'Plantation Identification : ' + this.id;
         console.log('Record added with id:', this.id);
         const toast = await this.toastController.create({
           message: 'Record added Successfully',
@@ -181,7 +185,7 @@ export class AddPlantationIdentificationComponent implements OnInit {
           position: 'top',
         });
         await toast.present();
-        this.router.navigateByUrl('farm/plantationidentification-list');
+        // this.router.navigateByUrl('farm/plantationidentification-list');
       },
       async (error: any) => {
         console.error('Error handler:', error);
@@ -195,9 +199,29 @@ export class AddPlantationIdentificationComponent implements OnInit {
     );
   }
 
-  async UpdateRecord() {
+  async UpdateRecord(tab: any) {
     let tempFormData: any = {};
-    tempFormData.updateColumnsList =  this.tab2Form.value;
+    if(tab === 'tab2Form') {
+      tempFormData.updateColumnsList =  this.tab2Form.value;
+    }
+    if(tab === 'tab3Form') {
+      tempFormData.updateColumnsList =  this.tab3Form.value;
+    }
+    if(tab === 'tab4Form') {
+      tempFormData.updateColumnsList =  this.tab4Form.value;
+    }
+    if(tab === 'tab5Form') {
+      tempFormData.updateColumnsList =  this.tab5Form.value;
+    }
+    if(tab === 'tab6Form') {
+      tempFormData.updateColumnsList =  this.tab6Form.value;
+    }
+    if(tab === 'tab7Form') {
+      tempFormData.updateColumnsList =  this.tab7Form.value;
+    }
+    if(tab === 'tab8Form') {
+      tempFormData.updateColumnsList =  this.tab8Form.value;
+    }
     tempFormData.tableName =  "PlantationIdentification";
     tempFormData.primaryKeysList =  { "id" : this.id};
 
@@ -205,9 +229,9 @@ export class AddPlantationIdentificationComponent implements OnInit {
     console.log('tempFormData : ', tempFormData);
     this.dataService.updateTableByColumns(tempFormData).subscribe(
       async (data: any) => {
-        console.log('Record added');
+        console.log('Record updated');
         const toast = await this.toastController.create({
-          message: 'Record added Successfully',
+          message: 'Record updated Successfully',
           duration: 1500,
           position: 'top',
         });
@@ -233,4 +257,23 @@ export class AddPlantationIdentificationComponent implements OnInit {
   cancelForm() {
     this.router.navigateByUrl('farm/plantationidentification-list');
   }
+
+  fileChange(event: any, propertyName: any) {
+    let fileList: FileList = event.target.files;
+
+    if (fileList.length < 1) {
+      return;
+    }
+    
+    let file: File = fileList[0];
+    let formData:FormData = new FormData();
+    formData.append('uploadFile', file, file.name);
+    // formData.append('propertyName', propertyName);
+    
+    this.dataService.uploadImage(formData).subscribe(
+      (data: any) => { 
+        console.log('File Upload Success') 
+      }
+  );
+}
 }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseURL: 'https://localhost:7195/'
+baseURL: 'https://pavantestapp2.bsite.net/'
 
 };
 // baseURL: 'https://localhost:7195/'

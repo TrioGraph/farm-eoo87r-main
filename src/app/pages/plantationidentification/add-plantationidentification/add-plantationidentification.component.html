@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Create Plantation Identification
+      <span *ngIf="id!==null"> {{title}}</span>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -16,10 +16,10 @@
       <swiper-slide>
         <form [formGroup]="ionicForm">
 
-          <ion-item>
+          <!-- <ion-item>
             <ion-label position="floating">Id</ion-label>
-            <ion-input formControlName="id" type="text" aria-label="Id"></ion-input>
-          </ion-item>
+            <ion-input type="text" aria-label="Id"></ion-input>
+          </ion-item> -->
 
           <ion-item>
             <ion-label position="floating">Farmer Code</ion-label>
@@ -94,7 +94,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-button type="submit" color="primary" expand="block" (click)="UpdateRecord()">Save</ion-button>
+            <ion-button type="submit" color="primary" expand="block" (click)="UpdateRecord('tab2Form')">Save</ion-button>
             <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
           </ion-item>
 
@@ -102,26 +102,26 @@
       </swiper-slide>
 
       <swiper-slide>
-        <form [formGroup]="tab3Form">
+        <form>
 
           <ion-item class="input-group">
-            <ion-label position="floating">Farmer Photo</ion-label>
-            <input type="file" formControlName="farmer_Photo_Id" aria-label="Farmer Photo" />
+            <ion-label position="floating">Farmer Photo</ion-label><br>
+            <input type="file" aria-label="Farmer Photo" (change)="fileChange($event, 'farmer_Photo_Id')" placeholder="Upload file"/>
           </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Land Photo</ion-label>
-            <input type="file" formControlName="land_Photo_Id" aria-label="Land Photo" />
+            <ion-label position="floating">Land Photo</ion-label><br>
+            <input type="file" aria-label="Land Photo" (change)="fileChange($event, 'land_Photo_Id')" placeholder="Upload file"/>
           </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Aadhar No</ion-label>
-            <input type="file" formControlName="aadhar_No" aria-label="Aadhar No" />
+            <ion-label position="floating">Aadhar No</ion-label><br>
+            <input type="file" aria-label="Aadhar No" (change)="fileChange($event, 'aadhar_No')" placeholder="Upload file"/>
           </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Bank Name</ion-label>
-            <ion-input type="file" formControlName="bank_Name" aria-label="Bank Name"></ion-input>
+            <ion-label position="floating">Bank Name</ion-label><br>
+            <ion-input type="file" aria-label="Bank Name"  (change)="fileChange($event, 'bank_Name')" placeholder="Upload file"></ion-input>
           </ion-item>
         </form>
       </swiper-slide>
@@ -152,6 +152,11 @@
           <ion-item>
             <ion-label position="floating">Subsidy Allowed</ion-label>
             <ion-input formControlName="subsidy_Allowed" type="text" aria-label="Subsidy Allowed"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-button type="submit" color="primary" expand="block" (click)="UpdateRecord('tab4Form')">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
           </ion-item>
 
         </form>
@@ -191,6 +196,11 @@
               aria-label="Transport Amt Per Ton"></ion-input>
           </ion-item>
 
+          <ion-item>
+            <ion-button type="submit" color="primary" expand="block" (click)="UpdateRecord('tab5Form')">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+          </ion-item>
+
         </form>
       </swiper-slide>
 
@@ -220,6 +230,11 @@
           <ion-item>
             <ion-label position="floating">Water Source</ion-label>
             <ion-input formControlName="water_Source" type="text" aria-label="Water Source"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-button type="submit" color="primary" expand="block" (click)="UpdateRecord('tab6Form')">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
           </ion-item>
 
         </form>
@@ -265,6 +280,12 @@
             <ion-input formControlName="present_Survival_Plants" type="text"
               aria-label="Present Survival Plants"></ion-input>
           </ion-item>
+
+          <ion-item>
+            <ion-button type="submit" color="primary" expand="block" (click)="UpdateRecord('tab7Form')">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+          </ion-item>
+
         </form>
       </swiper-slide>
 
@@ -290,6 +311,12 @@
             <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
           </ion-item>
+
+          <ion-item>
+            <ion-button type="submit" color="primary" expand="block" (click)="UpdateRecord('tab8Form')">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+          </ion-item>
+          
         </form>
 
       </swiper-slide>

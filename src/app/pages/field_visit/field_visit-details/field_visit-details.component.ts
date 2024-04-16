@@ -15,6 +15,7 @@ export class Field_VisitDetailsComponent implements OnInit {
   id!: string;
   ionicForm!: FormGroup;
   formMode: any = 'View';
+  title = 'Field Visit Details';
 
   Field_Id_data : any;
 Employee_Id_data : any;

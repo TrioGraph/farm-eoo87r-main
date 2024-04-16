@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Create Role_Privileges
+      Create Role Privileges
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -20,13 +20,13 @@
     
          <ion-item>
             <ion-select placeholder="Select Role">
-                <ion-select-option *ngFor="let p of Privilege_Id_data" [value]="p.Id">{{p.Role}}</ion-select-option>
+                <ion-select-option *ngFor="let p of Role_id_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
   </ion-item>
 
          <ion-item>
-            <ion-select placeholder="Select Role">
-                <ion-select-option *ngFor="let p of Role_id_data" [value]="p.Id">{{p.Role}}</ion-select-option>
+            <ion-select placeholder="Select Privilege">
+                <ion-select-option *ngFor="let p of Privilege_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
   </ion-item>
 

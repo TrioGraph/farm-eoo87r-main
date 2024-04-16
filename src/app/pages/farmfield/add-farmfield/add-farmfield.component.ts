@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { IonicSelectableComponent } from 'ionic-selectable';
 
 @Component({
   selector: 'app-add-farmfield',
@@ -55,7 +56,7 @@ isActive: ['', [Validators.required]],
 
    this.id = this.route.snapshot.paramMap.get('id')!;
 
-     this.dataService.getFarmersLookup().subscribe((result: any) => { 
+     this.dataService.getFarmersLookup(null).subscribe((result: any) => { 
 	 this.Farmer_Id_data = result; 
 }); 
 this.dataService.getVillagesLookup().subscribe((result: any) => { 
@@ -102,5 +103,13 @@ this.dataService.getEmployeesLookup().subscribe((result: any) => {
     this.router.navigateByUrl('farm/farmfield-list')
   }
   
+  farmerChange(event: { component: IonicSelectableComponent, text: string }) {
+    event.component.startSearch();
+    this.dataService.getFarmersLookup(event.text).subscribe((result: any) => { 
+      this.Farmer_Id_data = result; 
+   }); 
+    // Get ports from a storage and stop searching.
+    event.component.endSearch();
+  }
 
 }

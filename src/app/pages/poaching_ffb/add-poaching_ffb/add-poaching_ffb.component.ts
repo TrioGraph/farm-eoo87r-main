@@ -49,7 +49,7 @@ isActive: ['', [Validators.required]],
 
    this.id = this.route.snapshot.paramMap.get('id')!;
 
-     this.dataService.getFarmersLookup().subscribe((result: any) => { 
+     this.dataService.getFarmersLookup('').subscribe((result: any) => { 
 	 this.Farmer_Id_data = result; 
 }); 
 this.dataService.getFarmFieldLookup().subscribe((result: any) => { 

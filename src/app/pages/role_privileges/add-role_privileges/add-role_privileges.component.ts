@@ -36,8 +36,8 @@ IsActive_data : any;
   ngOnInit(): void {
   this.ionicForm = this.formBuilder.group({
         privilege_Id: ['', [Validators.required]],
-role_id: ['', [Validators.required]],
-isActive: ['', [Validators.required]],
+role_id: [, [Validators.required]],
+isActive: [, [Validators.required]],
 
     });
 
@@ -46,7 +46,7 @@ isActive: ['', [Validators.required]],
      this.dataService.getPrivilegesLookup().subscribe((result: any) => { 
 	 this.Privilege_Id_data = result; 
 }); 
-this.dataService.getRolesLookup().subscribe((result: any) => { 
+this.dataService.getEmployee_TypesLookup().subscribe((result: any) => { 
 	 this.Role_id_data = result; 
 }); 
 

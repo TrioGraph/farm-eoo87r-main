@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { IonicSelectableComponent } from 'ionic-selectable';
 
 @Component({
   selector: 'app-add-field_visit',
@@ -25,6 +26,7 @@ Status_Complete_data : any;
 Visist_Schedule_Date_data : any;
 Prescription_Photo_Id_data : any;
 IsActive_data : any;
+Farmer_Id_data : any;
 
   
   constructor(
@@ -41,20 +43,23 @@ IsActive_data : any;
 
   ngOnInit(): void {
   this.ionicForm = this.formBuilder.group({
-        field_Id: ['', [Validators.required]],
-employee_Id: ['', [Validators.required]],
+        field_Id: [, [Validators.required]],
+employee_Id: [, [Validators.required]],
 notes: ['', [Validators.required]],
 field_Visit_Date: ['', [Validators.required]],
-photo_Id: ['', [Validators.required]],
+photo_Id: [, [Validators.required]],
 status_Complete: ['', [Validators.required]],
 visist_Schedule_Date: ['', [Validators.required]],
-prescription_Photo_Id: ['', [Validators.required]],
-isActive: ['', [Validators.required]],
+prescription_Photo_Id: [, [Validators.required]],
+isActive: [true, [Validators.required]],
 
     });
 
    this.id = this.route.snapshot.paramMap.get('id')!;
 
+   this.dataService.getFarmersLookup(null).subscribe((result: any) => { 
+    this.Farmer_Id_data = result; 
+ }); 
      this.dataService.getFarmFieldLookup().subscribe((result: any) => { 
 	 this.Field_Id_data = result; 
 }); 
@@ -105,5 +110,23 @@ this.dataService.getPhotosLookup().subscribe((result: any) => {
     this.router.navigateByUrl('farm/field_visit-list')
   }
   
+  farmerChange(event: { component: IonicSelectableComponent, text: string }) {
+    event.component.startSearch();
+    this.dataService.getFarmersLookup(event.text).subscribe((result: any) => { 
+      this.Farmer_Id_data = result; 
+   }); 
+    // Get ports from a storage and stop searching.
+    event.component.endSearch();
+  }
 
+  farmerSelected(event: {
+    component: IonicSelectableComponent,
+    item: any,
+    isSelected: boolean
+  }) {
+    this.dataService.getFarmFieldLookupByFarmer(event.item,).subscribe((result: any) => { 
+      this.Farmer_Id_data = result; 
+   }); 
+    
+  }
 }
