@@ -7,7 +7,7 @@
       Nursary
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-nursary'">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-nursary'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -32,26 +32,28 @@
         </ion-grid>
     </ion-toolbar>
   </ion-list>
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
     <table class="table">
         <tr>
       <td><ion-label> Name </ion-label></td>
-	  <td><ion-label> Location_Village_Id </ion-label></td>
-	  <td><ion-label> Surveys_Nos </ion-label></td>
-	  <td><ion-label> Area_In_Acres </ion-label></td>
+	  <td><ion-label> Village  </ion-label></td>
+	  <td><ion-label> Surveys Nos </ion-label></td>
+	  <td><ion-label> Area In Acres </ion-label></td>
 	  
      
     <tr *ngFor="let Nursary of nursaryList">
       <td><ion-label>{{ Nursary['Name'] }}</ion-label></td>
-	  <td><ion-label>{{ Nursary['Location_Village_Id'] }}</ion-label></td>
+	  <td><ion-label>{{ Nursary['Village'] }}</ion-label></td>
 	  <td><ion-label>{{ Nursary['Surveys_Nos'] }}</ion-label></td>
 	  <td><ion-label>{{ Nursary['Area_In_Acres'] }}</ion-label></td>
 	  
       <td>
 	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/nursary-details/' + Nursary['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Nursary['Id'])"></ion-icon>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Nursary['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
 
       </td>
@@ -63,7 +65,7 @@ class="custom-alert"
 header="Delete Record"
 message="Are you sure to delete the record ?"
 [buttons]="alertButtons"
-(didDismiss)="setResult($event)">
+(didDismiss)="deleteRecord($event)">
 </ion-alert>
 </ion-content>
   

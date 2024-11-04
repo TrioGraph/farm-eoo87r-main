@@ -4,13 +4,14 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Create Farm_Diseases
+      Create Farm Diseases
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       
@@ -19,31 +20,35 @@
 
     
           <ion-item>
-            <ion-label position="floating">Name</ion-label >
-            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Name</ion-label>
+            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Remidies</ion-label >
-            <ion-input formControlName="remidies" type="text" aria-label="Remidies"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Remidies</ion-label>
+            <ion-input formControlName="remidies" type="text" aria-label="Remidies"></ion-input>
+          </ion-item>
           
-         <ion-item>
-            <ion-select placeholder="Select Photo 1">
-                <ion-select-option *ngFor="let p of Photo_Id1_data" [value]="p.Id">{{p.Id}}</ion-select-option>
-            </ion-select>
-  </ion-item>
-
-         <ion-item>
-            <ion-select placeholder="Select Photo 2">
-                <ion-select-option *ngFor="let p of Photo_Id2_data" [value]="p.Id">{{p.Id}}</ion-select-option>
-            </ion-select>
-  </ion-item>
-
+          <ion-item class="input-group">
+            <ion-label position="floating">Photo 1></ion-label><br>
+            <input type="file" aria-label="Photo 1" (change)="fileChange($event, 'Photo_Id1')" 
+            placeholder="Upload Photo 1" />
+            <img class="form-image" [src]=Photo_Id1>
+            <ion-button (click)="uploadImage('Photo_Id1')">Upload</ion-button>
+          </ion-item>
+          
+          <ion-item class="input-group">
+            <ion-label position="floating">Photo 2></ion-label><br>
+            <input type="file" aria-label="Photo 2" (change)="fileChange($event, 'Photo_Id2')" 
+            placeholder="Upload Photo 2" />
+            <img class="form-image" [src]=Photo_Id2>
+            <ion-button (click)="uploadImage('Photo_Id2')">Upload</ion-button>
+          </ion-item>
+          
           <ion-item>
-            <ion-label position="floating">IsActive</ion-label >
+            <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item >
+          </ion-item>
           
 
    	<ion-item>

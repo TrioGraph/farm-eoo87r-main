@@ -4,10 +4,10 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Mandal_Blocks
+      Mandal Blocks
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-mandal_blocks'">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-mandal_blocks'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -17,7 +17,7 @@
 <ion-content fullscreen="true">
   <ion-header collapse="condense" class="ion-no-border">
     <ion-toolbar>
-      <ion-title size="large">Mandal_Blocks</ion-title>
+      <ion-title size="large">Mandal Blocks</ion-title>
       <ion-buttons collapse="true" slot="end">
         <ion-button color="primary" [routerLink]="'/farm/add-mandal_blocks'">
           <ion-icon slot="icon-only" name="add-outline"></ion-icon>
@@ -32,24 +32,26 @@
         </ion-grid>
     </ion-toolbar>
   </ion-list>
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
     <table class="table">
         <tr>
       <td><ion-label> Name </ion-label></td>
-	  <td><ion-label> District_Id </ion-label></td>
+	  <td><ion-label> District  </ion-label></td>
 	  <td><ion-label> IsActive </ion-label></td>
 	  
      
     <tr *ngFor="let Mandal_Blocks of mandal_blocksList">
       <td><ion-label>{{ Mandal_Blocks['Name'] }}</ion-label></td>
-	  <td><ion-label>{{ Mandal_Blocks['District_Id'] }}</ion-label></td>
+	  <td><ion-label>{{ Mandal_Blocks['District'] }}</ion-label></td>
 	  <td><ion-label>{{ Mandal_Blocks['IsActive'] }}</ion-label></td>
 	  
       <td>
 	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/mandal_blocks-details/' + Mandal_Blocks['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Mandal_Blocks['Id'])"></ion-icon>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Mandal_Blocks['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
 
       </td>
@@ -61,7 +63,7 @@ class="custom-alert"
 header="Delete Record"
 message="Are you sure to delete the record ?"
 [buttons]="alertButtons"
-(didDismiss)="setResult($event)">
+(didDismiss)="deleteRecord($event)">
 </ion-alert>
 </ion-content>
   

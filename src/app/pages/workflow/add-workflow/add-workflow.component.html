@@ -10,7 +10,8 @@
 </ion-header>
 
 <ion-content>
-
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       
@@ -19,24 +20,24 @@
 
     
           <ion-item>
-            <ion-label position="floating">Name</ion-label >
-            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Name</ion-label>
+            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Link</ion-label >
-            <ion-input formControlName="link" type="text" aria-label="Link"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Link</ion-label>
+            <ion-input formControlName="link" type="text" aria-label="Link"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Description</ion-label >
-            <ion-textarea  formControlName="description" type="text" aria-label="Description"></ion-textarea  >
-          </ion-item >
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea  formControlName="description" rows="5"></ion-textarea>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">IsActive</ion-label >
+            <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item >
+          </ion-item>
           
 
    	<ion-item>

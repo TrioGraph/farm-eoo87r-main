@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController, IonRouterOutlet } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalController, IonRouterOutlet, IonModal } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-add-plantationidentification',
@@ -21,6 +22,7 @@ export class AddPlantationIdentificationComponent implements OnInit {
   tab6Form!: FormGroup;
   tab7Form!: FormGroup;
   tab8Form!: FormGroup;
+  tab9Form!: FormGroup;
 
   Farmer_Code_data: any;
   First_Name_data: any;
@@ -66,7 +68,22 @@ export class AddPlantationIdentificationComponent implements OnInit {
   Land_Photo_Id_data: any;
   IsActive_data: any;
 
+  farmerPhotoId = "";
+  landPhotoId = "";
+  bankName = "";
+  aadharNo = "";
+  farmerPhotoIdInput = "";
+  landPhotoIdInput = "";
+  bankNameInput = "";
+  aadharNoInput = "";
+  fileList: Map<string, object> = new Map<string, object>();
+  selectedVillage: any;
+  selectedVillagesText: any;
+
   title = 'Create Plantation Identification';
+
+@ViewChild('modal', { static: true }) modal!: IonModal;
+
   constructor(
     private dataService: DataService,
     public modalController: ModalController,
@@ -145,12 +162,23 @@ export class AddPlantationIdentificationComponent implements OnInit {
       isActive: ['', [Validators.required]],
     });
 
+    this.tab9Form = this.formBuilder.group({
+      East_Contact_Name: [''],
+      East_Contact_Number: [''],
+      West_Contact_Name: [''],
+      West_Contact_Number: [''],
+      North_Contact_Name: [''],
+      North_Contact_Number: [''],
+      South_Contact_Name: [''],
+      South_Contact_Number: [''],
+    });
+
     this.id = this.route.snapshot.paramMap.get('id')!;
 
     this.dataService.getGenderLookup().subscribe((result: any) => {
       this.Gender_data = result;
     });
-    this.dataService.getVillagesLookup().subscribe((result: any) => {
+    this.dataService.GetVillagesLookup('').subscribe((result: any) => {
       this.Village_Code_data = result;
     });
     this.dataService.getMandal_BlocksLookup().subscribe((result: any) => {
@@ -165,15 +193,21 @@ export class AddPlantationIdentificationComponent implements OnInit {
     this.dataService.getPhotosLookup().subscribe((result: any) => {
       this.Land_Photo_Id_data = result;
     });
+
+    this.printCurrentPosition();
   }
+
+  printCurrentPosition = async () => {
+    const coordinates = await Geolocation.getCurrentPosition();
+    console.log('Current position:', coordinates);
+    this.tab2Form.controls['latitude'].setValue(coordinates?.coords?.latitude);
+    this.tab2Form.controls['longitude'].setValue(coordinates?.coords?.longitude);
+  };
 
   async addNewRecord() {
     let tempFormData: any = {};
     tempFormData.insertColumnsList = this.ionicForm.value;
     tempFormData.tableName = 'PlantationIdentification';
-    // tempFormData.id = '1234567';
-    
-    console.log('tempFormData : ', tempFormData);
     this.dataService.insertTableByColumns(tempFormData).subscribe(
       async (data: any) => {
         this.id = data;
@@ -222,6 +256,9 @@ export class AddPlantationIdentificationComponent implements OnInit {
     if(tab === 'tab8Form') {
       tempFormData.updateColumnsList =  this.tab8Form.value;
     }
+    if(tab === 'tab9Form') {
+      tempFormData.updateColumnsList =  this.tab9Form.value;
+    }
     tempFormData.tableName =  "PlantationIdentification";
     tempFormData.primaryKeysList =  { "id" : this.id};
 
@@ -258,22 +295,87 @@ export class AddPlantationIdentificationComponent implements OnInit {
     this.router.navigateByUrl('farm/plantationidentification-list');
   }
 
-  fileChange(event: any, propertyName: any) {
-    let fileList: FileList = event.target.files;
+//   fileChange(event: any, propertyName: any) {
+//     let fileList: FileList = event.target.files;
 
-    if (fileList.length < 1) {
-      return;
-    }
+//     if (fileList.length < 1) {
+//       return;
+//     }
     
-    let file: File = fileList[0];
-    let formData:FormData = new FormData();
-    formData.append('uploadFile', file, file.name);
-    // formData.append('propertyName', propertyName);
+//     let file: File = fileList[0];
+//     let formData:FormData = new FormData();
+//     formData.append('uploadFile', file, file.name);
+//     formData.append('tableName', 'PlantationIdentification');
+//     formData.append('primaryKeysList', this.id);
+//     formData.append('propertyName', propertyName);
     
-    this.dataService.uploadImage(formData).subscribe(
-      (data: any) => { 
-        console.log('File Upload Success') 
-      }
-  );
+//     this.dataService.uploadImage(formData).subscribe(
+//       (data: any) => { 
+//         console.log('File Upload Success') 
+//       }
+//   );
+// }
+fileChange(event: any, propertyName: any) {
+  let tempFilesList = event.target.files; 
+  if (tempFilesList.length < 1) {
+    return;
+  }
+   this.fileList.set(propertyName, tempFilesList[0]);
+   if(propertyName === 'farmer_Photo_Id'){
+   this.farmerPhotoId = URL.createObjectURL(tempFilesList[0]);
+  }
+   if(propertyName === 'land_Photo_Id'){
+   this.landPhotoId = URL.createObjectURL(tempFilesList[0]);
+  }
+  if(propertyName === 'aadhar_No'){
+  this.aadharNo = URL.createObjectURL(tempFilesList[0]);
+ }
+ if(propertyName === 'bank_Name'){
+ this.bankName = URL.createObjectURL(tempFilesList[0]);
+}
+}
+
+uploadImage(propertyName: any){
+let tempFile = this.fileList.get(propertyName);
+let formData:FormData = new FormData();
+formData.append('uploadFile', tempFile as File, (tempFile as File).name);
+formData.append('tableName', 'PlantationIdentification');
+formData.append('primaryKeysList', this.id);
+formData.append('propertyName', propertyName);
+
+this.dataService.uploadImage(formData).subscribe(
+  (data: any) => { 
+    console.log('File Upload Success') 
+  }
+);
+}
+
+VillageSelectionChanged(villages: any) {
+  this.selectedVillage = [...villages];
+  this.selectedVillagesText = String(this.formatData(this.selectedVillage));
+  this.modal.dismiss();
+}
+
+private formatData(data: string[]) {
+  if (data.length === 1) {
+    console.log('formatData :: data : ', data);
+    const village = this.Village_Code_data.find((v: any) => v.id === data[0]);
+    return village?.name;
+  }
+  return `${data.length} items`;
+}
+
+villageChange(event: any) {
+  this.dataService.getMandalByVillage(event.target.value).subscribe(m => {
+    this.ionicForm.patchValue({
+      "mandal_Code" : m[0].mandalId
+    })
+  });
+}
+
+searchVillages(searchText: any) {
+  this.dataService.GetVillagesLookup(searchText).subscribe((result: any) => {
+    this.Village_Code_data = result;
+  });
 }
 }

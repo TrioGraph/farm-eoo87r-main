@@ -10,74 +10,72 @@
 </ion-header>
 
 <ion-content>
-
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
-
+      
       <ion-list lines="none">
         <form [formGroup]="ionicForm">
 
-
+    
           <ion-item>
             <ion-label position="floating">Tally Field Id</ion-label>
             <ion-input formControlName="tally_Field_Id" type="text" aria-label="Tally Field Id"></ion-input>
           </ion-item>
-
-          <!-- <ion-select placeholder="Select Farmer">
-                <ion-select-option *ngFor="let p of Farmer_Id_data" [value]="p.Id">{{p.name}}</ion-select-option>
-            </ion-select> -->
-          <ion-item>
-            <ion-label>Farmer</ion-label><br>
-            <ionic-selectable formControlName="farmer_Id" [items]="Farmer_Id_data" itemValueField="Id"
-              itemTextField="name" [canSearch]="true" [hasVirtualScroll]="true" (onSearch)="farmerChange($event)">
-            </ionic-selectable>
-          </ion-item>
-
-          <ion-item>
-            <ion-select placeholder="Select Village">
-              <ion-select-option *ngFor="let p of Village_Id_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+          
+         <ion-item>
+            <ion-select placeholder="Select Farmer" formControlName="farmer_Id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Farmer_Id_data" [value]="p.id">{{p.first_name}}</ion-select-option>
             </ion-select>
-          </ion-item>
+  </ion-item>
+
+         <ion-item>
+            <ion-select placeholder="Select Village" formControlName="village_Id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Village_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
 
           <ion-item>
             <ion-label position="floating">Survey Nos</ion-label>
             <ion-input formControlName="survey_Nos" type="text" aria-label="Survey Nos"></ion-input>
           </ion-item>
-
+          
           <ion-item>
             <ion-label position="floating">Mapping Data Id</ion-label>
             <ion-input formControlName="mapping_Data_Id" type="text" aria-label="Mapping Data Id"></ion-input>
           </ion-item>
-
+          
           <ion-item>
             <ion-label position="floating">Gate GPS Lattitude</ion-label>
             <ion-input formControlName="gate_GPS_Lattitude" type="text" aria-label="Gate GPS Lattitude"></ion-input>
           </ion-item>
-
+          
           <ion-item>
             <ion-label position="floating">Gate GPS Longitude</ion-label>
             <ion-input formControlName="gate_GPS_Longitude" type="text" aria-label="Gate GPS Longitude"></ion-input>
           </ion-item>
-
-          <ion-item>
-            <ion-select placeholder="Select Supervisor">
-              <ion-select-option *ngFor="let p of Farmer_Supervisor_Id_data"
-                [value]="p.Id">{{p.First_Name}}</ion-select-option>
+          
+         <ion-item>
+            <ion-select placeholder="Select Supervisor" formControlName="farmer_Supervisor_Id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Farmer_Supervisor_Id_data" [value]="p.id">{{p.first_name}}</ion-select-option>
             </ion-select>
-          </ion-item>
+  </ion-item>
 
           <ion-item>
             <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
           </ion-item>
+          
 
-
-          <ion-item>
-            <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+   	<ion-item>
+          <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
             <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
-          </ion-item>
-        </form>
+        </ion-item>
+    </form>
       </ion-list>
     </swiper-slide>
   </swiper-container>
 </ion-content>
+
+  

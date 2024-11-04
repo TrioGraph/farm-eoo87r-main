@@ -7,7 +7,7 @@
       Plantation Identification
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-plantationidentification'">
+      <ion-button  *ngIf="allowToAdd" [routerLink]="'/farm/add-plantationidentification'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -32,28 +32,46 @@
         </ion-grid>
     </ion-toolbar>
   </ion-list>
+
+
+  <table mat-table [dataSource]="plantationidentificationList" class="mat-elevation-z8">
+
+  </table>
+
+
     <table class="table">
+      <thead>
         <tr>
-      <td><ion-label> Farmer_Code </ion-label></td>
-	  <td><ion-label> Last_Name </ion-label></td>
-	  <td><ion-label> Father_Name </ion-label></td>
-	  
+      <td class="table-cell-heading" style="width: 33%;"><ion-label> Farmer Code </ion-label></td>
+	  <td class="table-cell-heading" style="width: 33%;"><ion-label> Name </ion-label></td>
+	  <!-- <td class="table-cell-heading"><ion-label> Father Name </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Village </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Mandal </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Supervisor </ion-label></td> -->
+	  <td class="table-cell-heading" style="width: 33%;"><ion-label> Actions </ion-label></td>
+        </tr>
+  </thead>
      
+  <tbody>
     <tr *ngFor="let PlantationIdentification of plantationidentificationList">
-      <td><ion-label>{{ PlantationIdentification['Farmer_Code'] }}</ion-label></td>
-	  <td><ion-label>{{ PlantationIdentification['Last_Name'] }}</ion-label></td>
-	  <td><ion-label>{{ PlantationIdentification['Father_Name'] }}</ion-label></td>
+      <td class="table-cell"><ion-label>{{ PlantationIdentification['Farmer_Code'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label> {{PlantationIdentification['First_Name'] }} {{ PlantationIdentification['Last_Name'] }}</ion-label></td>
+	  <!-- <td class="table-cell"><ion-label>{{ PlantationIdentification['Father_Name'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ PlantationIdentification['Village'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ PlantationIdentification['Mandal'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ PlantationIdentification['Supervisor'] }}</ion-label></td> -->
 	  
-      <td>
+      <td class="table-cell">
 	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+      <ion-badge  *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/plantationidentification-details/' + PlantationIdentification['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(PlantationIdentification['Id'])"></ion-icon>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="deleteRecord(PlantationIdentification['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
 
       </td>
     </tr>
+  </tbody>
    </table>
 <ion-alert
 trigger="present-alert"

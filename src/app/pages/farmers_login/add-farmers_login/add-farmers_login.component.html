@@ -4,13 +4,14 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Create Farmers_Login
+      Create Farmers Login
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       
@@ -19,35 +20,35 @@
 
     
           <ion-item>
-            <ion-label position="floating">Farmer Tally Code</ion-label >
-            <ion-input formControlName="farmer_Tally_Code" type="text" aria-label="Farmer Tally Code"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Farmer Tally Code</ion-label>
+            <ion-input formControlName="farmer_Tally_Code" type="text" aria-label="Farmer Tally Code"></ion-input>
+          </ion-item>
           
          <ion-item>
-            <ion-select placeholder="Select Login">
-                <ion-select-option *ngFor="let p of Login_Id_data" [value]="p.Id">{{p.Login}}</ion-select-option>
+            <ion-select placeholder="Select Login" formControlName="login_Id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Login_Id_data" [value]="p.id">{{p.login}}</ion-select-option>
             </ion-select>
   </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Login Mobile</ion-label >
-            <ion-input formControlName="login_Mobile" type="text" aria-label="Login Mobile"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Login Mobile</ion-label>
+            <ion-input formControlName="login_Mobile" type="text" aria-label="Login Mobile"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Login Password</ion-label >
-            <ion-input formControlName="login_Password" type="text" aria-label="Login Password"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Login Password</ion-label>
+            <ion-input formControlName="login_Password" type="text" aria-label="Login Password"></ion-input>
+          </ion-item>
           
           <ion-item>
             <!-- <ion-label position="floating">Creation Date</ion-label> -->
-            <c-date formControlName="creation_Date" formLabel="Creation Date" datetime="datetime"  datetime="creation_Date"></c-date>
+            <c-date formControlName="creation_Date" formLabel="Creation Date"></c-date>
           </ion-item >
           
           <ion-item>
-            <ion-label position="floating">IsActive</ion-label >
+            <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item >
+          </ion-item>
           
 
    	<ion-item>

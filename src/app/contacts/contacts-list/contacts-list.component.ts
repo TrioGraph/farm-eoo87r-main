@@ -16,7 +16,7 @@ export class ContactsListComponent  implements OnInit {
     public modalController: ModalController,
     private routerOutlet: IonRouterOutlet
   ) {
-    this.dataService.searchFarmers('', 1, 10, '', '').subscribe((data: any)=> {
+    this.dataService.searchFarmers('', 1, 10, '', '', false, '', '','', '','').subscribe((data: any)=> {
       this.contacts = data.records;
     });
   }

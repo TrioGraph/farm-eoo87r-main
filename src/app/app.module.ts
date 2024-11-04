@@ -8,7 +8,7 @@ import {register} from 'swiper/element/bundle';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ContactsListComponent } from './contacts/contacts-list/contacts-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -129,6 +129,14 @@ import { AddVillagesComponent } from './pages/villages/add-villages/add-villages
 import { AddWorkflowComponent } from './pages/workflow/add-workflow/add-workflow.component';
 import { ControlsModule } from './controls/controls.module';
 import { IonicSelectableComponent } from 'ionic-selectable';
+import { AppInterceptor } from './interceptors/app.interceptor';
+import { CustomDatePipe } from './pipes/custom-date.pipe';
+import { QuickFieldVisitComponent } from './pages/quick-field-visit/quick-field-visit.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { Nursary_ActivityDetailsComponent } from './pages/nursary_activity/nursary_activity-details/nursary_activity-details.component';
+import { Nursary_ActivityListComponent } from './pages/nursary_activity/nursary_activity-list/nursary_activity-list.component';
+import { AddNursary_ActivityComponent } from './pages/nursary_activity/add-nursary_activity/add-nursary_activity.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 register();
 
@@ -255,8 +263,13 @@ register();
     AddVillagesComponent,
     WorkflowListComponent,
     WorkflowDetailsComponent,
-    AddWorkflowComponent
-
+    AddWorkflowComponent,
+    CustomDatePipe,
+    QuickFieldVisitComponent,
+    SettingsComponent,
+    Nursary_ActivityListComponent,
+    Nursary_ActivityDetailsComponent,
+    AddNursary_ActivityComponent
   ],
   imports: [
     BrowserModule, 
@@ -266,9 +279,17 @@ register();
     AppRoutingModule, 
     FormsModule,
     ReactiveFormsModule,
-    IonicSelectableComponent
+    IonicSelectableComponent,
+    
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppInterceptor,
+      multi: true
+     },
+    provideAnimationsAsync(),
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
   exports: [LayoutComponent, 
@@ -393,7 +414,8 @@ register();
     WorkflowListComponent,
     WorkflowDetailsComponent,
     AddWorkflowComponent,
-    
+    QuickFieldVisitComponent,
+    SettingsComponent
 
 
   ]

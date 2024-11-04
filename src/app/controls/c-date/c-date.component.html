@@ -13,13 +13,22 @@
 
 <div class="input-group">
   <ion-label for="name">{{formLabel}}</ion-label>
-
+<!-- 
   <input class="date"
   id="dateInputID"
   type="date"
+  [readOnly]=disabled
   [formControl]="dateControl"
   (blur)="onTouched()"
   (input)="onTouched()"
   (change)="onDateChange($event)"
-/>
+  [value]="dateValue"
+  [(ngModel)]="dateValue"
+/> -->
+
+<input type="date" id="date1" name="date1" [formControl]="dateControl"
+value="{{ dateValue | date:'yyyy-MM-dd' }}" (blur)="onTouched()" (input)="onTouched()">
+
+<!-- Date::: {{dateValue}} -->
+<!-- <input type="text" [(ngModel)]="dateValue"> -->
 </div>

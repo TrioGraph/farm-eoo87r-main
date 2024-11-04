@@ -4,11 +4,11 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { FarmService } from '../Farm.service';
-import { VPlantationIdentificationComponent } from './v-PlantationIdentification.component';
+import { VNursary_ActivityComponent } from './v-Nursary_Activity.component';
 
-describe('VPlantationIdentificationComponent', () => {
-  let component: VPlantationIdentificationComponent;
-  let fixture: ComponentFixture<VPlantationIdentificationComponent>;
+describe('VNursary_ActivityComponent', () => {
+  let component: VNursary_ActivityComponent;
+  let fixture: ComponentFixture<VNursary_ActivityComponent>;
 
   beforeEach(() => {
     const nzDrawerServiceStub = () => ({
@@ -19,16 +19,16 @@ describe('VPlantationIdentificationComponent', () => {
     });
     const nzModalServiceStub = () => ({ confirm: object => ({}) });
     const nzNotificationServiceStub = () => ({
-      create: (string, string1, fetch<<PlantationIdentification>>ErrorMessage) => ({})
+      create: (string, string1, fetch<<Nursary_Activity>>ErrorMessage) => ({})
     });
     const appsServiceStub = () => ({
       validatePermissionWithRole: editTaskAcivity => ({}),
-      get<<PlantationIdentification>>: () => ({ pipe: () => ({ subscribe: f => f({}) }) }),
+      get<<Nursary_Activity>>: () => ({ pipe: () => ({ subscribe: f => f({}) }) }),
       deleteRecord: (string, guid) => ({ subscribe: f => f({}) })
     });
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
-      declarations: [VPlantationIdentificationComponent],
+      declarations: [VNursary_ActivityComponent],
       providers: [
         { provide: NzDrawerService, useFactory: nzDrawerServiceStub },
         { provide: NzModalService, useFactory: nzModalServiceStub },
@@ -36,10 +36,10 @@ describe('VPlantationIdentificationComponent', () => {
           provide: NzNotificationService,
           useFactory: nzNotificationServiceStub
         },
-        { provide: FarmService, useFactory: plantationidentificationServiceStub }
+        { provide: FarmService, useFactory: nursary_activityServiceStub }
       ]
     });
-    fixture = TestBed.createComponent(VPlantationIdentificationComponent);
+    fixture = TestBed.createComponent(VNursary_ActivityComponent);
     component = fixture.componentInstance;
   });
 
@@ -71,12 +71,12 @@ describe('VPlantationIdentificationComponent', () => {
 
   describe('fetchPermissions', () => {
     it('makes expected calls', () => {
-      const plantationidentificationServiceStub: PlantationIdentificationService = fixture.debugElement.injector.get(
+      const nursary_activityServiceStub: Nursary_ActivityService = fixture.debugElement.injector.get(
         FarmService
       );
-      spyOn(plantationidentificationServiceStub, 'validatePermissionWithRole').and.callThrough();
+      spyOn(nursary_activityServiceStub, 'validatePermissionWithRole').and.callThrough();
       component.fetchPermissions();
-      expect(plantationidentificationServiceStub.validatePermissionWithRole).toHaveBeenCalled();
+      expect(nursary_activityServiceStub.validatePermissionWithRole).toHaveBeenCalled();
     });
   });
 
@@ -85,14 +85,14 @@ describe('VPlantationIdentificationComponent', () => {
       const nzNotificationServiceStub: NzNotificationService = fixture.debugElement.injector.get(
         NzNotificationService
       );
-      const plantationidentificationServiceStub: PlantationIdentificationService = fixture.debugElement.injector.get(
+      const nursary_activityServiceStub: Nursary_ActivityService = fixture.debugElement.injector.get(
         FarmService
       );
       spyOn(nzNotificationServiceStub, 'create').and.callThrough();
-      spyOn(plantationidentificationServiceStub, 'getPlantationIdentification').and.callThrough();
+      spyOn(nursary_activityServiceStub, 'getNursary_Activity').and.callThrough();
       component.fetchData();
       expect(nzNotificationServiceStub.create).toHaveBeenCalled();
-      expect(plantationidentificationServiceStub.getPlantationIdentification).toHaveBeenCalled();
+      expect(nursary_activityServiceStub.getNursary_Activity).toHaveBeenCalled();
     });
   });
 });

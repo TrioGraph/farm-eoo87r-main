@@ -4,17 +4,23 @@
     <ion-content>
       <ion-list id="inbox-list">
         <ion-list-header>LB Oils</ion-list-header>
-        <ion-note>{{user?.firstName}} {{ user?.lastName}}</ion-note>
+        <ion-note>{{user?.firstName}} {{ user?.lastName}}
+          <br> 
+          {{user?.role}}
+        </ion-note>
         <!-- <ion-note>Role : {{user?.role}} </ion-note> -->
-
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of accountPages; let i = index">
+        <ng-container *ngFor="let p of accountPages; let i = index">
+        <ion-menu-toggle auto-hide="false" *ngIf="user.role_Priv.result.includes(accountPages[i].privilegeId.toString())">
           <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
           <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
           <!-- <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon> -->
             <ion-label>{{ p.title }}</ion-label>
           </ion-item>
         </ion-menu-toggle>
+      </ng-container>
       </ion-list>
+      
+      <ion-button  routerLink="/login">Sign Out</ion-button>
 
       <ion-list id="labels-list">
         <!-- <ion-list-header>Labels</ion-list-header> -->
@@ -23,13 +29,12 @@
           <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
           <ion-label>{{ account.title }}</ion-label>
         </ion-item> -->
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of adminAccountPages; let i = index">
+        <!-- <ion-menu-toggle auto-hide="false" *ngFor="let p of adminAccountPages; let i = index">
           <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
           <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-          <!-- <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon> -->
             <ion-label>{{ p.title }}</ion-label>
           </ion-item>
-        </ion-menu-toggle>
+        </ion-menu-toggle> -->
       </ion-list>
     </ion-content>
   </ion-menu>

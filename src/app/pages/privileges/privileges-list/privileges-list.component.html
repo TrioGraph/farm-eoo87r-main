@@ -7,7 +7,7 @@
       Privileges
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-privileges'">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-privileges'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -32,6 +32,8 @@
         </ion-grid>
     </ion-toolbar>
   </ion-list>
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
     <table class="table">
         <tr>
       <td><ion-label> Privilege </ion-label></td>
@@ -44,10 +46,10 @@
 	  
       <td>
 	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/privileges-details/' + Privileges['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Privileges['Id'])"></ion-icon>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Privileges['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
 
       </td>
@@ -59,7 +61,7 @@ class="custom-alert"
 header="Delete Record"
 message="Are you sure to delete the record ?"
 [buttons]="alertButtons"
-(didDismiss)="setResult($event)">
+(didDismiss)="deleteRecord($event)">
 </ion-alert>
 </ion-content>
   

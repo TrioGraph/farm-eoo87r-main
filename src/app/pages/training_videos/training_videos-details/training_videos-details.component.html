@@ -6,7 +6,7 @@
     <ion-title>
       <b>
       <span *ngIf="formMode==='Edit'">Edit</span>
-      <span> Training_Videos Details </span>
+      <span> Training Videos Details </span>
       </b>
     </ion-title>
     <ion-buttons *ngIf="formMode==='View'" collapse="true" slot="end">
@@ -20,8 +20,9 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content  fullscreen="true">
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       
@@ -30,22 +31,22 @@
 
     
           <ion-item>
-            <ion-label position="floating">Web Link Address</ion-label >
-            <ion-input formControlName="web_Link_Address" type="text" aria-label="Web Link Address"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Web Link Address</ion-label>
+            <ion-input formControlName="web_Link_Address" type="text" aria-label="Web Link Address"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Description</ion-label >
-            <ion-textarea  formControlName="description" type="text" aria-label="Description"></ion-textarea  >
-          </ion-item >
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea  formControlName="description" rows="5"></ion-textarea>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">IsActive</ion-label >
+            <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item >
+          </ion-item>
           
 
-       <ion-item *ngIf="formMode==='Edit'">
+       <ion-item *ngIf="isInEditMode">
             <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
             <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
           </ion-item>

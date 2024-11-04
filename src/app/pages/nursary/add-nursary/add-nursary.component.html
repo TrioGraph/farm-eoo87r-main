@@ -10,7 +10,8 @@
 </ion-header>
 
 <ion-content>
-
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       
@@ -19,35 +20,35 @@
 
     
           <ion-item>
-            <ion-label position="floating">Name</ion-label >
-            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Name</ion-label>
+            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input>
+          </ion-item>
           
          <ion-item>
-            <ion-select placeholder="Select Village">
-                <ion-select-option *ngFor="let p of Location_Village_Id_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            <ion-select placeholder="Select Village" formControlName="location_Village_Id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Location_Village_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
   </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Surveys Nos</ion-label >
-            <ion-textarea  formControlName="surveys_Nos" type="text" aria-label="Surveys Nos"></ion-textarea  >
-          </ion-item >
+            <ion-label position="floating">Surveys Nos</ion-label>
+            <ion-textarea  formControlName="surveys_Nos" rows="5"></ion-textarea>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Area In Acres</ion-label >
-            <ion-input formControlName="area_In_Acres" type="text" aria-label="Area In Acres"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Area In Acres</ion-label>
+            <ion-input formControlName="area_In_Acres" type="text" aria-label="Area In Acres"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Description</ion-label >
-            <ion-textarea  formControlName="description" type="text" aria-label="Description"></ion-textarea  >
-          </ion-item >
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea  formControlName="description" rows="5"></ion-textarea>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">IsActive</ion-label >
+            <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item >
+          </ion-item>
           
 
    	<ion-item>

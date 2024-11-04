@@ -7,7 +7,7 @@
       Employees
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-employees'">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-employees'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -32,11 +32,13 @@
         </ion-grid>
     </ion-toolbar>
   </ion-list>
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
     <table class="table">
         <tr>
-      <td><ion-label> First_Name </ion-label></td>
-	  <td><ion-label> Last_Name </ion-label></td>
-	  <td><ion-label> User_Name </ion-label></td>
+      <td><ion-label> First Name </ion-label></td>
+	  <td><ion-label> Last Name </ion-label></td>
+	  <td><ion-label> User Name </ion-label></td>
 	  
      
     <tr *ngFor="let Employees of employeesList">
@@ -46,10 +48,10 @@
 	  
       <td>
 	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/employees-details/' + Employees['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Employees['Id'])"></ion-icon>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Employees['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
 
       </td>
@@ -61,7 +63,7 @@ class="custom-alert"
 header="Delete Record"
 message="Are you sure to delete the record ?"
 [buttons]="alertButtons"
-(didDismiss)="setResult($event)">
+(didDismiss)="deleteRecord($event)">
 </ion-alert>
 </ion-content>
   

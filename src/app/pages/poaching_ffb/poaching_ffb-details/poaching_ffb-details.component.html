@@ -6,7 +6,7 @@
     <ion-title>
       <b>
       <span *ngIf="formMode==='Edit'">Edit</span>
-      <span> Poaching_FFB Details </span>
+      <span> Poaching FFB Details </span>
       </b>
     </ion-title>
     <ion-buttons *ngIf="formMode==='View'" collapse="true" slot="end">
@@ -20,8 +20,9 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content  fullscreen="true">
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       
@@ -30,40 +31,42 @@
 
     
          <ion-item>
-            <ion-select placeholder="Select Farmer">
-                <ion-select-option *ngFor="let p of Farmer_Id_data" [value]="p.Id">{{p.First_Name}}</ion-select-option>
+            <ion-select placeholder="Select Farmer" formControlName="farmer_Id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Farmer_Id_data" [value]="p.id">{{p.first_name}}</ion-select-option>
             </ion-select>
   </ion-item>
 
          <ion-item>
-            <ion-select placeholder="Select Field">
-                <ion-select-option *ngFor="let p of Field_Id_data" [value]="p.Id">{{p.Id}}</ion-select-option>
+            <ion-select placeholder="Select Field" formControlName="field_Id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Field_Id_data" [value]="p.id">{{p.id}}</ion-select-option>
             </ion-select>
   </ion-item>
 
-         <ion-item>
-            <ion-select placeholder="Select Photo">
-                <ion-select-option *ngFor="let p of Photo_Id_data" [value]="p.Id">{{p.Id}}</ion-select-option>
-            </ion-select>
-  </ion-item>
-
+          <ion-item class="input-group">
+            <ion-label position="floating">Photo></ion-label><br>
+            <input type="file" aria-label="Photo" (change)="fileChange($event, 'Photo_Id')" 
+            placeholder="Upload Photo" />
+            <img class="form-image" [src]=Photo_Id>
+            <ion-button (click)="uploadImage('Photo_Id')">Upload</ion-button>
+          </ion-item>
+          
           <ion-item>
             <!-- <ion-label position="floating">Poaching Date</ion-label> -->
-            <c-date formControlName="poaching_Date" formLabel="Poaching Date" datetime="datetime"  datetime="poaching_Date"></c-date>
+            <c-date formControlName="poaching_Date" formLabel="Poaching Date"></c-date>
           </ion-item >
           
           <ion-item>
-            <ion-label position="floating">Notes</ion-label >
-            <ion-textarea  formControlName="notes" type="text" aria-label="Notes"></ion-textarea  >
-          </ion-item >
+            <ion-label position="floating">Notes</ion-label>
+            <ion-textarea  formControlName="notes" rows="5"></ion-textarea>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">IsActive</ion-label >
+            <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item >
+          </ion-item>
           
 
-       <ion-item *ngIf="formMode==='Edit'">
+       <ion-item *ngIf="isInEditMode">
             <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
             <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
           </ion-item>

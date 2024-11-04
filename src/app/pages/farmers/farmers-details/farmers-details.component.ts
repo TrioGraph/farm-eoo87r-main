@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, IonRouterOutlet, ToastController } from '@ionic/angular';
+import { ModalController, IonRouterOutlet, ToastController, IonModal, LoadingController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +15,10 @@ export class FarmersDetailsComponent implements OnInit {
   id!: string;
   ionicForm!: FormGroup;
   formMode: any = 'View';
+  isInEditMode: boolean = false;
+  title = 'Field Visit Details';
+  fileList: Map<string, object> = new Map<string, object>();
+  isLoading = false;
 
   Farmer_Code_data : any;
 First_Name_data : any;
@@ -34,6 +38,8 @@ Mobile_Number1_data : any;
 Mobile_Number2_data : any;
 Lease_Code_data : any;
 Farmer_Photo_Id_data : any;
+Farmer_Photo_Id : any;
+Farmer_Photo_IdInput : any;
 Year_data : any;
 Family_Code_data : any;
 Scheme_data : any;
@@ -58,6 +64,8 @@ Email_data : any;
 Supervisor_Id_data : any;
 Tally_FarmerCode_data : any;
 Land_Photo_Id_data : any;
+Land_Photo_Id : any;
+Land_Photo_IdInput : any;
 IsActive_data : any;
 
   
@@ -121,18 +129,41 @@ isActive: ['', [Validators.required]],
     });
 
    this.id = this.route.snapshot.paramMap.get('id')!;
+   this.isLoading = true;
+
+   this.dataService.getGenderLookup().subscribe((result: any) => { 
+	 this.Gender_data = result; 
+}); 
+this.dataService.GetVillagesLookup('').subscribe((result: any) => { 
+	 this.Village_Code_data = result; 
+}); 
+this.dataService.getMandal_BlocksLookup().subscribe((result: any) => { 
+	 this.Mandal_Code_data = result; 
+}); 
+this.dataService.getPhotosLookup().subscribe((result: any) => { 
+	 this.Farmer_Photo_Id_data = result; 
+}); 
+this.dataService.getEmployeesLookup().subscribe((result: any) => { 
+	 this.Supervisor_Id_data = result; 
+}); 
+this.dataService.getPhotosLookup().subscribe((result: any) => { 
+	 this.Land_Photo_Id_data = result; 
+}); 
+
 
    this.dataService.getFarmersById(this.id).subscribe((data: any)=> {
       this.farmersDetails = data;
       this.ionicForm.patchValue(data);
-    });
-
+      this.isLoading = false;
+   });
+   this.ionicForm.disable();
   }
  
 
   submitForm(): void {
-      this.formMode = 'View';
+    this.isInEditMode = false;
     let tempFormData =  this.ionicForm.value;
+   this.isLoading = true;
     this.dataService.updateFarmers(this.id, tempFormData).subscribe(async(data: any) => {
       console.log('Record Updated Successfully');
 	const toast = await this.toastController.create({
@@ -141,6 +172,8 @@ isActive: ['', [Validators.required]],
         position: 'top',
       });
       await toast.present();
+      this.isLoading = false;
+
     },
 (async(error: any) => {
       console.error('Error handler:', error);
@@ -150,6 +183,8 @@ isActive: ['', [Validators.required]],
         position: 'top',
       });
       await toast.present();
+      this.isLoading = false;
+
     })
     )
   }
@@ -160,12 +195,59 @@ isActive: ['', [Validators.required]],
   
   editForm(){
     this.formMode = 'Edit';
-  }
+    this.isInEditMode = true;
+    this.ionicForm.enable();
+ }
 
   cancelForm(){
     this.formMode = 'View';
+    this.isInEditMode = false;
+    this.ionicForm.disable();
   }
 
   
+fileChange(event: any, propertyName: any) {
+    let tempFilesList = event.target.files;
+    if (tempFilesList.length < 1) {
+      return;
+    }
+    this.fileList.set(propertyName, tempFilesList[0]);
+        if (propertyName === 'Farmer_Photo_Id') {
+      this.Farmer_Photo_Id = URL.createObjectURL(tempFilesList[0]);
+    }
+    if (propertyName === 'Land_Photo_Id') {
+      this.Land_Photo_Id = URL.createObjectURL(tempFilesList[0]);
+    }
+    
+  }
+
+  uploadImage(propertyName: any) {
+    let tempFile = this.fileList.get(propertyName);
+    let formData: FormData = new FormData();
+    formData.append('uploadFile', tempFile as File, (tempFile as File).name);
+    formData.append('tableName', 'Farmers');
+    formData.append('primaryKeysList', this.id);
+    formData.append('propertyName', propertyName);
+    this.isLoading = true;
+
+    this.dataService.uploadImage(formData).subscribe((data: any) => {
+      console.log('File Upload Success');
+      this.isLoading = true;
+
+    },
+(async(error: any) => {
+      console.error('Error handler:', error);
+      const toast = await this.toastController.create({
+        message: 'Error occurred while updating the record',
+        duration: 1500,
+        position: 'top',
+      });
+      await toast.present();
+      this.isLoading = false;
+
+    })
+    );
+  }
+
 
 }

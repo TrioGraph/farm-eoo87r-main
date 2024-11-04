@@ -20,8 +20,9 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content  fullscreen="true">
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       
@@ -30,28 +31,28 @@
 
     
           <ion-item>
-            <ion-label position="floating">Name</ion-label >
-            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Name</ion-label>
+            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input>
+          </ion-item>
           
          <ion-item>
-            <ion-select placeholder="Select Document Type">
-                <ion-select-option *ngFor="let p of Doc_Type_Id_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            <ion-select placeholder="Select Document Type" formControlName="doc_Type_Id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Doc_Type_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
   </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Picture</ion-label >
-            <ion-input formControlName="picture" type="text" aria-label="Picture"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Picture</ion-label>
+            <ion-input formControlName="picture" type="text" aria-label="Picture"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">IsActive</ion-label >
+            <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item >
+          </ion-item>
           
 
-       <ion-item *ngIf="formMode==='Edit'">
+       <ion-item *ngIf="isInEditMode">
             <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
             <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
           </ion-item>

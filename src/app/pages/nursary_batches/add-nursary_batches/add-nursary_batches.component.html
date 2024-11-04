@@ -4,13 +4,14 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Create Nursary_Batches
+      Create Nursary Batches
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       
@@ -19,35 +20,35 @@
 
     
           <ion-item>
-            <ion-label position="floating">Name</ion-label >
-            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Name</ion-label>
+            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Origin</ion-label >
-            <ion-input formControlName="origin" type="text" aria-label="Origin"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Origin</ion-label>
+            <ion-input formControlName="origin" type="text" aria-label="Origin"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Batch Id Supplier</ion-label >
-            <ion-input formControlName="batch_Id_Supplier" type="text" aria-label="Batch Id Supplier"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Batch Id Supplier</ion-label>
+            <ion-input formControlName="batch_Id_Supplier" type="text" aria-label="Batch Id Supplier"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Supplier Details</ion-label >
-            <ion-input formControlName="supplier_Details" type="text" aria-label="Supplier Details"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Supplier Details</ion-label>
+            <ion-input formControlName="supplier_Details" type="text" aria-label="Supplier Details"></ion-input>
+          </ion-item>
           
          <ion-item>
-            <ion-select placeholder="Select Located Nursary">
-                <ion-select-option *ngFor="let p of Located_Nursery_Id_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            <ion-select placeholder="Select Located Nursary" formControlName="located_Nursery_Id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Located_Nursery_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
   </ion-item>
 
           <ion-item>
-            <ion-label position="floating">IsActive</ion-label >
+            <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item >
+          </ion-item>
           
 
    	<ion-item>

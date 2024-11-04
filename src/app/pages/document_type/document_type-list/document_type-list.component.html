@@ -4,10 +4,10 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Document_Type
+      Document Type
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-document_type'">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-document_type'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -17,7 +17,7 @@
 <ion-content fullscreen="true">
   <ion-header collapse="condense" class="ion-no-border">
     <ion-toolbar>
-      <ion-title size="large">Document_Type</ion-title>
+      <ion-title size="large">Document Type</ion-title>
       <ion-buttons collapse="true" slot="end">
         <ion-button color="primary" [routerLink]="'/farm/add-document_type'">
           <ion-icon slot="icon-only" name="add-outline"></ion-icon>
@@ -32,26 +32,33 @@
         </ion-grid>
     </ion-toolbar>
   </ion-list>
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
     <table class="table">
+ 	<thead>
         <tr>
-      <td><ion-label> Name </ion-label></td>
-	  <td><ion-label> IsActive </ion-label></td>
+      <td class="table-cell-heading"><ion-label> Name </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> IsActive </ion-label></td>
 	  
-     
+     	</tr>
+	</thead>
+
+  <tbody>
     <tr *ngFor="let Document_Type of document_typeList">
-      <td><ion-label>{{ Document_Type['Name'] }}</ion-label></td>
-	  <td><ion-label>{{ Document_Type['IsActive'] }}</ion-label></td>
+      <td class="table-cell"><ion-label>{{ Document_Type['Name'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Document_Type['IsActive'] }}</ion-label></td>
 	  
       <td>
 	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/document_type-details/' + Document_Type['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Document_Type['Id'])"></ion-icon>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Document_Type['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
 
       </td>
     </tr>
+    </tbody>
    </table>
 <ion-alert
 trigger="present-alert"
@@ -59,7 +66,7 @@ class="custom-alert"
 header="Delete Record"
 message="Are you sure to delete the record ?"
 [buttons]="alertButtons"
-(didDismiss)="setResult($event)">
+(didDismiss)="deleteRecord($event)">
 </ion-alert>
 </ion-content>
   

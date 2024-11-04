@@ -10,7 +10,8 @@
 </ion-header>
 
 <ion-content>
-
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       
@@ -19,21 +20,21 @@
 
     
          <ion-item>
-            <ion-select placeholder="Select Role">
-                <ion-select-option *ngFor="let p of Role_id_data" [value]="p.id">{{p.name}}</ion-select-option>
-            </ion-select>
-  </ion-item>
-
-         <ion-item>
-            <ion-select placeholder="Select Privilege">
+            <ion-select placeholder="Select Role" formControlName="privilege_Id" [disabled]="!isInEditMode">
                 <ion-select-option *ngFor="let p of Privilege_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
   </ion-item>
 
+         <ion-item>
+            <ion-select placeholder="Select Role" formControlName="role_id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Role_id_data" [value]="p.id">{{p.name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
           <ion-item>
-            <ion-label position="floating">IsActive</ion-label >
+            <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item >
+          </ion-item>
           
 
    	<ion-item>

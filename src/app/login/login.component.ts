@@ -56,7 +56,7 @@ console.log('Sign in');
       this.signin_form.controls['password'].value))
       .subscribe({
       next: (data: any) => {
-        console.log('data: ', data);
+        
         if(data === undefined || data?.['role_Priv'] === undefined)
         {
           console.log('data === undefined || data?.[role_Priv] === undefined');
@@ -64,7 +64,9 @@ console.log('Sign in');
           loading.dismiss();
         }
         console.log('data Result : ', data['role_Priv'].result);
-        localStorage.setItem('user', data['role_Priv'].result);
+        localStorage.setItem('user', data);
+        localStorage.setItem('user-token', data.token);
+        localStorage.setItem('AccessList', data['role_Priv'].result);
         this.dataService.userInfo.next(data);
         console.log(' localStorage.getItem(user): ',  localStorage.getItem('user'));
         

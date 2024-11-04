@@ -7,7 +7,7 @@
       Gender
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-gender'">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-gender'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -32,26 +32,33 @@
         </ion-grid>
     </ion-toolbar>
   </ion-list>
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
     <table class="table">
+ 	<thead>
         <tr>
-      <td><ion-label> Name </ion-label></td>
-	  <td><ion-label> IsActive </ion-label></td>
+      <td class="table-cell-heading"><ion-label> Name </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> IsActive </ion-label></td>
 	  
-     
+     	</tr>
+	</thead>
+
+  <tbody>
     <tr *ngFor="let Gender of genderList">
-      <td><ion-label>{{ Gender['Name'] }}</ion-label></td>
-	  <td><ion-label>{{ Gender['IsActive'] }}</ion-label></td>
+      <td class="table-cell"><ion-label>{{ Gender['Name'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Gender['IsActive'] }}</ion-label></td>
 	  
       <td>
 	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/gender-details/' + Gender['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Gender['Id'])"></ion-icon>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Gender['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
 
       </td>
     </tr>
+    </tbody>
    </table>
 <ion-alert
 trigger="present-alert"
@@ -59,7 +66,7 @@ class="custom-alert"
 header="Delete Record"
 message="Are you sure to delete the record ?"
 [buttons]="alertButtons"
-(didDismiss)="setResult($event)">
+(didDismiss)="deleteRecord($event)">
 </ion-alert>
 </ion-content>
   

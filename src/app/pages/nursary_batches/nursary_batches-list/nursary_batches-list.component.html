@@ -4,10 +4,10 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Nursary_Batches
+      Nursary Batches
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-nursary_batches'">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-nursary_batches'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -17,7 +17,7 @@
 <ion-content fullscreen="true">
   <ion-header collapse="condense" class="ion-no-border">
     <ion-toolbar>
-      <ion-title size="large">Nursary_Batches</ion-title>
+      <ion-title size="large">Nursary Batches</ion-title>
       <ion-buttons collapse="true" slot="end">
         <ion-button color="primary" [routerLink]="'/farm/add-nursary_batches'">
           <ion-icon slot="icon-only" name="add-outline"></ion-icon>
@@ -32,32 +32,39 @@
         </ion-grid>
     </ion-toolbar>
   </ion-list>
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
     <table class="table">
+ 	<thead>
         <tr>
-      <td><ion-label> Name </ion-label></td>
-	  <td><ion-label> Origin </ion-label></td>
-	  <td><ion-label> Supplier_Details </ion-label></td>
-	  <td><ion-label> Located_Nursery_Id </ion-label></td>
-	  <td><ion-label> IsActive </ion-label></td>
+      <td class="table-cell-heading"><ion-label> Name </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Origin </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Supplier Details </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Located Nursery  </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> IsActive </ion-label></td>
 	  
-     
+     	</tr>
+	</thead>
+
+  <tbody>
     <tr *ngFor="let Nursary_Batches of nursary_batchesList">
-      <td><ion-label>{{ Nursary_Batches['Name'] }}</ion-label></td>
-	  <td><ion-label>{{ Nursary_Batches['Origin'] }}</ion-label></td>
-	  <td><ion-label>{{ Nursary_Batches['Supplier_Details'] }}</ion-label></td>
-	  <td><ion-label>{{ Nursary_Batches['Located_Nursery_Id'] }}</ion-label></td>
-	  <td><ion-label>{{ Nursary_Batches['IsActive'] }}</ion-label></td>
+      <td class="table-cell"><ion-label>{{ Nursary_Batches['Name'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Nursary_Batches['Origin'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Nursary_Batches['Supplier_Details'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Nursary_Batches['Located_Nursery_Id'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Nursary_Batches['IsActive'] }}</ion-label></td>
 	  
       <td>
 	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/nursary_batches-details/' + Nursary_Batches['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Nursary_Batches['Id'])"></ion-icon>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Nursary_Batches['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
 
       </td>
     </tr>
+    </tbody>
    </table>
 <ion-alert
 trigger="present-alert"
@@ -65,7 +72,7 @@ class="custom-alert"
 header="Delete Record"
 message="Are you sure to delete the record ?"
 [buttons]="alertButtons"
-(didDismiss)="setResult($event)">
+(didDismiss)="deleteRecord($event)">
 </ion-alert>
 </ion-content>
   

@@ -5,11 +5,11 @@
     </ion-buttons>
     <ion-title>
       <b>
-        <span *ngIf="formMode==='Edit'">Edit</span>
+        <span *ngIf="isInEditMode">Edit</span>
         <span> Field Visit Details - {{this.id}}</span>
       </b>
     </ion-title>
-    <ion-buttons *ngIf="formMode==='View'" collapse="true" slot="end">
+    <ion-buttons *ngIf="!isInEditMode" collapse="true" slot="end">
       <ion-button (click)="editForm()">
         <ion-icon slot="icon-only" name="pencil"></ion-icon>
       </ion-button>
@@ -20,69 +20,106 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content fullscreen="true">
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
 
-
-
       <ion-list lines="none">
+        <ion-item [button]="true" [detail]="false" id="select-farmers" *ngIf="isInEditMode">
+          <ion-label>Farmer</ion-label>
+          <div slot="end" id="selected-farmers">{{ selectedFarmersText }}</div>
+        </ion-item>
+        <ion-modal trigger="select-farmers" #modal>
+          <ng-template>
+            <app-typeheadsingle class="ion-page" title="Farmers" [items]="Farmer_Id_data" [selectedItems]="selectedFarmers"
+              (selectionChange)="farmerSelectionChanged($event)" (selectionCancel)="modal.dismiss()"></app-typeheadsingle>
+          </ng-template>
+        </ion-modal>
+
         <form [formGroup]="ionicForm">
 
-
-          <ion-item>
-            <ion-select placeholder="Select Field Id">
-              <ion-select-option *ngFor="let p of Field_Id_data" [value]="p.Id">{{p.Id}}</ion-select-option>
+          <ion-item [disabled]="!isInEditMode">
+            <ion-select placeholder="Select Field Id" formControlName="field_Id">
+              <ion-select-option *ngFor="let p of Field_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
           </ion-item>
 
           <ion-item>
-            <ion-select placeholder="Select Employee Id">
+            <ion-select placeholder="Select Employee Id" formControlName="employee_Id" [disabled]="!isInEditMode">
               <ion-select-option *ngFor="let p of Employee_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
           </ion-item>
 
           <ion-item>
             <!-- <ion-label position="floating">Visist Schedule Date</ion-label> -->
-            <c-date formControlName="visist_Schedule_Date" formLabel="Visist Schedule Date" datetime="datetime"
-              datetime="visist_Schedule_Date"></c-date>
+            <!-- <c-date formControlName="visist_Schedule_Date" formLabel="Visist Schedule Date" datetime="datetime"
+              datetime="visist_Schedule_Date" formControlName="visist_Schedule_Date"
+              [disabled]="!isInEditMode"></c-date> -->
+              <c-date  formControlName="visist_Schedule_Date" name="visist_Schedule_Date" formLabel="Visit Schedule Date" 
+              [dateValue]="Visist_Schedule_Date_data" [disabled]="!isInEditMode"></c-date>
           </ion-item>
 
           <ion-item>
             <!-- <ion-label position="floating">Field Visit Date</ion-label> -->
-            <c-date formControlName="field_Visit_Date" formLabel="Field Visit Date" datetime="datetime"
-              datetime="field_Visit_Date" readonly="true"></c-date>
+            <!-- <c-date formControlName="field_Visit_Date" formLabel="Field Visit Date" datetime="datetime"
+              datetime="field_Visit_Date" [readonly]="!isInEditMode" formControlName="field_Visit_Date"
+              [disabled]="!isInEditMode" [dateValue]=""></c-date> -->
+              <c-date  formControlName="field_Visit_Date" name="Field_Visit_Date" formLabel="Field Visit Date" 
+              [dateValue]="Field_Visit_Date_data" [disabled]="!isInEditMode"></c-date>
           </ion-item>
 
           <ion-item>
             <ion-label position="floating">Status Complete</ion-label>
-            <ion-input formControlName="status_Complete" type="text" aria-label="Status Complete"></ion-input>
+            <ion-input formControlName="status_Complete" type="text" aria-label="Status Complete"
+              [readonly]="!isInEditMode" formControlName="status_Complete" [disabled]="!isInEditMode"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label position="floating">Notes</ion-label>
-            <!-- <ion-input formControlName="notes" type="text" aria-label="Notes"></ion-input> -->
-            <ion-textarea formControlName="notes" rows="5" aria-label="Notes"></ion-textarea>
+            <!-- <ion-input formControlName="notes" type="text" aria-label="Notes" [readonly]="!isInEditMode"></ion-input> -->
+            <ion-textarea formControlName="notes" rows="5" aria-label="Notes" [readonly]="!isInEditMode"  formControlName="notes"></ion-textarea>
 
           </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Photo</ion-label ><br/>
-            <input type = "file" formControlName="photo_Id"/>
-          </ion-item >
+            <ion-label position="floating">Photo</ion-label><br>
+            <input type="file" aria-label="Photo" (change)="fileChange($event, 'photo_Id')" placeholder="Upload file"
+              [disabled]="!isInEditMode" />
+            <img class="form-image" [src]=photoId>
+            <ion-button (click)="uploadImage('photo_Id')" [disabled]="!isInEditMode">Upload</ion-button>
+          </ion-item>
 
+          <ion-item>
+            <ion-label position="floating">Prescription Photo</ion-label><br>
+            <input type="file" aria-label="Prescription Photo Id" (change)="fileChange($event, 'prescription_Photo_Id')"
+              placeholder="Upload file" [disabled]="!isInEditMode" />
+            <img class="form-image" [src]=prescriptionPhotoId>
+            <ion-button (click)="uploadImage('prescription_Photo_Id')" [disabled]="!isInEditMode">Upload</ion-button>
+          </ion-item>
+
+          <!-- <ion-item>
+            <ion-label position="floating">Photo</ion-label ><br/>
+            <input type="file" formControlName="photo_Id"  [disabled]="!isInEditMode"/>
+            <ion-button (click)="uploadImage('photo_Id')">Upload</ion-button>
+          </ion-item >
           <ion-item>
             <ion-label position="floating">Prescription Photo</ion-label ><br/>
-            <input type = "file" formControlName="prescription_Photo_Id"/>
-          </ion-item >
+            <input type="file" formControlName="prescription_Photo_Id"  [disabled]="!isInEditMode"/>
+            <ion-button (click)="uploadImage('prescription_Photo_Id')">Upload</ion-button>
+          </ion-item > -->
 
-          <ion-item>
+          <!-- <ion-item>
             <ion-label position="floating">IsActive</ion-label>
-            <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item>
+            <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"
+              [readonly]="!isInEditMode"></ion-toggle>
+          </ion-item> -->
+          <ion-toggle class="ion-toggle" color="primary" justify="start"
+          [enableOnOffLabels]="true" formControlName="isActive" type="text" 
+          aria-label="IsActive" [readonly]="!isInEditMode">
+            <ion-label>IsActive</ion-label >
+          </ion-toggle>
 
-          <ion-item *ngIf="formMode==='Edit'">
+          <ion-item *ngIf="isInEditMode">
             <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
             <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
           </ion-item>

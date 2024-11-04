@@ -1,0 +1,74 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Nursary Activity
+    </ion-title>
+    <ion-buttons collapse="true" slot="end">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-nursary_activity'">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-header collapse="condense" class="ion-no-border">
+    <ion-toolbar>
+      <ion-title size="large">Nursary Activity</ion-title>
+      <ion-buttons collapse="true" slot="end">
+        <ion-button color="primary" [routerLink]="'/farm/add-nursary_activity'">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-toolbar>
+      <ion-grid>
+        <app-search (search)="searchNursary_Activity($event)"></app-search>
+        </ion-grid>
+    </ion-toolbar>
+  </ion-list>
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
+    <table class="table">
+ 	<thead>
+        <tr>
+      <td class="table-cell-heading"><ion-label> Name </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Nursary Batch  </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> IsActive </ion-label></td>
+	  
+     	</tr>
+	</thead>
+
+  <tbody>
+    <tr *ngFor="let Nursary_Activity of nursary_activityList">
+      <td class="table-cell"><ion-label>{{ Nursary_Activity['Name'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Nursary_Activity['Nursary_Batch_Id'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Nursary_Activity['IsActive'] }}</ion-label></td>
+	  
+      <td>
+	
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+        [routerLink]="'/farm/nursary_activity-details/' + Nursary_Activity['Id']"></ion-icon></ion-badge>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Nursary_Activity['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
+        </ion-badge>
+
+      </td>
+    </tr>
+    </tbody>
+   </table>
+<ion-alert
+trigger="present-alert"
+class="custom-alert"
+header="Delete Record"
+message="Are you sure to delete the record ?"
+[buttons]="alertButtons"
+(didDismiss)="deleteRecord($event)">
+</ion-alert>
+</ion-content>
+  

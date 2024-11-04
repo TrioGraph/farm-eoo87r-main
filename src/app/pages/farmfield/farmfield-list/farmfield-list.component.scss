@@ -8,8 +8,28 @@
     width:100%;
     overflow-x: auto;
     white-space: nowrap;
+    display: block;
 }
 
+table thead {
+  display: table;
+  width: 100%;
+}
+
+table tbody {
+  display: table;
+  width: 100%;
+}
+.table-cell-heading
+{
+  margin-left: 5px;
+  font-weight: bolder;
+  border-bottom: 1px solid gray;
+}
+.table-cell
+{
+  border-bottom: 1px solid gray;
+}
 .badge
 {
     cursor:pointer;

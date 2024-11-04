@@ -10,7 +10,8 @@
 </ion-header>
 
 <ion-content>
-
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       
@@ -19,35 +20,35 @@
 
     
           <ion-item>
-            <ion-label position="floating">Name</ion-label >
-            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Name</ion-label>
+            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Description</ion-label >
-            <ion-textarea  formControlName="description" type="text" aria-label="Description"></ion-textarea  >
-          </ion-item >
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea  formControlName="description" rows="5"></ion-textarea>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Reauired Items</ion-label >
-            <ion-input formControlName="reauired_Items" type="text" aria-label="Reauired Items"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Reauired Items</ion-label>
+            <ion-input formControlName="reauired_Items" type="text" aria-label="Reauired Items"></ion-input>
+          </ion-item>
           
           <ion-item>
-            <ion-label position="floating">Goals To Achieve</ion-label >
-            <ion-input formControlName="goals_To_Achieve" type="text" aria-label="Goals To Achieve"></ion-input >
-          </ion-item >
+            <ion-label position="floating">Goals To Achieve</ion-label>
+            <ion-input formControlName="goals_To_Achieve" type="text" aria-label="Goals To Achieve"></ion-input>
+          </ion-item>
           
          <ion-item>
-            <ion-select placeholder="Select Campign Type">
-                <ion-select-option *ngFor="let p of Campign_Type_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            <ion-select placeholder="Select Campign Type" formControlName="campign_Type" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Campign_Type_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
   </ion-item>
 
           <ion-item>
-            <ion-label position="floating">IsActive</ion-label >
+            <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item >
+          </ion-item>
           
 
    	<ion-item>

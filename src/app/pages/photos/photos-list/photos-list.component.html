@@ -7,7 +7,7 @@
       Photos
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-photos'">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-photos'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -32,28 +32,35 @@
         </ion-grid>
     </ion-toolbar>
   </ion-list>
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
     <table class="table">
+ 	<thead>
         <tr>
-      <td><ion-label> Photo_Type </ion-label></td>
-	  <td><ion-label> Photo_Blob </ion-label></td>
-	  <td><ion-label> IsActive </ion-label></td>
+      <td class="table-cell-heading"><ion-label> Photo Type </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Photo Blob </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> IsActive </ion-label></td>
 	  
-     
+     	</tr>
+	</thead>
+
+  <tbody>
     <tr *ngFor="let Photos of photosList">
-      <td><ion-label>{{ Photos['Photo_Type'] }}</ion-label></td>
-	  <td><ion-label>{{ Photos['Photo_Blob'] }}</ion-label></td>
-	  <td><ion-label>{{ Photos['IsActive'] }}</ion-label></td>
+      <td class="table-cell"><ion-label>{{ Photos['Photo_Type'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Photos['Photo_Blob'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Photos['IsActive'] }}</ion-label></td>
 	  
       <td>
 	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/photos-details/' + Photos['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Photos['Id'])"></ion-icon>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Photos['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
 
       </td>
     </tr>
+    </tbody>
    </table>
 <ion-alert
 trigger="present-alert"
@@ -61,7 +68,7 @@ class="custom-alert"
 header="Delete Record"
 message="Are you sure to delete the record ?"
 [buttons]="alertButtons"
-(didDismiss)="setResult($event)">
+(didDismiss)="deleteRecord($event)">
 </ion-alert>
 </ion-content>
   

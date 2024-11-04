@@ -4,13 +4,14 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Create Logins_Log
+      Create Logins Log
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       
@@ -19,14 +20,14 @@
 
     
          <ion-item>
-            <ion-select placeholder="Select Login">
-                <ion-select-option *ngFor="let p of Login_Id_data" [value]="p.Id">{{p.Login}}</ion-select-option>
+            <ion-select placeholder="Select Login" formControlName="login_Id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Login_Id_data" [value]="p.id">{{p.login}}</ion-select-option>
             </ion-select>
   </ion-item>
 
           <ion-item>
             <!-- <ion-label position="floating">Login datetime</ion-label> -->
-            <c-date formControlName="login_datetime" formLabel="Login datetime" datetime="datetime"  datetime="login_datetime"></c-date>
+            <c-date formControlName="login_datetime" formLabel="Login datetime"></c-date>
           </ion-item >
           
 

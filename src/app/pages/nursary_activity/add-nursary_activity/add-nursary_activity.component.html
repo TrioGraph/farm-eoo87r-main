@@ -1,0 +1,62 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Create Nursary Activity
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      
+      <ion-list lines="none">
+        <form [formGroup]="ionicForm">
+
+    
+          <ion-item>
+            <ion-label position="floating">Name</ion-label>
+            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input>
+          </ion-item>
+          
+         <ion-item>
+            <ion-select placeholder="Select Nursary Batch" formControlName="nursary_Batch_Id" [disabled]="!isInEditMode">
+                <ion-select-option *ngFor="let p of Nursary_Batch_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
+            </ion-select>
+  </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-input formControlName="description" type="text" aria-label="Description"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label position="floating">Photo</ion-label>
+            <ion-input formControlName="photo" type="text" aria-label="Photo"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-toggle class="ion-toggle" color="primary" justify="start"
+            [enableOnOffLabels]="true" formControlName="isActive" type="text" 
+            aria-label="isActive" [readonly]="!isInEditMode">
+              <ion-label>isActive</ion-label >
+            </ion-toggle>
+            </ion-item>
+          
+
+   	<ion-item>
+          <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+        </ion-item>
+    </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>
+
+  

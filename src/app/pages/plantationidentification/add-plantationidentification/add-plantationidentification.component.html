@@ -51,15 +51,27 @@
             <ion-input formControlName="mobile_Number2" type="text" aria-label="Mobile Number2"></ion-input>
           </ion-item>
 
-          <ion-item>
-            <ion-select placeholder="Select Village">
-              <ion-select-option *ngFor="let p of Village_Code_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+          <!-- <ion-item>
+            <ion-select placeholder="Select Village" (ionChange)="villageChange($event)">
+              <ion-select-option *ngFor="let p of Village_Code_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
+          </ion-item> -->
+
+          <ion-item [button]="true" [detail]="false" id="select-villages">
+            <ion-label>Village</ion-label>
+            <div slot="end" id="selected-villages">{{ selectedVillagesText }}</div>
           </ion-item>
+          <ion-modal trigger="select-villages" #modal>
+            <ng-template>
+              <app-typeheadsingle class="ion-page" title="Village" [items]="Village_Code_data" [selectedItems]="selectedVillage"
+                (selectionChange)="VillageSelectionChanged($event)" (selectionCancel)="modal.dismiss()"
+                (searchInput)="searchVillages($event)"></app-typeheadsingle>
+            </ng-template>
+          </ion-modal>
 
           <ion-item>
-            <ion-select placeholder="Select Mandal">
-              <ion-select-option *ngFor="let p of Mandal_Code_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+            <ion-select placeholder="Select Mandal" formControlName="mandal_Code">
+              <ion-select-option *ngFor="let p of Mandal_Code_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -74,7 +86,7 @@
         <form [formGroup]="tab2Form">
           <ion-item>
             <ion-select placeholder="Select Gender">
-              <ion-select-option *ngFor="let p of Gender_data" [value]="p.Id">{{p.Name}}</ion-select-option>
+              <ion-select-option *ngFor="let p of Gender_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -106,23 +118,33 @@
 
           <ion-item class="input-group">
             <ion-label position="floating">Farmer Photo</ion-label><br>
-            <input type="file" aria-label="Farmer Photo" (change)="fileChange($event, 'farmer_Photo_Id')" placeholder="Upload file"/>
+            <input type="file" aria-label="Farmer Photo" (change)="fileChange($event, 'farmer_Photo_Id')" 
+            placeholder="Upload file"  [value]="farmerPhotoIdInput"/>
+            <img class="form-image" [src]=farmerPhotoId>
+            <ion-button (click)="uploadImage('farmer_Photo_Id')" >Upload</ion-button>
           </ion-item>
 
           <ion-item>
             <ion-label position="floating">Land Photo</ion-label><br>
-            <input type="file" aria-label="Land Photo" (change)="fileChange($event, 'land_Photo_Id')" placeholder="Upload file"/>
-          </ion-item>
-
-          <ion-item>
-            <ion-label position="floating">Aadhar No</ion-label><br>
-            <input type="file" aria-label="Aadhar No" (change)="fileChange($event, 'aadhar_No')" placeholder="Upload file"/>
+            <input type="file" aria-label="Land Photo" (change)="fileChange($event, 'land_Photo_Id')" placeholder="Upload file" />
+            <img class="form-image" [src]=landPhotoId>
+            <ion-button (click)="uploadImage('land_Photo_Id')" >Upload</ion-button>
           </ion-item>
 
           <ion-item>
             <ion-label position="floating">Bank Name</ion-label><br>
-            <ion-input type="file" aria-label="Bank Name"  (change)="fileChange($event, 'bank_Name')" placeholder="Upload file"></ion-input>
+            <input type="file" aria-label="Bank Name" (change)="fileChange($event, 'bank_Name')" placeholder="Upload file" />
+            <img class="form-image" [src]=bankName>
+            <ion-button (click)="uploadImage('bank_Name')" >Upload</ion-button>
           </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Aadhar No</ion-label><br>
+            <input type="file" aria-label="Aadhar No" (change)="fileChange($event, 'aadhar_No')" placeholder="Upload file"  />
+            <img class="form-image" [src]=aadharNo>
+            <ion-button (click)="uploadImage('aadhar_No')" >Upload</ion-button>
+          </ion-item>
+
         </form>
       </swiper-slide>
       
@@ -307,10 +329,15 @@
             <ion-input formControlName="iFSC_Code" type="text" aria-label="IFSC Code"></ion-input>
           </ion-item>
 
-          <ion-item>
+          <!-- <ion-item>
             <ion-label position="floating">IsActive</ion-label>
             <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item>
+          </ion-item> -->
+          <ion-toggle class="ion-toggle" color="primary" justify="start"
+          [enableOnOffLabels]="true" formControlName="isActive" type="text" 
+          aria-label="IsActive">
+            <ion-label>IsActive</ion-label >
+          </ion-toggle>
 
           <ion-item>
             <ion-button type="submit" color="primary" expand="block" (click)="UpdateRecord('tab8Form')">Save</ion-button>
@@ -320,6 +347,57 @@
         </form>
 
       </swiper-slide>
+
+      <swiper-slide>
+        <form [formGroup]="tab9Form">
+
+          <ion-item>
+            <ion-label position="floating">East Contact Name</ion-label>
+            <ion-input formControlName="East_Contact_Name" type="text" aria-label="East Contact Name"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">East Contact Number</ion-label>
+            <ion-input formControlName="East_Contact_Number" type="text" aria-label="East Contact Number"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">West Contact Name</ion-label>
+            <ion-input formControlName="West_Contact_Name" type="text" aria-label="West Contact Name"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">West Contact Number</ion-label>
+            <ion-input formControlName="West_Contact_Number" type="text" aria-label="West Contact Number"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">North Contact Name</ion-label>
+            <ion-input formControlName="North_Contact_Name" type="text" aria-label="North Contact Name"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">North Contact Number</ion-label>
+            <ion-input formControlName="North_Contact_Number" type="text" aria-label="North Contact Number"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">South Contact Name</ion-label>
+            <ion-input formControlName="South_Contact_Name" type="text" aria-label="South Contact Name"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">South Contact Number</ion-label>
+            <ion-input formControlName="South_Contact_Number" type="text" aria-label="South Contact Number"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-button type="submit" color="primary" expand="block" (click)="UpdateRecord('tab9Form')">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+          </ion-item>
+        </form>
+      </swiper-slide>
+
     </swiper-container>
   </ion-list>
 </ion-content>

@@ -1,0 +1,79 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Create Field Visit
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
+    <swiper-slide>
+      <ion-list lines="none">
+        <ion-item [button]="true" [detail]="false" id="select-farmers">
+          <ion-label>Farmer</ion-label>
+          <div id="selected-farmers">{{ selectedFarmersText }}</div>
+        </ion-item>
+        <ion-modal trigger="select-farmers" #modal>
+          <ng-template>
+            <app-typeheadsingle class="ion-page" title="Select Farmers" [items]="Farmer_Id_data" [selectedItems]="selectedFarmers"
+              (selectionChange)="farmerSelectionChanged($event)" (selectionCancel)="modal.dismiss()"></app-typeheadsingle>
+          </ng-template>
+        </ion-modal>
+
+        <form [formGroup]="ionicForm">
+          <ion-item>
+            <ion-select placeholder="Select Field">
+              <ion-select-option *ngFor="let p of Field_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-select placeholder="Select Employee" formControlName="employee_Id" >
+              <ion-select-option *ngFor="let p of Employee_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <!-- <ion-label position="floating">Visist Schedule Date</ion-label> -->
+            <!-- <c-date formControlName="visist_Schedule_Date" formLabel="Visist Schedule Date" datetime="datetime"
+            [dateValue]="Visist_Schedule_Date_data" [disabled]=true></c-date> -->
+            <c-date  formControlName="visist_Schedule_Date" name="visist_Schedule_Date" formLabel="Visit Schedule Date" 
+            [dateValue]="Visist_Schedule_Date_data" [disabled]="true"></c-date>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Notes</ion-label>
+            <!-- <ion-input formControlName="notes" type="text" aria-label="Notes"></ion-input > -->
+            <ion-textarea formControlName="notes" rows="5"></ion-textarea>
+          </ion-item>
+
+          <ion-item class="input-group">
+            <ion-label position="floating">Photo</ion-label><br>
+            <input type="file" aria-label="Photo" (change)="fileChange($event, 'photo_Id')" 
+            placeholder="Upload file"  [value]="photoIdInput"/>
+            <img class="form-image" [src]=photo_Id>
+            <ion-button (click)="uploadImage('photo_Id')" >Upload</ion-button>
+          </ion-item>
+
+          <ion-item class="input-group">
+            <ion-label position="floating">Prescription Photo</ion-label><br>
+            <input type="file" aria-label="Prescription Photo" (change)="fileChange($event, 'prescription_Photo_Id')" 
+            placeholder="Upload file"  [value]="prescriptionPhotoIdInput"/>
+            <img class="form-image" [src]=prescription_Photo_Id>
+            <ion-button (click)="uploadImage('prescription_Photo_Id')" >Upload</ion-button>
+          </ion-item>
+
+          <ion-item>
+            <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
+            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
+          </ion-item>
+        </form>
+      </ion-list>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>

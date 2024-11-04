@@ -4,10 +4,10 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Role_Privileges
+      Role Privileges
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-role_privileges'">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-role_privileges'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -17,7 +17,7 @@
 <ion-content fullscreen="true">
   <ion-header collapse="condense" class="ion-no-border">
     <ion-toolbar>
-      <ion-title size="large">Role_Privileges</ion-title>
+      <ion-title size="large">Role Privileges</ion-title>
       <ion-buttons collapse="true" slot="end">
         <ion-button color="primary" [routerLink]="'/farm/add-role_privileges'">
           <ion-icon slot="icon-only" name="add-outline"></ion-icon>
@@ -32,28 +32,36 @@
         </ion-grid>
     </ion-toolbar>
   </ion-list>
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
     <table class="table">
+ 	<thead>
         <tr>
-          <td><ion-label> Role </ion-label></td>
-          <td><ion-label> Privilege </ion-label></td>
-      	  <td><ion-label> IsActive </ion-label></td>
+      <td class="table-cell-heading"><ion-label> Privilege  </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Role </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> IsActive </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Actions </ion-label></td>
 	  
-     
+     	</tr>
+	</thead>
+
+  <tbody>
     <tr *ngFor="let Role_Privileges of role_privilegesList">
-      <td><ion-label>{{ Role_Privileges['RoleName'] }}</ion-label></td>
-      <td><ion-label>{{ Role_Privileges['PrivilegeName'] }}</ion-label></td>
-	  <td><ion-label>{{ Role_Privileges['IsActive'] }}</ion-label></td>
+      <td class="table-cell"><ion-label>{{ Role_Privileges['Privilege'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Role_Privileges['Role'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Role_Privileges['IsActive'] }}</ion-label></td>
 	  
       <td>
 	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/role_privileges-details/' + Role_Privileges['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Role_Privileges['Id'])"></ion-icon>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Role_Privileges['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
 
       </td>
     </tr>
+    </tbody>
    </table>
 <ion-alert
 trigger="present-alert"
@@ -61,7 +69,7 @@ class="custom-alert"
 header="Delete Record"
 message="Are you sure to delete the record ?"
 [buttons]="alertButtons"
-(didDismiss)="setResult($event)">
+(didDismiss)="deleteRecord($event)">
 </ion-alert>
 </ion-content>
   

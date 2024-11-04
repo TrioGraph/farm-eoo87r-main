@@ -7,7 +7,7 @@
       Campaigns
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-campaigns'">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-campaigns'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -32,30 +32,37 @@
         </ion-grid>
     </ion-toolbar>
   </ion-list>
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+  [isOpen]=isLoading></ion-loading>
     <table class="table">
+ 	<thead>
         <tr>
-      <td><ion-label> Name </ion-label></td>
-	  <td><ion-label> Description </ion-label></td>
-	  <td><ion-label> Campign_Type </ion-label></td>
-	  <td><ion-label> IsActive </ion-label></td>
+      <td class="table-cell-heading"><ion-label> Name </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Description </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Campign Type </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> IsActive </ion-label></td>
 	  
-     
+     	</tr>
+	</thead>
+
+  <tbody>
     <tr *ngFor="let Campaigns of campaignsList">
-      <td><ion-label>{{ Campaigns['Name'] }}</ion-label></td>
-	  <td><ion-label>{{ Campaigns['Description'] }}</ion-label></td>
-	  <td><ion-label>{{ Campaigns['Campign_Type'] }}</ion-label></td>
-	  <td><ion-label>{{ Campaigns['IsActive'] }}</ion-label></td>
+      <td class="table-cell"><ion-label>{{ Campaigns['Name'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Campaigns['Description'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Campaigns['Campign_Type'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Campaigns['IsActive'] }}</ion-label></td>
 	  
       <td>
 	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/campaigns-details/' + Campaigns['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Campaigns['Id'])"></ion-icon>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Campaigns['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
 
       </td>
     </tr>
+    </tbody>
    </table>
 <ion-alert
 trigger="present-alert"
@@ -63,7 +70,7 @@ class="custom-alert"
 header="Delete Record"
 message="Are you sure to delete the record ?"
 [buttons]="alertButtons"
-(didDismiss)="setResult($event)">
+(didDismiss)="deleteRecord($event)">
 </ion-alert>
 </ion-content>
   

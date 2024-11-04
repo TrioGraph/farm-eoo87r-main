@@ -22,7 +22,7 @@ export class IdentificationListComponent  implements OnInit {
   }
   ngOnInit(): void {
     console.log('List');
-    this.dataService.searchFarmers('', 1, 10, '', '').subscribe((result: any)=> {
+    this.dataService.searchFarmers('', 1, 10, '', '', false, '','','','','').subscribe((result: any)=> {
       this.identificationsList = result.data;
     });
   }
@@ -49,9 +49,9 @@ export class IdentificationListComponent  implements OnInit {
   // }
 
   search_identification(searchText: any) {
-    this.dataService.searchFarmers(searchText, 1, 10, '', '').subscribe((data: any)=> {
-      this.identificationsList = data.records;
-      console.log('data: ', data);
+    this.dataService.searchFarmers(searchText, 1, 10, '', '', false, '','','','','').subscribe((result: any)=> {
+      this.identificationsList = result.data;
+      
     });
   }
 }

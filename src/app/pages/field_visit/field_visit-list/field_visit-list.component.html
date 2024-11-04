@@ -7,7 +7,7 @@
       Field Visit
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button [routerLink]="'/farm/add-field_visit'">
+      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-field_visit'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -33,35 +33,35 @@
     </ion-toolbar>
   </ion-list>
     <table class="table">
+      <thead>
         <tr>
       <!-- <td><ion-label>Field</ion-label></td> -->
-	  <td><ion-label class="column-header">Supervisor</ion-label></td>
-	  <td><ion-label class="column-header">Scheduled Date</ion-label></td>
-	  <td><ion-label class="column-header">Visit Date</ion-label></td>
-	  <td><ion-label class="column-header">Status</ion-label></td>
-    <td><ion-label class="column-header">Notes</ion-label></td>
-    <td><ion-label class="column-header">Actions</ion-label></td>
-
-	  
-     
+	  <td class="table-cell-heading"><ion-label class="column-header">Supervisor</ion-label></td>
+	  <td class="table-cell-heading"><ion-label class="column-header">Scheduled Date</ion-label></td>
+	  <td class="table-cell-heading"><ion-label class="column-header">Visit Date</ion-label></td>
+	  <td class="table-cell-heading"><ion-label class="column-header">Status</ion-label></td>
+    <!-- <td class="table-cell-heading"><ion-label class="column-header">Notes</ion-label></td> -->
+    <td class="table-cell-heading"><ion-label class="column-header">Actions</ion-label></td>
+</tr>
+     </thead>
+     <tbody>
     <tr *ngFor="let Field_Visit of field_visitList">
       <!-- <td><ion-label>{{ Field_Visit['Field_Id'] }}</ion-label></td> -->
-	  <td><ion-label>{{ Field_Visit['Name'] }}</ion-label></td>
-	  <td><ion-label>{{ Field_Visit['Visist_Schedule_Date'] | date: 'dd/MM/yyyy' }}</ion-label></td>
-	  <td><ion-label>{{ Field_Visit['Field_Visit_Date'] | date: 'dd/MM/yyyy'}}</ion-label></td>
-	  <td><ion-label>{{ Field_Visit['Status_Complete'] }}</ion-label></td>
-	  <td><ion-label>{{ Field_Visit['Notes'] }}</ion-label></td>
-	  
-      <td>
-	
-      <ion-badge color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+	  <td class="table-cell"><ion-label>{{ Field_Visit['Name'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Field_Visit['Visist_Schedule_Date'] | customDate }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Field_Visit['Field_Visit_Date'] | customDate }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Field_Visit['Status_Complete'] }}</ion-label></td>
+	  <!-- <td class="table-cell"><ion-label>{{ Field_Visit['Notes'] }}</ion-label></td> -->
+      <td class="table-cell">
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/field_visit-details/' + Field_Visit['Id']"></ion-icon></ion-badge>
-       <ion-badge id="present-alert" color="danger" class="activity">
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity">
           <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge" (click)="deleteRecord(Field_Visit['Id'])"></ion-icon>
         </ion-badge>
 
       </td>
     </tr>
+  </tbody>
    </table>
 <ion-alert
 trigger="present-alert"

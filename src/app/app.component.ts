@@ -19,7 +19,11 @@ export class AppComponent implements OnInit{
 
 
   ngOnInit() {
-    console.log();
+    let zoom = 100;
+    zoom = Number(localStorage.getItem('zoom'));
+    console.log('zoom : ', zoom);
+   document.body.style.setProperty("zoom", zoom + "%");
+
   }
 
 }

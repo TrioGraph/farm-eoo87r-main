@@ -1,0 +1,19 @@
+.form-image
+{
+height: 100px;
+width: 100px;
+}
+
+input[type='file'] { font-size: 0; }
+::file-selector-button { font-size: initial; }
+
+.ion-toggle {
+  
+    --track-background: #ddd;
+    --track-background-checked: #ddd;
+  
+    --handle-background: #ff1900;
+    --handle-background-checked: #95c34e;
+  
+  }
+  

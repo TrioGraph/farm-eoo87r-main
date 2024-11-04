@@ -14,14 +14,15 @@
 
   <ion-label class="header-label" color="tertiary">Identification</ion-label>
 
-    <ion-select color="medium" label="" value="Today">
+    <ion-select color="medium" label="" id="identificationTimeSelection" 
+    name="identificationTimeSelection" [(ngModel)]="identificationTimeSelection">
       <ion-select-option value="Today">Today</ion-select-option>
       <ion-select-option value="Week">Week</ion-select-option>
       <ion-select-option value="Month">Month</ion-select-option>
       <ion-select-option value="Year">Year</ion-select-option>
     </ion-select>
 
-  <ion-button color="medium" *ngIf="content_loaded" routerLink="/farm/plantationidentification-list">See All <ion-icon slot="end" name="arrow-forward"></ion-icon>
+  <ion-button color="medium" *ngIf="content_loaded" (click)="GetIdentificationData()">See All <ion-icon slot="end" name="arrow-forward"></ion-icon>
   </ion-button>
 </ion-list-header>
 
@@ -77,14 +78,15 @@
 
 
 <ion-list-header>
-  <ion-label class="header-label" color="tertiary">Farmer</ion-label>
-  <ion-select color="medium" label="" value="Today">
+  <ion-label class="header-label" color="tertiary"><pre style="font:inherit">Field Visit</pre></ion-label>
+  <ion-select color="medium" label="" value="Today" id="fieldVisitTimeSelection" 
+  name="fieldVisitTimeSelection" [(ngModel)]="fieldVisitTimeSelection">
     <ion-select-option value="Today">Today</ion-select-option>
     <ion-select-option value="Week">Week</ion-select-option>
     <ion-select-option value="Month">Month</ion-select-option>
     <ion-select-option value="Year">Year</ion-select-option>
   </ion-select>
-  <ion-button color="medium" *ngIf="content_loaded" routerLink="/farm/farmers-list">See All <ion-icon slot="end" name="arrow-forward"></ion-icon>
+  <ion-button color="medium" *ngIf="content_loaded" (click)="GetFieldVisitData()">See All <ion-icon slot="end" name="arrow-forward"></ion-icon>
   </ion-button>
 </ion-list-header>
 
@@ -107,7 +109,7 @@
 
     <ion-label>
       <h3>Pending</h3>
-      <p>Farmer</p>
+      <p>Visits</p>
     </ion-label>
     <ion-badge color="danger" slot="end"> 20 </ion-badge>
   </ion-item>
@@ -119,7 +121,7 @@
 
     <ion-label>
       <h3>Completed</h3>
-      <p>Farmer</p>
+      <p>Visits</p>
     </ion-label>
     <ion-badge color="secondary" slot="end">80</ion-badge>
   </ion-item>
@@ -131,7 +133,7 @@
 
     <ion-label>
       <h3>Total</h3>
-      <p>Farmer</p>
+      <p>Visits</p>
     </ion-label>
     <ion-badge color="danger" mode="ios" slot="end">100</ion-badge>
   </ion-item>
