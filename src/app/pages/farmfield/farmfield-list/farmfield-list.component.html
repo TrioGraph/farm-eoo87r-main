@@ -37,29 +37,26 @@
     <table class="table">
  	<thead>
         <tr>
-      <td class="table-cell-heading"><ion-label> Tally Field  </ion-label></td>
-	  <td class="table-cell-heading"><ion-label> Farmer  </ion-label></td>
+      <td class="table-cell-heading"><ion-label>Farmer  </ion-label></td>
+	  <td class="table-cell-heading"><ion-label>Lattitude  </ion-label></td>
+	  <td class="table-cell-heading"><ion-label>Longitude  </ion-label></td>
 	  <td class="table-cell-heading"><ion-label> Village  </ion-label></td>
-	  <td class="table-cell-heading"><ion-label> IsActive </ion-label></td>
-	  
+	  <td class="table-cell-heading"><ion-label> Actions  </ion-label></td>
      	</tr>
 	</thead>
 
   <tbody>
     <tr *ngFor="let FarmField of farmfieldList">
-      <td class="table-cell"><ion-label>{{ FarmField['Tally_Field_Id'] }}</ion-label></td>
-	  <td class="table-cell"><ion-label>{{ FarmField['Farmer_Id'] }}</ion-label></td>
-	  <td class="table-cell"><ion-label>{{ FarmField['Village_Id'] }}</ion-label></td>
-	  <td class="table-cell"><ion-label>{{ FarmField['IsActive'] }}</ion-label></td>
-	  
-      <td>
-	
+    <td class="table-cell"><ion-label>{{ FarmField['Farmer'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ FarmField['Gate_GPS_Lattitude'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ FarmField['Gate_GPS_Longitude'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ FarmField['Village'] }}</ion-label></td>
+    <td class="table-cell">
       <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/farmfield-details/' + FarmField['Id']"></ion-icon></ion-badge>
        <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(FarmField['Id'])">
           <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
         </ion-badge>
-
       </td>
     </tr>
     </tbody>

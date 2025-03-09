@@ -30,7 +30,13 @@ export class DataService {
     }),
   };
 
-
+// Http Options
+httpGetOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }),
+};
 
   constructor(private http: HttpClient) { }
 
@@ -262,9 +268,9 @@ updateDistrictsStatus(DistrictsId: any): any {
 }
 
 
-searchDistricts(searchText: any, pageNumber: any, pageSize: any, sortColumn: any, sortOrder: any,
-isColumnSearch: boolean, columnName: string, columnDataType: string, operator: string, value1: string, value2: string): Observable<any> {
-    return this.http.get<any>(`${this.apiURL}SearchDistricts?searchText=` + searchText + `&pageNumber=` + pageNumber + `&pageSize=` + pageSize + `&sortColumn=` + sortColumn + `&sortOrder=` + sortOrder + '&isColumnSearch=' + isColumnSearch + "&columnName=" + columnName + "&columnDataType=" + columnDataType + "&operator=" + operator + "&value1=" + value1 + "&value2=" + value2)
+searchDistricts(searchFields: any): Observable<any> {
+    // return this.http.post<any>(`${this.apiURL}SearchDistricts?filters=` + filters + `&searchText=` + searchText + `&pageNumber=` + pageNumber + `&pageSize=` + pageSize + `&sortColumn=` + sortColumn + `&sortOrder=` + sortOrder + '&isColumnSearch=' + isColumnSearch, this.httpOptions)
+    return this.http.post<any>(`${this.apiURL}SearchDistricts`, searchFields, this.httpOptions)
 }
 
  getDocument_Type(): Observable<any> {
@@ -1026,7 +1032,7 @@ getRolesById(id: any): Observable<any> {
 }
 
 getRolesLookup(): Observable<any> {
-    return this.http.get<any>(`${this.apiURL}GetEmployee_TypesLookup`)
+    return this.http.get<any>(`${this.apiURL}GetUsers_TypesLookup`)
 }
 
   addRoles(addRoles: any): any {
@@ -1224,13 +1230,34 @@ getFarmersLookup(searchString: any): Observable<any> {
   )
 }
 
-GetVillagesLookup(searchString: any): Observable<any> {
+GetVillagesLookup(searchString: any, selectedList: any): Observable<any> {
   return this.http.get<any>(`${this.apiURL}Util/GetVillagesLookup?searchString=` + searchString
-    + `&pageNumber=1&pageSize=50&sortColumn=Name&sortDirection=ASC`
+    + `&pageNumber=1&pageSize=50&sortColumn=Name&sortDirection=ASC&selectedList=` + selectedList
   )
 }
 
 getMandalByVillage(villageId: any): Observable<any> {
   return this.http.get<any>(`${this.apiURL}Util/GetMandalByVillage?villageId=` + villageId)
 }
+
+getRole_PrivilegesByRole(userTypeId: any): Observable<any> {
+  return this.http.get<any>(`${this.apiURL}Util/GetRolePrivilegesByRole?userTypeId=` + userTypeId)
+}
+
+updateRole_PrivilegesByRole(privilegesList: any, userTypeId: any): Observable<any> {
+  return this.http.get<any>(`${this.apiURL}Util/UpdateRolePrivilegesByRole?privilegesList=` + privilegesList + `&userTypeId=` + userTypeId)
+}
+
+getDashboardInfo(): Observable<any> {
+  return this.http.get<any>(`${this.apiURL}` + 'Util/GetDashboardInfo');
+}
+
+searchFunction(functionName: string, searchFields: any): Observable<any> {
+  return this.http.post<any>(`${this.apiURL}` + functionName, searchFields, this.httpOptions)
+}
+
+updateFunctionStatus(functionName: any, functionId: any): any {
+  return this.http.put(`${this.apiURL}` + functionName  + functionId, this.httpOptions)
+}
+
 }

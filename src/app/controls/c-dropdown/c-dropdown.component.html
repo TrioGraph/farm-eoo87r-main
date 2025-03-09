@@ -1,0 +1,8 @@
+<div [attr.id]=elementId>{{ selectedText }}</div>
+<ion-modal [trigger]=elementId #modal>
+  <ng-template>
+    <app-typeheadsingle class="ion-page" [title]=title [items]="items" [selectedItems]="selectedItem"
+      (selectionChange)="selectionItemChanged($event)" (selectionCancel)="modal.dismiss()"
+      (searchInput)="searchInputChanged($event)"></app-typeheadsingle>
+  </ng-template>
+</ion-modal>

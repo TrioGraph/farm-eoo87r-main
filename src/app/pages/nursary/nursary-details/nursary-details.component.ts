@@ -53,7 +53,7 @@ isActive: ['', [Validators.required]],
    this.id = this.route.snapshot.paramMap.get('id')!;
    this.isLoading = true;
 
-   this.dataService.GetVillagesLookup('').subscribe((result: any) => { 
+   this.dataService.GetVillagesLookup('','').subscribe((result: any) => { 
 	 this.Location_Village_Id_data = result; 
 }); 
 

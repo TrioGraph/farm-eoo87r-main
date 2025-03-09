@@ -1,0 +1,37 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Authorizations
+    </ion-title>
+    <ion-buttons collapse="true" slot="end">
+      <!-- <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-broadcast_message'">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-header collapse="condense" class="ion-no-border">
+    <ion-toolbar>
+      <ion-title size="large">Authorizations</ion-title>
+      <ion-buttons collapse="true" slot="end">
+        <ion-button color="primary" [routerLink]="'/farm/add-broadcast_message'">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-toolbar>
+      <ion-grid>
+        <app-search (search)="searchAuthorization($event)"></app-search>
+        </ion-grid>
+    </ion-toolbar>
+  </ion-list>
+  
+  <c-table></c-table>
+</ion-content>

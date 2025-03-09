@@ -33,22 +33,16 @@
     </ion-toolbar>
   </ion-list>
 
-
-  <table mat-table [dataSource]="plantationidentificationList" class="mat-elevation-z8">
-
-  </table>
-
-
     <table class="table">
       <thead>
         <tr>
-      <td class="table-cell-heading" style="width: 33%;"><ion-label> Farmer Code </ion-label></td>
-	  <td class="table-cell-heading" style="width: 33%;"><ion-label> Name </ion-label></td>
+      <td class="table-cell-heading"><ion-label> Farmer Code </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Name </ion-label></td>
 	  <!-- <td class="table-cell-heading"><ion-label> Father Name </ion-label></td>
 	  <td class="table-cell-heading"><ion-label> Village </ion-label></td>
 	  <td class="table-cell-heading"><ion-label> Mandal </ion-label></td>
 	  <td class="table-cell-heading"><ion-label> Supervisor </ion-label></td> -->
-	  <td class="table-cell-heading" style="width: 33%;"><ion-label> Actions </ion-label></td>
+	  <td class="table-cell-heading"><ion-label> Actions </ion-label></td>
         </tr>
   </thead>
      
@@ -62,7 +56,6 @@
 	  <td class="table-cell"><ion-label>{{ PlantationIdentification['Supervisor'] }}</ion-label></td> -->
 	  
       <td class="table-cell">
-	
       <ion-badge  *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
         [routerLink]="'/farm/plantationidentification-details/' + PlantationIdentification['Id']"></ion-icon></ion-badge>
        <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="deleteRecord(PlantationIdentification['Id'])">

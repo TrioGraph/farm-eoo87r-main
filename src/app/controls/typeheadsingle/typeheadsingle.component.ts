@@ -1,29 +1,53 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-export interface Item {
-  id: string;
-  name: string;
-}
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Item } from '../Item';
+
 @Component({
   selector: 'app-typeheadsingle',
   templateUrl: './typeheadsingle.component.html',
   styleUrls: ['./typeheadsingle.component.scss'],
 })
-export class TypeheadsingleComponent  implements OnInit {
+export class TypeheadsingleComponent  implements OnInit, OnChanges {
 
-  @Input() items: Item[] = [];
-  @Input() selectedItems: string[] = [];
+  @Input() _items: Item[] = [];
+  @Input() _selectedItems!: string;
   @Input() title = 'Select Items';
 
   @Output() searchInput = new EventEmitter<void>();
   @Output() selectionCancel = new EventEmitter<void>();
-  @Output() selectionChange = new EventEmitter<string[]>();
+  @Output() selectionChange = new EventEmitter<string>();
 
   filteredItems: Item[] = [];
-  workingSelectedValues: string[] = [];
+  workingSelectedValues!: string;
 
   ngOnInit() {
     this.filteredItems = [...this.items];
-    this.workingSelectedValues = [...this.selectedItems];
+    this.workingSelectedValues = this.selectedItems;
+  }
+
+  ngOnChanges() {
+    console.log('ngOnChanges');
+  }
+
+  @Input()
+  get items() {
+    return this._items;
+  }
+
+  set items(value: Item[]) {
+    console.log('Setter items Called');
+    this._items = value;
+    // this.selectionChange.emit(this.workingSelectedValues);
+  }
+
+  @Input()
+  get selectedItems() {
+    return this._selectedItems;
+  }
+
+  set selectedItems(value: string) {
+    console.log('Setter selectedItems Called');
+    this._selectedItems = value;
+    // this.selectionChange.emit(this.workingSelectedValues);
   }
 
   trackItems(index: number, item: Item) {
@@ -77,7 +101,7 @@ export class TypeheadsingleComponent  implements OnInit {
 
   checkboxChange(selectedItem: any) {
     console.log('selectedItem : ', selectedItem);
-      this.workingSelectedValues = [selectedItem.id];
+      this.workingSelectedValues = selectedItem.id;
 
     // if (checked) {
     //   this.workingSelectedValues = [...this.workingSelectedValues, value];

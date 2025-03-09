@@ -47,6 +47,13 @@ export class LayoutComponent implements OnInit {
       displayMenu: true,
     },
     {
+      title: 'Authorizations',
+      url: 'authorisation-details/"',
+      icon: 'add-circle-outline',
+      privilegeId: Privileges.ViewAuthorisation,
+      displayMenu: true,
+    },
+    {
       title: 'Authorisation',
       url: 'role_privileges-list/""',
       icon: 'add-circle-outline',
@@ -54,13 +61,13 @@ export class LayoutComponent implements OnInit {
       displayMenu: true,
     },
 
-    // {
-    //   title: 'Broadcast Message',
-    //   url: 'broadcast_message-list/""',
-    //   icon: 'add-circle-outline',
-    //   privilegeId: Privileges.ViewBroadcastMessage,
-    //   displayMenu: true,
-    // },
+    {
+      title: 'Broadcast Message',
+      url: 'broadcast_message-list/""',
+      icon: 'add-circle-outline',
+      privilegeId: Privileges.ViewBroadcastMessage,
+      displayMenu: true,
+    },
 
     // {
     //   title: 'Campaign Types',
@@ -86,13 +93,13 @@ export class LayoutComponent implements OnInit {
     //   displayMenu: true,
     // },
 
-    // {
-    //   title: 'Districts',
-    //   url: 'districts-list/""',
-    //   icon: 'add-circle-outline',
-    //   privilegeId: Privileges.ViewDistricts,
-    //   displayMenu: true,
-    // },
+    {
+      title: 'Districts',
+      url: 'districts-list/""',
+      icon: 'add-circle-outline',
+      privilegeId: Privileges.ViewDistricts,
+      displayMenu: true,
+    },
 
     // {
     //   title: 'Document Type',
@@ -182,13 +189,13 @@ export class LayoutComponent implements OnInit {
     //   displayMenu: true,
     // },
 
-    // {
-    //   title: 'Farm Field',
-    //   url: 'farmfield-list/""',
-    //   icon: 'add-circle-outline',
-    //   privilegeId: Privileges.ViewFarmField,
-    //   displayMenu: true,
-    // },
+    {
+      title: 'Farm Field',
+      url: 'farmfield-list/""',
+      icon: 'add-circle-outline',
+      privilegeId: Privileges.ViewFarmField,
+      displayMenu: true,
+    },
 
     {
       title: 'Field Visit',

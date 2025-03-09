@@ -1,0 +1,96 @@
+<div class="table-container">
+  <!-- Filter Input -->
+  <input *ngIf="allowFilters"
+    type="text"
+    [(ngModel)]="searchTerm"
+    (input)="filterTable()"
+    placeholder="Filter rows..."
+    class="filter-input"
+  />
+
+  <!-- Table -->
+  <table>
+    <thead>
+      <tr>
+        <th *ngIf="showCheckBoxColumn">
+          <input type="checkbox" [(ngModel)]="selectAll" (change)="toggleSelectAll()" />
+        </th>
+        <ng-container *ngFor="let column of columns">
+        <th (click)="sortTable(column.bindingName)">
+          {{column.displayName}}
+          <span class="sort-icons">
+            <i *ngIf="sortColumn === column.bindingName && sortDirection === 'asc'" class="fas fa-arrow-up"></i>
+            <i *ngIf="sortColumn === column.bindingName && sortDirection === 'desc'" class="fas fa-arrow-down"></i>
+          </span>
+        </th>
+      </ng-container>
+        <!-- <th (click)="sortTable('age')">
+          Age
+          <span class="sort-icons">
+            <i *ngIf="sortColumn === 'age' && sortDirection === 'asc'" class="fas fa-arrow-up"></i>
+            <i *ngIf="sortColumn === 'age' && sortDirection === 'desc'" class="fas fa-arrow-down"></i>
+          </span>
+        </th>
+        <th (click)="sortTable('city')">
+          City
+          <span class="sort-icons">
+            <i *ngIf="sortColumn === 'city' && sortDirection === 'asc'" class="fas fa-arrow-up"></i>
+            <i *ngIf="sortColumn === 'city' && sortDirection === 'desc'" class="fas fa-arrow-down"></i>
+          </span>
+        </th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of paginatedData | paginate
+      : {
+          id: 'server',
+          itemsPerPage: rowsPerPage,
+          currentPage: currentPage,
+          totalItems: totalRows
+        }">
+        <td *ngIf="showCheckBoxColumn">
+          <input type="checkbox" [(ngModel)]="row.selected" />
+        </td>
+        <ng-container  *ngFor="let column of columns">
+          
+          <td  *ngIf="column.type==='text'">
+            {{ row[column.bindingName] }}
+          </td>
+
+          <td  *ngIf="column.type==='boolean'">
+            <ion-badge *ngIf="row[column.bindingName]==='True'" color="secondary" class="ion-true-badge">{{ row[column.bindingName] }}</ion-badge>
+            <ion-badge *ngIf="row[column.bindingName]==='False'" color="danger" class="ion-true-badge">{{ row[column.bindingName] }}</ion-badge>
+          </td>
+
+          <td  *ngIf="column.type==='checkbox'">
+            <input type="checkbox" [(ngModel)]="row.hasAccess" [disabled]="disabled"/>
+          </td>
+
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls> -->
+
+  <div class="pagination-controls" *ngIf="allowPagination">
+    <div class="page-size">
+      <label for="pageSize">Rows per page:</label>
+      <select id="pageSize" [(ngModel)]="rowsPerPage" (change)="updatePagination()">
+        <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+      </select>
+    </div>
+
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">« Previous</button>
+      <button
+        *ngFor="let page of pages; let i = index"
+        (click)="changePage(i + 1)"
+        [class.active]="i + 1 === currentPage"
+      >
+        {{ i + 1 }}
+      </button>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next »</button>
+    </div>
+  </div>
+</div>

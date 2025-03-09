@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController, IonRouterOutlet, LoadingController, ToastController } from '@ionic/angular';
+import { TableColumn } from 'src/app/controls/c-table/TableColumn';
 import { Privileges } from 'src/app/enum/privileges';
 import { DataService } from 'src/app/services/data.service';
 
@@ -11,13 +12,21 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class AuthorisationListComponent  implements OnInit {
 
-  public authorisationList: any;
-  public searchText: any;
+  public authorisationList: any[] = [];
+  public searchText: string = '';
   public selectedId: any;
+  totalRowsCount: number = 1;
+  pageNumber: number = 1;
+  pageSize: number = 10;
+  sortColumn: string = '';
+  sortOrder: string = '';
   isLoading = false;
   allowToAdd = false;
   allowToEdit = false;
   allowToDelete = false;
+
+
+  columnsList: TableColumn[] = [];
 
   public alertButtons = [
     {
@@ -53,13 +62,23 @@ export class AuthorisationListComponent  implements OnInit {
     this.allowToAdd = localStorage.getItem('AccessList')?.split(',').includes(Privileges.AddAuthorisation.toString()) ? true : false; 
     this.allowToEdit = localStorage.getItem('AccessList')?.split(',').includes(Privileges.UpdateAuthorisation.toString()) ? true : false;  
     this.allowToDelete = localStorage.getItem('AccessList')?.split(',').includes(Privileges.DeleteAuthorisation.toString()) ? true : false;  
+    
+    this.loadColumns();
   }
 
+  loadColumns() {
+    this.columnsList = [
+      {bindingName : 'Role', displayName: 'Role', hide: false, width: 30, type: 'text'},
+      {bindingName : 'Privilege', displayName: 'Privilege', hide: false, width: 30, type: 'text'},
+      {bindingName : 'IsActive', displayName: 'IsActive', hide: false, width: 30, type: 'boolean'}
+    ]
+  }
 getData(startDate: any) {
     this.isLoading = true;
     if(startDate && startDate.Length > 0) {
-        this.dataService.searchAuthorisation('', 1, 10, '', '', true, 'm.Created_Date','string', '>', startDate, '').subscribe((result: any)=> {
+        this.dataService.searchRole_Privileges(this.searchText, this.pageNumber, this.pageSize, this.sortColumn, this.sortOrder, true, 'm.Created_Date','string', '>', startDate, '').subscribe((result: any)=> {
         this.authorisationList = result.data;
+        this.totalRowsCount = result.TotalRecordsCount;
          this.isLoading = false;
 	},
 (async(error: any) => {
@@ -75,8 +94,9 @@ getData(startDate: any) {
     }));
     }
     else {
-      this.dataService.searchAuthorisation('', 1, 10, '', '', false, '','', '', '', '').subscribe((result: any)=> {
+      this.dataService.searchRole_Privileges(this.searchText, this.pageNumber, this.pageSize, this.sortColumn, this.sortOrder, false, '','', '', '', '').subscribe((result: any)=> {
         this.authorisationList = result.data;
+        this.totalRowsCount = result.TotalRecordsCount;
         this.isLoading = false;
 	},
 (async(error: any) => {
@@ -93,11 +113,39 @@ getData(startDate: any) {
     }
   }
 
-  searchAuthorisation(searchText: any) {
+  getPage(page: any) {
+    console.log('page : ', page);
+    this.pageNumber = page;
     this.isLoading = true;
-    this.dataService.searchAuthorisation(searchText, 1, 10, '', '', false, '','', '', '', '').subscribe((result: any)=> {
+    this.dataService.searchRole_Privileges(this.searchText, this.pageNumber, this.pageSize, this.sortColumn, this.sortOrder, false, '','', '', '', '').subscribe((result: any)=> {
       this.authorisationList = result.data;
-       this.isLoading = false;
+      this.totalRowsCount = result.TotalRecordsCount;
+      this.isLoading = false;
+     },
+(async(error: any) => {
+      console.error('Error handler:', error);
+      const toast = await this.toastController.create({
+        message: 'Error occurred while getting records',
+        duration: 1500,
+        position: 'top',
+      });
+      await toast.present();
+      this.isLoading = false;
+
+    }));
+  }
+
+  searchAuthorisation(searchText: any) {
+    this.searchText = searchText;
+    this.searchFunction();
+   }
+
+  searchFunction() {
+    this.isLoading = true;
+    this.dataService.searchRole_Privileges(this.searchText, this.pageNumber, this.pageSize, this.sortColumn, this.sortOrder, false, '','', '', '', '').subscribe((result: any)=> {
+      this.authorisationList = result.data;
+      this.totalRowsCount = result.TotalRecordsCount;
+      this.isLoading = false;
      },
 (async(error: any) => {
       console.error('Error handler:', error);
@@ -145,4 +193,6 @@ setRecordId(selectedId: any) {
   }
 
 }
+
+
 

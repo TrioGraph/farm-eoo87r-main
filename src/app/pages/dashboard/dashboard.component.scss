@@ -9,3 +9,22 @@
     padding: 1px;
     border: 1px solid grey;
 }
+
+ion-col {
+    background-color: #f2f2f2;
+    border: solid 1px #fff;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+  }
+
+  ion-grid {
+    --ion-grid-column-padding: 15px;
+  }  
+
+  .tile-header {
+    font-weight: bolder;
+  }
+  .list-item {
+    border-radius: 20px;
+  }

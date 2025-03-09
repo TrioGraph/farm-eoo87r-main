@@ -26,14 +26,15 @@
           
          <ion-item>
             <ion-select placeholder="Select Farmer" formControlName="farmer_Id" [disabled]="!isInEditMode">
-                <ion-select-option *ngFor="let p of Farmer_Id_data" [value]="p.id">{{p.first_name}}</ion-select-option>
+                <ion-select-option *ngFor="let p of Farmer_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
   </ion-item>
 
-         <ion-item>
-            <ion-select placeholder="Select Village" formControlName="village_Id" [disabled]="!isInEditMode">
-                <ion-select-option *ngFor="let p of Village_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
-            </ion-select>
+  <ion-item [button]="true" [detail]="false" id="select-villages">
+    <ion-label>Village</ion-label>
+    <c-dropdown class="ion-page" name="village_Id" formControlName="village_Id" [disabled]="!isInEditMode"
+      id="village_Id" elementId="village_Id" title="Select Village"
+      [items]="Village_Id_data" (searchInput)="searchVillages($event)"></c-dropdown>
   </ion-item>
 
           <ion-item>

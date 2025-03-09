@@ -34,18 +34,26 @@
   </ion-list>
     <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
   [isOpen]=isLoading></ion-loading>
-    <table class="table">
+
+  <c-table [columns]="columnsList" [data]="authorisationList"
+           [rowsPerPage]="pageSize" [currentPage]="pageNumber" [totalRows]="totalRowsCount"></c-table>
+  
+  <div class="has-text-centered">
+    <div class="spinner" [ngClass]="{ 'hidden': !isLoading }"></div>
+    <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>
+    <!-- <table class="table">
       <thead>
         <tr>
-      <td class="table-heading"><ion-label> Name </ion-label></td>
-	  <td class="table-heading"><ion-label> Description </ion-label></td>
+      <td class="table-heading"><ion-label> Role </ion-label></td>
+	  <td class="table-heading"><ion-label> Privilege </ion-label></td>
 	  <td class="table-heading"><ion-label> IsActive </ion-label></td>
     </tr>
   </thead>
      <tbody>
     <tr *ngFor="let Authorisation of authorisationList">
-      <td class="table-cell"><ion-label>{{ Authorisation['Name'] }}</ion-label></td>
-	  <td class="table-cell"><ion-label>{{ Authorisation['Description'] }}</ion-label></td>
+      <td class="table-cell"><ion-label>{{ Authorisation['Role'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Authorisation['Privilege'] }}</ion-label></td>
 	  <td class="table-cell"><ion-label>{{ Authorisation['IsActive'] }}</ion-label></td>
 	  
       <td class="table-cell">
@@ -58,7 +66,7 @@
       </td>
     </tr>
   </tbody>
-   </table>
+   </table> -->
 <ion-alert
 trigger="present-alert"
 class="custom-alert"

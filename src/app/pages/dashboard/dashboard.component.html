@@ -10,140 +10,125 @@
 </ion-header>
 
 <ion-content  overflow-scroll="true">
-<ion-list-header>
-
-  <ion-label class="header-label" color="tertiary">Identification</ion-label>
-
-    <ion-select color="medium" label="" id="identificationTimeSelection" 
-    name="identificationTimeSelection" [(ngModel)]="identificationTimeSelection">
-      <ion-select-option value="Today">Today</ion-select-option>
-      <ion-select-option value="Week">Week</ion-select-option>
-      <ion-select-option value="Month">Month</ion-select-option>
-      <ion-select-option value="Year">Year</ion-select-option>
-    </ion-select>
-
-  <ion-button color="medium" *ngIf="content_loaded" (click)="GetIdentificationData()">See All <ion-icon slot="end" name="arrow-forward"></ion-icon>
-  </ion-button>
-</ion-list-header>
-
-<!-- Skeletons -->
-<ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="!content_loaded">
-  <ion-item color="primary" *ngFor="let i of [].constructor(3);">
-    <ion-label color="medium">
-      <h3><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h3>
-      <p><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></p>
-    </ion-label>
-    <ion-skeleton-text slot="end" animated style="width: 10%"></ion-skeleton-text>
-  </ion-item>
-</ion-list>
-
-<ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="content_loaded">
-  <ion-item color="primary" button detail="false">
-    <ion-avatar slot="start" class="ion-avatar-default-icon">
-      <ion-icon color="tertiary" size="large" name="alert-circle-outline"></ion-icon>
-    </ion-avatar>
-
-    <ion-label>
-      <h3>Pending</h3>
-      <p>Identification</p>
-    </ion-label>
-    <ion-badge color="danger" slot="end"> 20 </ion-badge>
-  </ion-item>
-
-  <ion-item color="primary" button detail="false">
-    <ion-avatar slot="start" class="ion-avatar-default-icon">
-      <ion-icon  color="tertiary" size="large"  name="checkbox-outline"></ion-icon>
-    </ion-avatar>
-
-    <ion-label>
-      <h3>Completed</h3>
-      <p>Identification</p>
-    </ion-label>
-    <ion-badge color="secondary" slot="end">80</ion-badge>
-  </ion-item>
-
-  <ion-item color="primary" button detail="false">
-    <ion-avatar slot="start" class="ion-avatar-default-icon">
-      <ion-icon  color="tertiary" size="large"  name="medical-outline"></ion-icon>
-    </ion-avatar>
-
-    <ion-label>
-      <h3>Total</h3>
-      <p>Identification</p>
-    </ion-label>
-    <ion-badge color="danger" mode="ios" slot="end">100</ion-badge>
-  </ion-item>
-</ion-list>
-
-
-
-<ion-list-header>
-  <ion-label class="header-label" color="tertiary"><pre style="font:inherit">Field Visit</pre></ion-label>
-  <ion-select color="medium" label="" value="Today" id="fieldVisitTimeSelection" 
-  name="fieldVisitTimeSelection" [(ngModel)]="fieldVisitTimeSelection">
-    <ion-select-option value="Today">Today</ion-select-option>
-    <ion-select-option value="Week">Week</ion-select-option>
-    <ion-select-option value="Month">Month</ion-select-option>
-    <ion-select-option value="Year">Year</ion-select-option>
-  </ion-select>
-  <ion-button color="medium" *ngIf="content_loaded" (click)="GetFieldVisitData()">See All <ion-icon slot="end" name="arrow-forward"></ion-icon>
-  </ion-button>
-</ion-list-header>
-
- <!-- Skeletons -->
- <ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="!content_loaded">
-  <ion-item color="primary" *ngFor="let i of [].constructor(3);">
-    <ion-label color="medium">
-      <h3><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></h3>
-      <p><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></p>
-    </ion-label>
-    <ion-skeleton-text slot="end" animated style="width: 10%"></ion-skeleton-text>
-  </ion-item>
-</ion-list>
-
-<ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="content_loaded">
-  <ion-item color="primary" button detail="false">
-    <ion-avatar slot="start" class="ion-avatar-default-icon">
-      <ion-icon color="tertiary" size="large" name="alert-circle-outline"></ion-icon>
-    </ion-avatar>
-
-    <ion-label>
-      <h3>Pending</h3>
-      <p>Visits</p>
-    </ion-label>
-    <ion-badge color="danger" slot="end"> 20 </ion-badge>
-  </ion-item>
-
-  <ion-item color="primary" button detail="false">
-    <ion-avatar slot="start" class="ion-avatar-default-icon">
-      <ion-icon  color="tertiary" size="large"  name="checkbox-outline"></ion-icon>
-    </ion-avatar>
-
-    <ion-label>
-      <h3>Completed</h3>
-      <p>Visits</p>
-    </ion-label>
-    <ion-badge color="secondary" slot="end">80</ion-badge>
-  </ion-item>
-
-  <ion-item color="primary" button detail="false">
-    <ion-avatar slot="start" class="ion-avatar-default-icon">
-      <ion-icon  color="tertiary" size="large"  name="medical-outline"></ion-icon>
-    </ion-avatar>
-
-    <ion-label>
-      <h3>Total</h3>
-      <p>Visits</p>
-    </ion-label>
-    <ion-badge color="danger" mode="ios" slot="end">100</ion-badge>
-  </ion-item>
-</ion-list>
 
 <ion-grid>
   <ion-row>
-      <ion-col style="padding:1px;" col-8="true">
-        <div class="tile"></div>
-      </ion-col>
+    <ng-container *ngFor="let tile of tilesList; let  i = index">
+
+    <ion-col size="12" size-sm="6" size-lg="6">
+      <ion-list-header>
+        <ion-label [color]=tile.color class="tile-header">{{tile.title}}</ion-label>
+          <ion-select color="medium" label="" [id]=tile.name 
+            [name]=tile.name [(ngModel)]=tilesList[i].selectedTimeLine placeholder="Select Timeline">
+            <ion-select-option value="Today">Today</ion-select-option>
+            <ion-select-option value="Week">Week</ion-select-option>
+            <ion-select-option value="Month">Month</ion-select-option>
+            <ion-select-option value="Year">Year</ion-select-option>
+          </ion-select>
+      
+        <ion-button color="medium" *ngIf="content_loaded" (click)="timeIntervalChanged(tile, 'total')">
+          See All 
+          <ion-icon slot="end" name="arrow-forward"></ion-icon>
+        </ion-button>
+      </ion-list-header>
+      
+      <ion-list class="list-custom animate__animated animate__fadeIn list-item" lines="full" *ngIf="content_loaded">
+        <ion-item button detail="false" (click)="timeIntervalChanged(tile, 'inactive')">
+          <ion-avatar slot="start" class="ion-avatar-default-icon">
+            <ion-icon [color]=tile.color size="large" name="alert-circle-outline"></ion-icon>
+          </ion-avatar>
+          <ion-label>
+            <h3>{{tile.parameter1Title1}}</h3>
+            <p>{{tile.parameter1Title2}}</p>
+          </ion-label>
+          <ion-badge color="danger" slot="end"> {{ dashboardInfo | getValueById:tile.parameter1Value }}</ion-badge>
+        </ion-item>
+      
+        <ion-item button detail="false"  (click)="timeIntervalChanged(tile, 'active')">
+          <ion-avatar slot="start" class="ion-avatar-default-icon">
+            <ion-icon  [color]=tile.color size="large"  name="checkbox-outline"></ion-icon>
+          </ion-avatar>
+      
+          <ion-label>
+            <h3>{{tile.parameter2Title1}}</h3>
+            <p>{{tile.parameter2Title2}}</p>
+          </ion-label>
+          <ion-badge [color]=tile.color slot="end">{{ dashboardInfo | getValueById:tile.parameter2Value }}</ion-badge>
+        </ion-item>
+      
+        <ion-item button detail="false" (click)="timeIntervalChanged(tile, 'total')">
+          <ion-avatar slot="start" class="ion-avatar-default-icon">
+            <ion-icon [color]=tile.color size="large"  name="medical-outline"></ion-icon>
+          </ion-avatar>
+      
+          <ion-label>
+            <h3>{{tile.parameter3Title1}}</h3>
+            <p>{{tile.parameter3Title2}}</p>
+          </ion-label>
+          <ion-badge color="danger" mode="ios" slot="end">{{ dashboardInfo | getValueById:tile.parameter3Value }}</ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+
+  </ng-container>
+<!-- 
+    <ion-col size="12" size-sm="6" size-lg="4">
+      <ion-list-header>
+        <ion-label color="tertiary" class="tile-header"><pre style="font:inherit">Field Visit</pre></ion-label>
+        <ion-select color="medium" label="" value="Today" id="fieldVisitTimeSelection" 
+        name="fieldVisitTimeSelection" [(ngModel)]="fieldVisitTimeSelection">
+          <ion-select-option value="Today">Today</ion-select-option>
+          <ion-select-option value="Week">Week</ion-select-option>
+          <ion-select-option value="Month">Month</ion-select-option>
+          <ion-select-option value="Year">Year</ion-select-option>
+        </ion-select>
+        <ion-button color="medium" *ngIf="content_loaded" (click)="GetFieldVisitData()">See All <ion-icon slot="end" name="arrow-forward"></ion-icon>
+        </ion-button>
+      </ion-list-header>
+      
+      <ion-list class="list-custom animate__animated animate__fadeIn list-item" lines="full" *ngIf="content_loaded">
+        <ion-item button detail="false">
+          <ion-avatar slot="start" class="ion-avatar-default-icon">
+            <ion-icon color="tertiary" size="large" name="alert-circle-outline"></ion-icon>
+          </ion-avatar>
+      
+          <ion-label>
+            <h3>Pending</h3>
+            <p>Visits</p>
+          </ion-label>
+          <ion-badge color="danger" slot="end">{{ dashboardInfo | getValueById:'InactiveFieldVisit' }}  </ion-badge>
+        </ion-item>
+      
+        <ion-item button detail="false">
+          <ion-avatar slot="start" class="ion-avatar-default-icon">
+            <ion-icon  color="tertiary" size="large"  name="checkbox-outline"></ion-icon>
+          </ion-avatar>
+      
+          <ion-label>
+            <h3>Completed</h3>
+            <p>Visits</p>
+          </ion-label>
+          <ion-badge color="tertiary" slot="end"> {{ dashboardInfo | getValueById:'ActiveFieldVisit' }}</ion-badge>
+        </ion-item>
+      
+        <ion-item button detail="false">
+          <ion-avatar slot="start" class="ion-avatar-default-icon">
+            <ion-icon  color="tertiary" size="large"  name="medical-outline"></ion-icon>
+          </ion-avatar>
+      
+          <ion-label>
+            <h3>Total</h3>
+            <p>Visits</p>
+          </ion-label>
+          <ion-badge color="danger" mode="ios" slot="end">{{ dashboardInfo | getValueById:'FieldVisit' }}</ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-col> -->
+    <!-- <ion-col size="12" size-sm="6" size-lg="4">3</ion-col>
+    <ion-col size="12" size-sm="6" size-lg="4">4</ion-col>
+    <ion-col size="12" size-sm="6" size-lg="4">4</ion-col>
+    <ion-col size="12" size-sm="6" size-lg="4">4</ion-col>
+    <ion-col size="12" size-sm="6" size-lg="4">4</ion-col> -->
   </ion-row>
 </ion-grid>
 </ion-content>

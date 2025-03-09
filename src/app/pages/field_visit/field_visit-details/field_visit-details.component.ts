@@ -38,7 +38,7 @@ Farmer_Id_data: any;
 @ViewChild('modal', { static: true }) modal!: IonModal;
 
   selectedFarmersText = '0 Items';
-  selectedFarmers: string[] = [];
+  selectedFarmers!: string;
 
   
   constructor(
@@ -197,17 +197,11 @@ uploadImage(propertyName: any){
 // );
 // }
 
-private formatData(data: string[]) {
-  if (data.length === 1) {
-    const farmer = this.Farmer_Id_data.find((farmer: any) => farmer.value === data[0]);
-    return farmer?.text;
-  }
-  return `${data.length} items`;
+searchFarmers(searchText: any) {
+  this.dataService.getFarmersLookup(searchText).subscribe((result: any) => {
+    this.Farmer_Id_data = result;
+    console.log('this.Farmer_Id_data : ', this.Farmer_Id_data);
+  });
 }
 
-farmerSelectionChanged(farmers: string[]) {
-  this.selectedFarmers = farmers;
-  this.selectedFarmersText = String(this.formatData(this.selectedFarmers));
-  this.modal.dismiss();
-}
 }

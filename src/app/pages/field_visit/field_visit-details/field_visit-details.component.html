@@ -25,16 +25,18 @@
     <swiper-slide>
 
       <ion-list lines="none">
+        <!-- <ion-item [button]="true" [detail]="false" id="select-farmers" *ngIf="isInEditMode">
+          <ion-label>Farmer</ion-label>
+          <c-dropdown class="ion-page" title="Select Farmers"
+            name="farmer_Id" [items]="Farmer_Id_data" (searchInput)="searchFarmers($event)"></c-dropdown>
+        </ion-item> -->
+
         <ion-item [button]="true" [detail]="false" id="select-farmers" *ngIf="isInEditMode">
           <ion-label>Farmer</ion-label>
-          <div slot="end" id="selected-farmers">{{ selectedFarmersText }}</div>
+          <c-dropdown name="farmer_Id" formControlName="farmer_Id" [disabled]="!isInEditMode"
+          id="farmers" elementId="farmers"
+            [items]="Farmer_Id_data" (searchInput)="searchFarmers($event)"></c-dropdown>
         </ion-item>
-        <ion-modal trigger="select-farmers" #modal>
-          <ng-template>
-            <app-typeheadsingle class="ion-page" title="Farmers" [items]="Farmer_Id_data" [selectedItems]="selectedFarmers"
-              (selectionChange)="farmerSelectionChanged($event)" (selectionCancel)="modal.dismiss()"></app-typeheadsingle>
-          </ng-template>
-        </ion-modal>
 
         <form [formGroup]="ionicForm">
 

@@ -65,7 +65,7 @@ isActive: ['', [Validators.required]],
      this.dataService.getFarmersLookup('').subscribe((result: any) => { 
 	 this.Farmer_Id_data = result; 
 }); 
-this.dataService.GetVillagesLookup('').subscribe((result: any) => { 
+this.dataService.GetVillagesLookup('','').subscribe((result: any) => { 
 	 this.Village_Id_data = result; 
 }); 
 this.dataService.getEmployeesLookup().subscribe((result: any) => { 
@@ -206,5 +206,10 @@ fileChange(event: any, propertyName: any) {
     );
   }
 
-
+  searchVillages(searchText: any) {
+    this.dataService.GetVillagesLookup(searchText, 
+      this.ionicForm.controls['village_Id'].value).subscribe((result: any) => {
+      this.Village_Id_data = result;
+    });
+  }
 }

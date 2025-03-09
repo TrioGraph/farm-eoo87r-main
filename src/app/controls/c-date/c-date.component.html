@@ -26,7 +26,7 @@
   [(ngModel)]="dateValue"
 /> -->
 
-<input type="date" id="date1" name="date1" [formControl]="dateControl"
+<input type="date" id="date1" name="date1" (change)="valueChanged($event)"
 value="{{ dateValue | date:'yyyy-MM-dd' }}" (blur)="onTouched()" (input)="onTouched()">
 
 <!-- Date::: {{dateValue}} -->

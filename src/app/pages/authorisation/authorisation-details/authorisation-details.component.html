@@ -4,58 +4,88 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <b>
-      <span *ngIf="formMode==='Edit'">Edit</span>
-      <span> Authorisation Details </span>
-      </b>
+      Authorisation
     </ion-title>
-    <ion-buttons *ngIf="formMode==='View'" collapse="true" slot="end">
-      <ion-button (click)="editForm()">
+    <ion-buttons collapse="true" slot="end">
+      <ion-button *ngIf="!isInEditMode" (click)="editClick($event)">
         <ion-icon slot="icon-only" name="pencil"></ion-icon>
       </ion-button>
-      <ion-button [routerLink]="'/farm/add-authorisation'">
-        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      <ion-button *ngIf="isInEditMode" (click)="saveClick($event)">
+        <ion-icon slot="icon-only" name="save" color="primary"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="isInEditMode" (click)="cancelClick($event)">
+        <ion-icon slot="icon-only" name="close-circle" color="danger"></ion-icon>
       </ion-button>
     </ion-buttons>
-    </ion-toolbar>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content  fullscreen="true">
-<ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
+<ion-content fullscreen="true">
+  <!-- <ion-header collapse="condense" class="ion-no-border">
+    <ion-toolbar>
+      <ion-title size="large">Authorisation</ion-title>
+      <ion-buttons collapse="true" slot="end">
+        <ion-button color="primary" [routerLink]="'/farm/add-authorisation'">
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header> -->
+  <!-- <ion-list>
+    <ion-toolbar>
+      <ion-grid>
+        <app-search (search)="searchAuthorisation($event)"></app-search>
+        </ion-grid>
+    </ion-toolbar>
+  </ion-list> -->
+    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
   [isOpen]=isLoading></ion-loading>
-  <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
-    <swiper-slide>
-      
-      <ion-list lines="none">
-        <form [formGroup]="ionicForm">
-
-    
-          <ion-item>
-            <ion-label position="floating">Name</ion-label>
-            <ion-input formControlName="name" type="text" aria-label="Name"></ion-input>
-          </ion-item>
-          
-          <ion-item>
-            <ion-label position="floating">Description</ion-label>
-            <ion-textarea  formControlName="description" rows="5"></ion-textarea>
-          </ion-item>
-          
-          <ion-item>
-            <ion-label position="floating">IsActive</ion-label>
-            <ion-toggle color="primary" formControlName="isActive" type="text" aria-label="IsActive"></ion-toggle>
-          </ion-item>
-          
-
-       <ion-item *ngIf="isInEditMode">
-            <ion-button type="submit" color="primary" expand="block" (click)="submitForm()">Save</ion-button>
-            <ion-button type="ion-button" color="danger" expand="block" (click)="cancelForm()">Cancel</ion-button>
-          </ion-item>
   
+  <ion-select placeholder="Select User Type" [(ngModal)]="selectedRole" (ionChange)="roleChange($event)">
+    <ion-select-option *ngFor="let p of Role_id_data" [value]="p.id"
+    >{{p.name}}</ion-select-option>
+</ion-select>
 
-    </form>
-      </ion-list>
-    </swiper-slide>
-  </swiper-container>
+  <c-table [columns]="columnsList" [data]="authorisationList" [disabled]="!isInEditMode"
+           [rowsPerPage]="300" [currentPage]="pageNumber" [totalRows]="totalRowsCount"
+           [allowFilters]="true" [allowPagination]="true"></c-table>
+  
+  <div class="has-text-centered">
+    <div class="spinner" [ngClass]="{ 'hidden': !isLoading }"></div>
+    <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>
+    <!-- <table class="table">
+      <thead>
+        <tr>
+      <td class="table-heading"><ion-label> Role </ion-label></td>
+	  <td class="table-heading"><ion-label> Privilege </ion-label></td>
+	  <td class="table-heading"><ion-label> IsActive </ion-label></td>
+    </tr>
+  </thead>
+     <tbody>
+    <tr *ngFor="let Authorisation of authorisationList">
+      <td class="table-cell"><ion-label>{{ Authorisation['Role'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Authorisation['Privilege'] }}</ion-label></td>
+	  <td class="table-cell"><ion-label>{{ Authorisation['IsActive'] }}</ion-label></td>
+	  
+      <td class="table-cell">
+	
+      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
+        [routerLink]="'/farm/authorisation-details/' + Authorisation['Id']"></ion-icon></ion-badge>
+       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Authorisation['Id'])">
+          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
+        </ion-badge>
+      </td>
+    </tr>
+  </tbody>
+   </table> -->
+<ion-alert
+trigger="present-alert"
+class="custom-alert"
+header="Delete Record"
+message="Are you sure to delete the record ?"
+[buttons]="alertButtons"
+(didDismiss)="deleteRecord($event)">
+</ion-alert>
 </ion-content>
-
   

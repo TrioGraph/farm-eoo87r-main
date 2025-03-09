@@ -35,6 +35,7 @@ export class CDateComponent  implements OnInit, ControlValueAccessor {
       // const value = this._getValue();
       // const value = this._getValue();
       this._onChange(date);
+    console.log('this.dateControl.valueChanges :: date :: ', date);
     console.log('this.dateControl.valueChanges :: this.dateValue :: ', this.dateValue);
 
     });
@@ -60,6 +61,10 @@ public writeValue(value: Date | any | null): void {
   // console.log('writeValue :: value : ', value);
   // this.dateControl.setValue(this.dateValue);
   console.log('writeValue :: this.dateControl.value : ', this.dateControl.value);
+  console.log('writeValue :: value : ', value);
+  this.dateValue = value;
+  this._onChange(value);
+
   // if (isDate(value)) {
   //   this.dateValue = value;
   //   this.dateControl.setValue(value);
@@ -88,5 +93,10 @@ public setDisabledState(isDisabled: boolean): void {
   } else {
     this.dateControl.enable();
   }
+}
+
+valueChanged(event: any) {
+  this._onChange(event);
+  this.onTouched();
 }
 }

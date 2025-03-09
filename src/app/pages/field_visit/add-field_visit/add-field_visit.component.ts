@@ -43,7 +43,7 @@ export class AddField_VisitComponent implements OnInit {
   @ViewChild('modal', { static: true }) modal!: IonModal;
 
   selectedFarmersText = '0 Items';
-  selectedFarmers: string[] = [];
+  selectedFarmers!: string;
 
   constructor(
     private dataService: DataService,
@@ -66,6 +66,7 @@ export class AddField_VisitComponent implements OnInit {
       visist_Schedule_Date: ['', [Validators.required]],
       prescription_Photo_Id: [, [Validators.required]],
       isActive: [true, [Validators.required]],
+      farmer_Id: []
     });
 
     this.id = this.route.snapshot.paramMap.get('id')!;
@@ -73,18 +74,27 @@ export class AddField_VisitComponent implements OnInit {
     this.dataService.getFarmersLookup('').subscribe((result: any) => {
       this.Farmer_Id_data = result;
     });
-    this.dataService.getFarmFieldLookup().subscribe((result: any) => {
-      this.Field_Id_data = result;
-    });
+    // this.dataService.getFarmFieldLookup().subscribe((result: any) => {
+    //   this.Field_Id_data = result;
+    // });
     this.dataService.getEmployeesLookup().subscribe((result: any) => {
       this.Employee_Id_data = result;
-    });
+      this.dataService.userInfo.subscribe((data: any) =>  {
+        this.ionicForm.patchValue( {'employee_Id': data.userId });
+        console.log(' data.userId :: ', data.userId);
+      });
+      });
     this.dataService.getPhotosLookup().subscribe((result: any) => {
       this.Photo_Id_data = result;
     });
     this.dataService.getPhotosLookup().subscribe((result: any) => {
       this.Prescription_Photo_Id_data = result;
     });
+    this.Visist_Schedule_Date_data = new Date(2024,11,14);
+    this.Field_Visit_Date_data = new Date(2024,11,14).toString();
+    this.ionicForm.patchValue( {'visist_Schedule_Date': new Date(2024, 11,14).toString() });
+    this.ionicForm.patchValue( {'field_Visit_Date': new Date(2024, 11,14).toString() });
+
   }
 
   async submitForm() {
@@ -251,15 +261,16 @@ export class AddField_VisitComponent implements OnInit {
     return `${data.length} items`;
   }
   
-  farmerSelectionChanged(farmers: string[]) {
+  farmerSelectionChanged(farmers: string) {
     this.selectedFarmers = farmers;
-    this.selectedFarmersText = this.Farmer_Id_data.find((tempData: any) => tempData.id === this.selectedFarmers[0]).name;
+    this.selectedFarmersText = this.Farmer_Id_data.find((tempData: any) => tempData.id === this.selectedFarmers).name;
     // this.selectedFarmersText = String(this.formatData(this.selectedFarmers));
     console.log('this.selectedFarmersText  : ', this.selectedFarmersText );
     this.modal.dismiss();
   }
 
   searchFarmers(searchText: any) {
+    console.log('searchText: ', searchText);
     this.dataService.getFarmersLookup(searchText).subscribe((result: any) => {
       this.Farmer_Id_data = result;
       console.log('this.Farmer_Id_data : ', this.Farmer_Id_data);

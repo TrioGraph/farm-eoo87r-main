@@ -16,14 +16,10 @@
       <ion-list lines="none">
         <ion-item [button]="true" [detail]="false" id="select-farmers">
           <ion-label>Farmer</ion-label>
-          <div id="selected-farmers">{{ selectedFarmersText }}</div>
-        </ion-item>
-        <ion-modal trigger="select-farmers" #modal>
-          <ng-template>
-            <app-typeheadsingle class="ion-page" title="Select Farmers" [items]="Farmer_Id_data" [selectedItems]="selectedFarmers"
-              (selectionChange)="farmerSelectionChanged($event)" (selectionCancel)="modal.dismiss()"></app-typeheadsingle>
-          </ng-template>
-        </ion-modal>
+          <c-dropdown class="ion-page" title="Select Farmers"
+          id="farmers" elementId="farmers"
+            name="farmer_Id" [items]="Farmer_Id_data" (searchInput)="searchFarmers($event)"></c-dropdown>
+   </ion-item>
 
         <form [formGroup]="ionicForm">
           <ion-item>

@@ -10,3 +10,46 @@
     </ion-item>
     </ion-col>
 </ion-row>
+
+<ion-row>
+  
+<h5>{{title}}</h5>
+
+<form [formGroup]="filtersForm" (ngSubmit)="onSubmit()">
+
+  <div formArrayName="filters">
+
+    <div *ngFor="let filter of filters().controls; let filterIndex=index">
+
+      <div [formGroupName]="filterIndex" style="border: 1px solid blue; padding: 10px; width: 600px; margin: 5px;">
+        Column Name :
+        <input type="text" formControlName="ColumnName">
+        <!-- Data Type:
+        <input type="text" formControlName="ColumnDataType"> -->
+        Operator:
+        <input type="text" formControlName="Operator">
+        Value1:
+        <input type="text" formControlName="Value1">
+        Value2:
+        <input type="text" formControlName="Value2">
+
+        <ion-button color="danger" (click)="removeFilter(filterIndex)">Remove</ion-button>
+      </div>
+
+    </div>
+  </div>
+
+  <p>
+    <ion-button type="submit">Submit</ion-button>
+  </p>
+
+</form>
+
+
+<p>
+  <ion-button type="button" (click)="addFilter()">Add Filter</ion-button>
+</p>
+
+{{this.filtersForm.value | json}}
+
+</ion-row>

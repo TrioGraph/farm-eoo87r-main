@@ -14,17 +14,11 @@
   <swiper-container #signupSlider pager navigation="true" pagination="true" pagination-clickable="true">
     <swiper-slide>
       <ion-list lines="none">
-        <ion-item [button]="true" [detail]="false" id="select-farmers">
+          <ion-item [button]="true" [detail]="false" >
           <ion-label>Farmer</ion-label>
-          <div slot="end" id="selected-farmers">{{ selectedFarmersText }}</div>
+          <c-dropdown class="ion-page" title="Select Farmer" id="farmers" elementId="farmers"
+            [items]="Farmer_Id_data" (searchInput)="searchFarmers($event)"></c-dropdown>
         </ion-item>
-        <ion-modal trigger="select-farmers" #modal>
-          <ng-template>
-            <app-typeheadsingle class="ion-page" title="Select Farmers" [items]="Farmer_Id_data" [selectedItems]="selectedFarmers"
-              (selectionChange)="farmerSelectionChanged($event)" (selectionCancel)="modal.dismiss()"
-              (searchInput)="searchFarmers($event)"></app-typeheadsingle>
-          </ng-template>
-        </ion-modal>
 
         <form [formGroup]="ionicForm">
           <ion-item>
@@ -34,7 +28,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-select placeholder="Select Employee">
+            <ion-select placeholder="Select Employee" formControlName="employee_Id">
               <ion-select-option *ngFor="let p of Employee_Id_data" [value]="p.id">{{p.name}}</ion-select-option>
             </ion-select>
           </ion-item>

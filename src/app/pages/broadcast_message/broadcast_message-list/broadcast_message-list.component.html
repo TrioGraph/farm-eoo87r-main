@@ -7,74 +7,191 @@
       Broadcast Message
     </ion-title>
     <ion-buttons collapse="true" slot="end">
-      <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-broadcast_message'">
+      <!-- <ion-button *ngIf="allowToAdd" [routerLink]="'/farm/add-broadcast_message'">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-      </ion-button>
+      </ion-button> -->
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen="true">
-  <ion-header collapse="condense" class="ion-no-border">
-    <ion-toolbar>
-      <ion-title size="large">Broadcast Message</ion-title>
-      <ion-buttons collapse="true" slot="end">
-        <ion-button color="primary" [routerLink]="'/farm/add-broadcast_message'">
-          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  <ion-list>
-    <ion-toolbar>
-      <ion-grid>
-        <app-search (search)="searchBroadcast_Message($event)"></app-search>
-        </ion-grid>
-    </ion-toolbar>
-  </ion-list>
-    <ion-loading class="custom-loading" trigger="open-loading" message="Loading..." 
-  [isOpen]=isLoading></ion-loading>
-    <table class="table">
- 	<thead>
-        <tr>
-      <td class="table-cell-heading"><ion-label> Message Text </ion-label></td>
-	  <td class="table-cell-heading"><ion-label> Employee  </ion-label></td>
-	  <td class="table-cell-heading"><ion-label> Farmer id </ion-label></td>
-	  <td class="table-cell-heading"><ion-label> Farmer Supervisor  </ion-label></td>
-	  <td class="table-cell-heading"><ion-label> Message Sent Date </ion-label></td>
-	  <td class="table-cell-heading"><ion-label> IsActive </ion-label></td>
-	  
-     	</tr>
-	</thead>
 
-  <tbody>
-    <tr *ngFor="let Broadcast_Message of broadcast_messageList">
-      <td class="table-cell"><ion-label>{{ Broadcast_Message['Message_Text'] }}</ion-label></td>
-	  <td class="table-cell"><ion-label>{{ Broadcast_Message['Employee_Id'] }}</ion-label></td>
-	  <td class="table-cell"><ion-label>{{ Broadcast_Message['Farmer_id'] }}</ion-label></td>
-	  <td class="table-cell"><ion-label>{{ Broadcast_Message['Farmer_Supervisor_Id'] }}</ion-label></td>
-	  <td class="table-cell"><ion-label>{{ Broadcast_Message['Message_Sent_Date'] }}</ion-label></td>
-	  <td class="table-cell"><ion-label>{{ Broadcast_Message['IsActive'] }}</ion-label></td>
-	  
-      <td>
-	
-      <ion-badge *ngIf="allowToEdit" color="primary" class="activity"><ion-icon name="eye" aria-hidden="true" title="View" class="badge"
-        [routerLink]="'/farm/broadcast_message-details/' + Broadcast_Message['Id']"></ion-icon></ion-badge>
-       <ion-badge *ngIf="allowToDelete" id="present-alert" color="danger" class="activity" (click)="setRecordId(Broadcast_Message['Id'])">
-          <ion-icon name="trash" aria-hidden="true" title="Delete" class="badge"></ion-icon>
-        </ion-badge>
+  <!-- <div class="menu">
+    <div class="name">Random chat</div>
+<div class="members"><b>You</b>, Marga, Charo & Brotons</div>
+</div> -->
+  <ol class="chat">
 
-      </td>
-    </tr>
-    </tbody>
-   </table>
-<ion-alert
-trigger="present-alert"
-class="custom-alert"
-header="Delete Record"
-message="Are you sure to delete the record ?"
-[buttons]="alertButtons"
-(didDismiss)="deleteRecord($event)">
-</ion-alert>
+    <ng-container *ngFor="let message of broadcast_messageList">
+    <li class="other">
+      <div class="msg">
+        <div class="user">{{message.createdBy}}</div>
+        <p>{{message.message_Text}}</p>
+        <time>{{message.message_Sent_Date | date}}</time>
+      </div>
+    </li>
+  </ng-container>
+
+
+    <li class="other">
+      <div class="msg">
+        <div class="user">Marga<span class="range admin">Admin</span></div>
+        <p>Dude</p>
+        <p>Want to go dinner? <emoji class="pizza"></emoji>
+        </p>
+        <time>20:17</time>
+      </div>
+    </li>
+    <li class="self">
+      <div class="msg">
+        <p>Puff...</p>
+        <p>I'm still doing the Góngora comment... <emoji class="books"></emoji>
+        </p>
+        <p>Better other day</p>
+        <time>20:18</time>
+      </div>
+    </li>
+    <li class="other">
+      <div class="msg">
+        <div class="user">Brotons</div>
+        <p>What comment about Góngora? <emoji class="suffocated"></emoji>
+        </p>
+        <time>20:18</time>
+      </div>
+    </li>
+    <li class="self">
+      <div class="msg">
+        <p>The comment sent Marialu</p>
+        <p>It's for tomorrow</p>
+        <time>20:18</time>
+      </div>
+    </li>
+    <li class="other">
+      <div class="msg">
+        <div class="user">Brotons</div>
+        <p>
+          <emoji class="scream"></emoji>
+        </p>
+        <p>Hand it to me! <emoji class="please"></emoji>
+        </p>
+        <time>20:18</time>
+      </div>
+    </li>
+    <li class="self">
+      <div class="msg">
+        <time>20:19</time>
+      </div>
+    </li>
+    <li class="other">
+      <div class="msg">
+        <div class="user">Brotons</div>
+        <p>Thank you! <emoji class="hearth_blue"></emoji>
+        </p>
+        <time>20:20</time>
+      </div>
+    </li>
+    <div class="day">Today</div>
+    <li class="self">
+      <div class="msg">
+        <p>Who wants to play Minecraft?</p>
+        <time>18:03</time>
+      </div>
+    </li>
+    <li class="other">
+      <div class="msg">
+        <div class="user">Charo</div>
+        <p>Come on, I didn't play it for four months</p>
+        <time>18:07</time>
+      </div>
+    </li>
+    <li class="self">
+      <div class="msg">
+        <p>Ehh, the launcher crash... <emoji class="cryalot"></emoji>
+        </p>
+        <time>18:08</time>
+      </div>
+    </li>
+    <li class="other">
+      <div class="msg">
+        <div class="user">Charo</div>
+        <p>
+          <emoji class="lmao"></emoji>
+        </p>
+        <p>Sure that is the base code</p>
+        <p>I told it to Mojang</p>
+        <time>18:08</time>
+      </div>
+    </li>
+    <li class="self">
+      <div class="msg">
+        <p>It's a joke</p>
+        <p>Moai attack!</p>
+        <p>
+          <emoji class="moai"></emoji>
+          <emoji class="moai"></emoji>
+          <emoji class="moai"></emoji>
+          <emoji class="moai"></emoji>
+          <emoji class="moai"></emoji>
+          <emoji class="moai"></emoji>
+        </p>
+        <time>18:10</time>
+      </div>
+    </li>
+    <li class="other">
+      <div class="msg">
+        <div class="user">Charo</div>
+        <p>XD</p>
+        <p>
+          <emoji class="funny"></emoji>
+        </p>
+        <p>Heart for this awesome design!</p>
+        <time>18:08</time>
+      </div>
+    </li>
+    <p class="notification">David joined the group <time>18:09</time></p>
+    <li class="self">
+      <div class="msg">
+        <p>Heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellooooooooooooooooooooooooooooooo David
+          <emoji class="smile" />
+        </p>
+        <time>18:09</time>
+      </div>
+    </li>
+    <li class="other">
+      <div class="msg">
+        <div class="user">David</div>
+        <p>What is that
+          <!-- <emoji class="shit"></emoji> -->
+          ?
+        </p>
+        <time>18:10</time>
+      </div>
+    </li>
+    <p class="notification">David left the group <time>18:11</time></p>
+    <li class="other">
+      <div class="msg">
+        <div class="user">Brotons</div>
+        <p>Lol?</p>
+        <time>18:12</time>
+      </div>
+    </li>
+    <li class="other">
+      <div class="msg">
+        <div class="user">Marga<span class="range admin">Admin</span></div>
+        <p>I'm boring...</p>
+        <p>Who wants to do some logarithms?
+          <!-- <emoji class="smile"></emoji> -->
+        </p>
+        <time>18:15</time>
+      </div>
+    </li>
+  </ol>
+  <div class="typezone">
+    <form [formGroup]="chatForm">
+      <textarea type="text" placeholder="Enter Message" formControlName="message_Text"></textarea>
+      <input type="submit" class="send" value="" (click)="submitForm()" />
+    </form>
+    <!-- <div class="emojis"></div> -->
+  </div>
+
 </ion-content>
-  

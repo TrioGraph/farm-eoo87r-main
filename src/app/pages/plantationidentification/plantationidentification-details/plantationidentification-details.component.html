@@ -65,16 +65,12 @@
           </ion-item >
 
           <ion-item [button]="true" [detail]="false" id="select-villages">
-            <ion-label>Village</ion-label>
-            <div slot="end" id="selected-villages">{{ selectedVillagesText }}</div>
+            <ion-label position="stacked">Village</ion-label>
+            <c-dropdown class="ion-page" title="Select Village"
+            name="village_Code" formControlName="village_Code"
+            id="village_Code" elementId="village_Code" 
+            [items]="Village_Code_data" (searchInput)="searchVillages($event)"></c-dropdown>
           </ion-item>
-          <ion-modal trigger="select-villages" #modal>
-            <ng-template>
-              <app-typeheadsingle class="ion-page" title="Village" [items]="Village_Code_data" [selectedItems]="selectedVillage"
-                (selectionChange)="VillageSelectionChanged($event)" (selectionCancel)="modal.dismiss()"
-                (searchInput)="searchVillages($event)"></app-typeheadsingle>
-            </ng-template>
-          </ion-modal>
 
          <!-- <ion-item>
           <ion-label>Village</ion-label>
@@ -132,7 +128,7 @@
           
           <ion-item>
             <ion-label position="floating">Year</ion-label >
-            <ion-input formControlName="year" type="text" aria-label="Year" [readonly]="!isInEditMode"></ion-input>
+              <ion-input formControlName="year" type="text" aria-label="Year" [readonly]="!isInEditMode"></ion-input>
           </ion-item >
           
           <ion-item>

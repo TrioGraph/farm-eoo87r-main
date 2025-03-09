@@ -28,7 +28,7 @@
   <ion-list>
     <ion-toolbar>
       <ion-grid>
-        <app-search (search)="searchDistricts($event)"></app-search>
+        <app-search (search)="searchFunction($event)"></app-search>
         </ion-grid>
     </ion-toolbar>
   </ion-list>
@@ -41,7 +41,7 @@
 	  <td><ion-label> IsActive </ion-label></td>
 	  
      
-    <tr *ngFor="let Districts of districtsList">
+    <tr *ngFor="let Districts of dataList">
       <td><ion-label>{{ Districts['Name'] }}</ion-label></td>
 	  <td><ion-label>{{ Districts['State_Id'] }}</ion-label></td>
 	  <td><ion-label>{{ Districts['IsActive'] }}</ion-label></td>
@@ -63,7 +63,7 @@ class="custom-alert"
 header="Delete Record"
 message="Are you sure to delete the record ?"
 [buttons]="alertButtons"
-(didDismiss)="deleteRecord($event)">
+(didDismiss)="deleteFunctionRecord($event)">
 </ion-alert>
 </ion-content>
   

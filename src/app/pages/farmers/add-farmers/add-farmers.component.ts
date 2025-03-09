@@ -137,7 +137,7 @@ isActive: ['', [Validators.required]],
      this.dataService.getGenderLookup().subscribe((result: any) => { 
 	 this.Gender_data = result; 
 }); 
-this.dataService.GetVillagesLookup('').subscribe((result: any) => { 
+this.dataService.GetVillagesLookup('','').subscribe((result: any) => { 
 	 this.Village_Code_data = result; 
 }); 
 this.dataService.getMandal_BlocksLookup().subscribe((result: any) => { 

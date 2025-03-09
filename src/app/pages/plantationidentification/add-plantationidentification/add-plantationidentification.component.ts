@@ -178,7 +178,7 @@ export class AddPlantationIdentificationComponent implements OnInit {
     this.dataService.getGenderLookup().subscribe((result: any) => {
       this.Gender_data = result;
     });
-    this.dataService.GetVillagesLookup('').subscribe((result: any) => {
+    this.dataService.GetVillagesLookup('','').subscribe((result: any) => {
       this.Village_Code_data = result;
     });
     this.dataService.getMandal_BlocksLookup().subscribe((result: any) => {
@@ -374,7 +374,7 @@ villageChange(event: any) {
 }
 
 searchVillages(searchText: any) {
-  this.dataService.GetVillagesLookup(searchText).subscribe((result: any) => {
+  this.dataService.GetVillagesLookup(searchText, this.ionicForm.controls['village_Id'].value).subscribe((result: any) => {
     this.Village_Code_data = result;
   });
 }

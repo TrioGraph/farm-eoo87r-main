@@ -120,6 +120,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { Nursary_ActivityListComponent } from './pages/nursary_activity/nursary_activity-list/nursary_activity-list.component';
 import { Nursary_ActivityDetailsComponent } from './pages/nursary_activity/nursary_activity-details/nursary_activity-details.component';
 import { AddNursary_ActivityComponent } from './pages/nursary_activity/add-nursary_activity/add-nursary_activity.component';
+import { AuthorizationsComponent } from './pages/authorizations/authorizations.component';
 
 const routes: Routes = [
   {
@@ -295,7 +296,8 @@ const routes: Routes = [
 {path: 'nursary-activity-list/:startDate', component: Nursary_ActivityListComponent, pathMatch:'full'},
 {path: 'nursary-activity-details/:id', component: Nursary_ActivityDetailsComponent, pathMatch:'full'},
 {path: 'add-nursary_activity', component: AddNursary_ActivityComponent, pathMatch:'full'},
-{path: 'settings', component: SettingsComponent, pathMatch:'full'}
+{path: 'settings', component: SettingsComponent, pathMatch:'full'},
+{path: 'authorizations', component: AuthorizationsComponent, pathMatch:'full'}
     ],
   },
   // {

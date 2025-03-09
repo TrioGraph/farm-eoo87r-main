@@ -43,7 +43,7 @@ export class QuickFieldVisitComponent  implements OnInit {
   @ViewChild('modal', { static: true }) modal!: IonModal;
 
   selectedFarmersText = '0 Items';
-  selectedFarmers: string[] = [];
+  selectedFarmers!: string;
 
   constructor(
     private dataService: DataService,
@@ -71,15 +71,14 @@ export class QuickFieldVisitComponent  implements OnInit {
     this.dataService.getFarmersLookup('').subscribe((result: any) => {
       this.Farmer_Id_data = result;
     });
-    this.dataService.getFarmFieldLookup().subscribe((result: any) => {
-      this.Field_Id_data = result;
-    });
+    // this.dataService.getFarmFieldLookup().subscribe((result: any) => {
+    //   this.Field_Id_data = result;
+    // });
     this.dataService.getEmployeesLookup().subscribe((result: any) => {
       this.Employee_Id_data = result;
       console.log('getEmployeesLookup Called');
       this.dataService.userInfo.subscribe((data: any) =>  {
         this.ionicForm.patchValue( {'employee_Id': data.userId });
-        console.log('data.userId : ', data.userId);
       });
       });
     this.dataService.getPhotosLookup().subscribe((result: any) => {
@@ -88,8 +87,11 @@ export class QuickFieldVisitComponent  implements OnInit {
     this.dataService.getPhotosLookup().subscribe((result: any) => {
       this.Prescription_Photo_Id_data = result;
     });
-    this.Visist_Schedule_Date_data = new Date();
-    this.Field_Visit_Date_data = new Date();
+   
+
+    this.ionicForm.patchValue( {'visist_Schedule_Date': new Date(2024, 11,14).toString() });
+    // this.Visist_Schedule_Date_data = new Date(2024, 11,14);
+    // this.Field_Visit_Date_data = new Date(2024, 11,14);
   }
 
   async submitForm() {
@@ -248,22 +250,11 @@ export class QuickFieldVisitComponent  implements OnInit {
     });
   }
 
-  private formatData(data: string[]) {
-    if (data.length === 1) {
-      const farmer = this.Farmer_Id_data.find((farmer: any) => farmer.value === data[0]);
-      return farmer?.text;
-    }
-    return `${data.length} items`;
-  }
-  
-  farmerSelectionChanged(farmers: string[]) {
-    this.selectedFarmers = farmers;
-    this.selectedFarmersText = this.Farmer_Id_data.find((tempData: any) => tempData.id === this.selectedFarmers[0]).name;
-    // this.selectedFarmersText = String(this.formatData(this.selectedFarmers));
-    console.log('this.selectedFarmersText  : ', this.selectedFarmersText );
-    this.dataService.getFarmFieldLookupByFarmer(this.selectedFarmers[0]).subscribe((result: any) => {
-      this.Field_Id_data = result;
+  searchFarmers(searchText: any) {
+    this.dataService.getFarmersLookup(searchText).subscribe((result: any) => {
+      this.Farmer_Id_data = result;
+      console.log('this.Farmer_Id_data : ', this.Farmer_Id_data);
     });
-    this.modal.dismiss();
   }
+
 }

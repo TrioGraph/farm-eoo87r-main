@@ -8,7 +8,8 @@ import { IonicSelectableComponent } from 'ionic-selectable';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-add-broadcast_message',
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'add-broadcast_message',
   templateUrl: './add-broadcast_message.component.html',
   styleUrls: ['./add-broadcast_message.component.css']
 })

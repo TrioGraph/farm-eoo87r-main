@@ -137,6 +137,10 @@ import { Nursary_ActivityDetailsComponent } from './pages/nursary_activity/nursa
 import { Nursary_ActivityListComponent } from './pages/nursary_activity/nursary_activity-list/nursary_activity-list.component';
 import { AddNursary_ActivityComponent } from './pages/nursary_activity/add-nursary_activity/add-nursary_activity.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AuthorizationsComponent } from './pages/authorizations/authorizations.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { EmojiComponent } from './pages/broadcast_message/emoji/emoji.component';
+import { GetValueByIdPipe } from './get-value-by-id.pipe';
 
 register();
 
@@ -269,7 +273,10 @@ register();
     SettingsComponent,
     Nursary_ActivityListComponent,
     Nursary_ActivityDetailsComponent,
-    AddNursary_ActivityComponent
+    AddNursary_ActivityComponent,
+    AuthorizationsComponent,
+    EmojiComponent,
+    GetValueByIdPipe
   ],
   imports: [
     BrowserModule, 
@@ -280,7 +287,7 @@ register();
     FormsModule,
     ReactiveFormsModule,
     IonicSelectableComponent,
-    
+    NgxPaginationModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
@@ -415,7 +422,9 @@ register();
     WorkflowDetailsComponent,
     AddWorkflowComponent,
     QuickFieldVisitComponent,
-    SettingsComponent
+    SettingsComponent,
+    AuthorizationsComponent,
+    EmojiComponent
 
 
   ]
